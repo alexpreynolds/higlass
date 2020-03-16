@@ -107,21 +107,40 @@ export function workerSetPix(
 ) {
   let valueScale = null;
 
-  if (valueScaleType === 'log') {
-    valueScale = scaleLog()
-      .range([254, 0])
-      .domain(valueScaleDomain);
-  } else {
-    if (valueScaleType !== 'linear') {
+  switch (valueScaleType) {
+    case 'log':
+      valueScale = scaleLog()
+        .range([254, 0])
+        .domain(valueScaleDomain);
+      break;
+    case 'categorical': {
+      // console.warn(`worker.js > workerSetPix > valueScaleDomain: ${valueScaleDomain}`);
+      const minCategoryAsIndex =
+        Math.min(parseInt(valueScaleDomain[0], 10)) - 1;
+      const maxCategoryAsIndex =
+        Math.min(parseInt(valueScaleDomain[1], 10)) - 1;
+      // console.warn(`worker.js > workerSetPix > range: [${maxCategoryAsIndex}, ${minCategoryAsIndex}]`);
+      // console.warn(`worker.js > workerSetPix > colorScale: ${JSON.stringify(colorScale)}`);
+      valueScale = scaleLinear()
+        .range([maxCategoryAsIndex, minCategoryAsIndex])
+        .domain(valueScaleDomain);
+      break;
+    }
+    case 'linear':
+      valueScale = scaleLinear()
+        .range([254, 0])
+        .domain(valueScaleDomain);
+      break;
+    default:
       console.warn(
         'Unknown value scale type:',
         valueScaleType,
         ' Defaulting to linear'
       );
-    }
-    valueScale = scaleLinear()
-      .range([254, 0])
-      .domain(valueScaleDomain);
+      valueScale = scaleLinear()
+        .range([254, 0])
+        .domain(valueScaleDomain);
+      break;
   }
 
   let filteredSize = size;

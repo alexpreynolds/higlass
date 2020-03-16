@@ -55,6 +55,16 @@ export function getValueScale(
     // console.warn('Negative values present in data. Defaulting to linear scale: ', minValue);
   }
 
+  if (scalingTypeToUse === 'categorical') {
+    // console.log("TiledPixiTrack.js > getValueScale");
+    return [
+      'categorical',
+      scaleLinear()
+        .range([254, 0])
+        .domain([minValue, maxValue])
+    ];
+  }
+
   return [
     'linear',
     scaleLinear()

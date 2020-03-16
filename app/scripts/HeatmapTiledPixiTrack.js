@@ -87,7 +87,13 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
     this.colorScale = HEATED_OBJECT_MAP;
 
     if (options && options.colorRange) {
-      this.colorScale = colorDomainToRgbaArray(options.colorRange);
+      this.colorScale = options.heatmapValueScaling
+        ? colorDomainToRgbaArray(
+            options.colorRange,
+            false,
+            options.heatmapValueScaling
+          )
+        : colorDomainToRgbaArray(options.colorRange);
     }
 
     this.gBase = select(svgElement).append('g');

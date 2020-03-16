@@ -269,9 +269,24 @@ export default class HorizontalMultivecTrack extends HeatmapTiledPixiTrack {
     if (!this.tilesetInfo) return '';
 
     const tilePos = this.getTilePosAtPosition(trackX, trackY);
+    let output = '';
 
-    let output = `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
-    output += `Zoom level: ${tilePos[0]} tile position: ${tilePos[1]}`;
+    if (
+      this.options &&
+      this.options.heatmapValueScaling &&
+      this.options.heatmapValueScaling === 'categorical' &&
+      this.options.colorRange
+    ) {
+      const visibleData = this.getVisibleData(trackX, trackY);
+      const elements = visibleData.split('<br/>');
+      const color = this.options.colorRange[parseInt(elements[0], 10) - 1];
+      const label = elements[1];
+      output = `<svg width="10" height="10"><rect width="10" height="10" rx="2" ry="2"
+                 style="fill:${color};stroke:black;stroke-width:2;"></svg> ${label}`;
+    } else {
+      output += `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
+      output += `Zoom level: ${tilePos[0]} tile position: ${tilePos[1]}`;
+    }
 
     return output;
   }
