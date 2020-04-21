@@ -92,7 +92,15 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
     this.colorScale = HEATED_OBJECT_MAP;
 
     if (options && options.colorRange) {
-      this.colorScale = colorDomainToRgbaArray(options.colorRange);
+      this.colorScale = !options.heatmapValueScaling
+        ? colorDomainToRgbaArray(options.colorRange)
+        : colorDomainToRgbaArray(
+            options.colorRange,
+            false,
+            options.heatmapValueScaling
+          );
+      // this.colorScale = (options.heatmapValueScaling) ? colorDomainToRgbaArray(options.colorRange, false, options.heatmapValueScaling) : colorDomainToRgbaArray(options.colorRange, true);
+      // console.warn(`HeatmapTiledPixiTrack.js > this.colorScale ${this.colorScale}`);
     }
 
     this.gBase = select(svgElement).append('g');
@@ -252,6 +260,7 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
   }
 
   handleRerender() {
+    if (this.dimensions[1] < 1.0) return;
     this.rerender(this.options, true);
   }
 

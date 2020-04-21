@@ -35,6 +35,7 @@ class HorizontalHeatmapTrack extends HeatmapTiledPixiTrack {
     if (options && options.colorRange) {
       this.colorScale = colorDomainToRgbaArray(options.colorRange);
     }
+    // console.log(`HorizontalHeatmapTrack.js > constructor > this.colorScale > ${this.colorScale}`);
 
     this.animate = animate;
     this.options = options;

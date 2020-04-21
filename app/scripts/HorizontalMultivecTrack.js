@@ -269,13 +269,45 @@ export default class HorizontalMultivecTrack extends HeatmapTiledPixiTrack {
    *
    */
   getMouseOverHtml(trackX, trackY) {
-    if (!this.tilesetInfo) return '';
+    if (!this.tilesetInfo) {
+      return '';
+    }
 
     // const tilePos = this.getTilePosAtPosition(trackX, trackY);
 
-    const output = `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
+    // const output = `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
     // output += `Zoom level: ${tilePos[0]} tile position: ${tilePos[1]}`;
 
+    const tilePos = this.getTilePosAtPosition(trackX, trackY);
+    let output = '';
+
+    if (
+      this.options &&
+      this.options.heatmapValueScaling &&
+      this.options.heatmapValueScaling === 'categorical' &&
+      this.options.colorRange
+    ) {
+      const visibleData = this.getVisibleData(trackX, trackY);
+      if (!visibleData) return '';
+      const elements = visibleData.split('<br/>');
+      const colorIndex = parseInt(elements[0], 10);
+      if (
+        this.options.valueScaleNaN &&
+        colorIndex === this.options.valueScaleNaN
+      )
+        return '';
+      const color = this.options.colorRange[colorIndex - 1];
+      let label = elements[1];
+      if (!label) return '';
+      if (this.options.colorLabels) {
+        label += ` | ${this.options.colorLabels[colorIndex - 1]}`;
+      }
+      output = `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2"
+                 style="fill:${color};stroke:black;stroke-width:2;"></svg> ${label}`;
+    } else {
+      output += `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
+      output += `Zoom level: ${tilePos[0]} tile position: ${tilePos[1]}`;
+    }
     return output;
   }
 }

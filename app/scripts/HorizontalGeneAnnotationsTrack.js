@@ -938,11 +938,16 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
         if (pc === -1) {
           // console.log('ar:', tile.allRects[i]);
           const gene = tile.allRects[i][2];
+          // console.warn(`gene: ${JSON.stringify(gene)}`);
 
           return `
             <div>
-              <p><b>${gene.fields[3]}</b></p>
-              <p>${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]} Strand: ${gene.strand}</p>
+              <div style="font-size:1.1em;font-weight:bolder">${
+                gene.fields[3]
+              }</div>
+              <div>${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]}${
+            gene.fields[5] ? ` Strand: ${gene.fields[5]}` : ''
+          }</div>
             </div>
           `;
         }

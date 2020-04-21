@@ -48,12 +48,21 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     this.allDrawnRects = {};
 
     if (this.options.colorEncoding) {
-      if (this.options.colorRange) {
+      if (this.options.colorRange && !this.options.colorEncodingRange) {
         this.colorScale = colorDomainToRgbaArray(this.options.colorRange);
+      } else if (this.options.colorRange && this.options.colorEncodingRange) {
+        this.colorScale = colorDomainToRgbaArray(
+          this.options.colorRange,
+          false,
+          this.options.valueScaleType
+        );
       } else {
         this.colorScale = HEATED_OBJECT_MAP;
       }
     }
+
+    // console.warn(`this.options.colorRange ${this.options.colorRange}`);
+    // console.warn(`this.colorScale ${this.colorScale}`);
   }
 
   initTile(tile) {
@@ -188,12 +197,21 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     this.drawnRects = {};
 
     if (this.options.colorEncoding) {
-      if (this.options.colorRange) {
+      if (this.options.colorRange && !this.options.colorEncodingRange) {
         this.colorScale = colorDomainToRgbaArray(this.options.colorRange);
+      } else if (this.options.colorRange && this.options.colorEncodingRange) {
+        this.colorScale = colorDomainToRgbaArray(
+          this.options.colorRange,
+          false,
+          this.options.valueScaleType
+        );
       } else {
         this.colorScale = HEATED_OBJECT_MAP;
       }
     }
+
+    // console.warn(`this.options.colorRange ${this.options.colorRange}`);
+    // console.warn(`this.colorScale ${this.colorScale}`);
 
     for (const tile of this.visibleAndFetchedTiles()) {
       this.destroyTile(tile);
@@ -299,7 +317,20 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
   }
 
   drawPoly(tile, xStartPos, xEndPos, rectY, rectHeight, strand) {
+    // console.warn(`rectY ${rectY} rectHeight ${rectHeight}`);
     let drawnPoly = null;
+
+    const annotationMargin = this.options.annotationMargin || {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    };
+
+    rectY += annotationMargin.top;
+    rectHeight -= annotationMargin.bottom;
+    xStartPos += annotationMargin.left;
+    xEndPos -= annotationMargin.right;
 
     if (this.options.annotationStyle === 'segment') {
       return this.drawSegmentStyle(
@@ -419,12 +450,28 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
         // if the regions are scaled according to a value column their height needs to
         // be adjusted
         if (this.options && this.options.valueColumn) {
-          if (this.options.colorEncoding) {
+          if (this.options.colorEncoding && !this.options.colorEncodingRange) {
             const rgb = valueToColor(
               this.valueColorScale,
               this.colorScale
             )(+geneInfo[+this.options.valueColumn - 1]);
             fill = colorToHex(rgbToHex(...rgb));
+          } else if (
+            this.options.colorEncoding &&
+            this.options.colorEncodingRange
+          ) {
+            // console.warn(`+geneInfo[+this.options.valueColumn - 1] ${+geneInfo[+this.options.valueColumn - 1]}`);
+            // const fill = (Math.isNaN(+geneInfo[+this.options.valueColumn - 1])) ? 'rgba(0,0,0,0)' : this.options.colorRange[+geneInfo[+this.options.valueColumn - 1]];
+            fill = this.options.colorRange[
+              +geneInfo[+this.options.valueColumn - 1]
+            ]
+              ? PIXI.utils.string2hex(
+                  this.options.colorRange[
+                    +geneInfo[+this.options.valueColumn - 1]
+                  ]
+                )
+              : PIXI.utils.string2hex('#ffffff');
+            // console.warn(`fill ${fill}`);
           } else {
             // These intervals come with some y-value that we want to plot
             const value = +geneInfo[+this.options.valueColumn - 1];
@@ -441,6 +488,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
         // yMiddle -= 8;
 
         const opacity = this.options.fillOpacity || 0.3;
+        // console.warn(`fill ${fill}`);
         tile.rectGraphics.lineStyle(1, fill, opacity);
         tile.rectGraphics.beginFill(fill, opacity);
         // let height = valueScale(Math.log(+geneInfo[4]));
@@ -584,31 +632,47 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
       const fill = colorToHex(
         this.options.plusStrandColor || this.options.fillColor || 'blue'
       );
-      const minusStrandFill = colorToHex(
-        this.options.minusStrandColor || this.options.fillColor || 'purple'
-      );
 
-      const MIDDLE_SPACE = 0;
-      const plusHeight =
-        (maxPlusRows * this.dimensions[1]) / (maxPlusRows + maxMinusRows) -
-        MIDDLE_SPACE / 2;
+      if (
+        this.options.valueScaleType &&
+        this.options.valueScaleType === 'categorical'
+      ) {
+        const annotationRowHeight = this.dimensions[1];
+        this.renderRows(
+          tile,
+          tile.plusStrandRows,
+          maxPlusRows,
+          0,
+          annotationRowHeight,
+          fill
+        );
+      } else {
+        const minusStrandFill = colorToHex(
+          this.options.minusStrandColor || this.options.fillColor || 'purple'
+        );
 
-      this.renderRows(
-        tile,
-        tile.plusStrandRows,
-        maxPlusRows,
-        0,
-        plusHeight,
-        fill
-      );
-      this.renderRows(
-        tile,
-        tile.minusStrandRows,
-        maxMinusRows,
-        plusHeight + MIDDLE_SPACE / 2,
-        this.dimensions[1],
-        minusStrandFill
-      );
+        const MIDDLE_SPACE = 0;
+        const plusHeight =
+          (maxPlusRows * this.dimensions[1]) / (maxPlusRows + maxMinusRows) -
+          MIDDLE_SPACE / 2;
+
+        this.renderRows(
+          tile,
+          tile.plusStrandRows,
+          maxPlusRows,
+          0,
+          plusHeight,
+          fill
+        );
+        this.renderRows(
+          tile,
+          tile.minusStrandRows,
+          maxMinusRows,
+          plusHeight + MIDDLE_SPACE / 2,
+          this.dimensions[1],
+          minusStrandFill
+        );
+      }
     }
   }
 
@@ -1013,7 +1077,17 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
 
         if (pc === -1) {
           const parts = visibleRects[i][1].value.fields;
-
+          if (
+            this.options.valueScaleType &&
+            this.options.valueScaleType === 'categorical'
+          ) {
+            // return parts.join(' ');
+            const color = this.options.colorRange[
+              +parts[+this.options.valueColumn - 1]
+            ];
+            const label = parts[3].replace(/_/g, ' ');
+            return `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2" style="fill:${color};stroke:black;stroke-width:2;"></svg> ${label}`;
+          }
           return parts.join(' ');
         }
       }

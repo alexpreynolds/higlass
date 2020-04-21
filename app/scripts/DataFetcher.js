@@ -59,6 +59,7 @@ export default class DataFetcher {
   tilesetInfo(finished) {
     // if this track has a fileUrl, server and filetype
     // then we need to register those with the server
+
     if (
       this.dataConfig.server &&
       this.dataConfig.fileUrl &&

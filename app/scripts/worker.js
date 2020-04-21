@@ -111,6 +111,7 @@ export function workerSetPix(
 ) {
   let valueScale = null;
 
+  /*
   if (valueScaleType === 'log') {
     valueScale = scaleLog()
       .range([254, 0])
@@ -127,6 +128,46 @@ export function workerSetPix(
       .range([254, 0])
       .domain(valueScaleDomain);
   }
+*/
+
+  // console.warn(`worker.js > workerSetPix > valueScaleType: ${valueScaleType}`);
+  // console.warn(`worker.js > workerSetPix > valueScaleDomain: ${valueScaleDomain}`);
+  switch (valueScaleType) {
+    case 'log':
+      valueScale = scaleLog()
+        .range([254, 0])
+        .domain(valueScaleDomain);
+      break;
+    case 'categorical': {
+      const minCategoryAsIndex =
+        Math.min(parseInt(valueScaleDomain[0], 10)) - 1;
+      const maxCategoryAsIndex =
+        Math.min(parseInt(valueScaleDomain[1], 10)) - 1;
+      // console.warn(`worker.js > workerSetPix > range: [${maxCategoryAsIndex}, ${minCategoryAsIndex}]`);
+      // console.warn(`worker.js > workerSetPix > colorScale: ${JSON.stringify(colorScale)}`);
+      valueScale = scaleLinear()
+        .range([maxCategoryAsIndex, minCategoryAsIndex])
+        .domain(valueScaleDomain);
+      break;
+    }
+    case 'linear':
+      valueScale = scaleLinear()
+        .range([254, 0])
+        .domain(valueScaleDomain);
+      break;
+    default:
+      console.warn(
+        'Unknown value scale type:',
+        valueScaleType,
+        ' Defaulting to linear'
+      );
+      valueScale = scaleLinear()
+        .range([254, 0])
+        .domain(valueScaleDomain);
+      break;
+  }
+
+  // console.warn(`worker.js > workerSetPix > colorScale: ${JSON.stringify(colorScale)}`);
 
   let filteredSize = size;
   if (shape && selectedRows) {
@@ -212,11 +253,15 @@ export function workerSetPix(
     }
   } catch (err) {
     console.warn('Odd datapoint');
+    console.warn('shape:', shape);
+    console.warn('selectedRows:', selectedRows);
+    console.warn('data:', data);
     console.warn('valueScale.domain():', valueScale.domain());
     console.warn('valueScale.range():', valueScale.range());
     console.warn('value:', valueScale(d + pseudocount));
     console.warn('pseudocount:', pseudocount);
     console.warn('rgbIdx:', rgbIdx, 'd:', d, 'ct:', valueScale(d));
+    console.warn('colorScale', colorScale);
     console.error('ERROR:', err);
     return pixData;
   }

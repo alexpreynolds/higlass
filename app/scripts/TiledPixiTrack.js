@@ -56,6 +56,16 @@ export function getValueScale(
     // console.warn('Negative values present in data. Defaulting to linear scale: ', minValue);
   }
 
+  if (scalingTypeToUse === 'categorical') {
+    // console.log("TiledPixiTrack.js > getValueScale");
+    return [
+      'categorical',
+      scaleLinear()
+        .range([254, 0])
+        .domain([minValue, maxValue])
+    ];
+  }
+
   return [
     'linear',
     scaleLinear()
@@ -165,6 +175,9 @@ class TiledPixiTrack extends PixiTrack {
     );
 
     this.dataFetcher.tilesetInfo(tilesetInfo => {
+      // console.log(`constructor > this.dimensions[1] ${this.dimensions[1]}`);
+      // console.log(`constructor > this.tilesetInfo ${this.tilesetInfo}`);
+
       this.tilesetInfo = tilesetInfo;
 
       if (this.tilesetInfo.chromsizes) {
@@ -351,6 +364,9 @@ class TiledPixiTrack extends PixiTrack {
     if (!this.tilesetInfo) {
       return;
     }
+
+    // console.warn(`TiledPixiTrack.js > refreshTiles > this.dimensions ${this.dimensions}`);
+    if (this.dimensions[1] < 1) return;
 
     this.calculateVisibleTiles();
 
@@ -614,6 +630,9 @@ class TiledPixiTrack extends PixiTrack {
     if (toFetch.length > 0) {
       const toFetchList = [...new Set(toFetch.map(x => x.remoteId))];
 
+      // console.warn(`TiledPixiTrack.js > fetchNewTiles > toFetchList ${toFetchList}`);
+      // console.warn(`TiledPixiTrack.js > fetchNewTiles > this.dimensions ${this.dimensions}`);
+
       this.dataFetcher.fetchTilesDebounced(
         this.receivedTiles.bind(this),
         toFetchList
@@ -719,6 +738,8 @@ class TiledPixiTrack extends PixiTrack {
     if (this.delayDrawing) return;
 
     if (!this.tilesetInfo) {
+      // if (this.dimensions[1] < 1) return;
+
       if (this.dataFetcher.tilesetInfoLoading) {
         this.trackNotFoundText.text = 'Loading...';
       } else {

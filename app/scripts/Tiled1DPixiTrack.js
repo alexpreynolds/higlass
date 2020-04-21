@@ -173,6 +173,8 @@ class Tiled1DPixiTrack extends TiledPixiTrack {
     const tileX = minX + xTilePos * tileWidth;
     const tileY = minY + yTilePos * tileHeight;
 
+    // console.warn(`Tiled1DPixiTrack.js > getTilePosAndDimensions > ${tileX}, ${tileY}, ${tileWidth}, ${tileHeight}`);
+
     return {
       tileX,
       tileY,

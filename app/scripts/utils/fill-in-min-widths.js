@@ -35,16 +35,27 @@ const fillInMinWidths = tracks => {
           ? { ...track.options, ...defaultOptions }
           : defaultOptions;
 
+        // console.log(`options: ${JSON.stringify(options)}`);
+        // console.log(`options.minHeight: ${JSON.stringify(options.minHeight)}`);
+
         if (!options.minHeight && track.height < options.minHeight) {
           track.height = options.minHeight || MIN_HORIZONTAL_HEIGHT;
         }
 
         if (!track.height) {
+          /*
+          console.warn(`fillInMinWidths > track.height not defined`);
+          console.warn(`                  (trackInfo && trackInfo.defaultHeight) : ${(trackInfo && trackInfo.defaultHeight) ? trackInfo.defaultHeight : "."}`);
+          console.warn(`                  (options.minHeight) : ${(options.minHeight) ? options.minHeight : "."}`);
+          console.warn(`                  (MIN_HORIZONTAL_HEIGHT) : ${MIN_HORIZONTAL_HEIGHT}`);
+*/
           track.height =
             (trackInfo && trackInfo.defaultHeight) ||
             options.minHeight ||
             MIN_HORIZONTAL_HEIGHT;
         }
+
+        // console.warn(`fillInMinWidths > ${track.type} : ${track.height}`);
       })
     );
 

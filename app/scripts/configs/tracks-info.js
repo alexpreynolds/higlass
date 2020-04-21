@@ -774,7 +774,8 @@ export const TRACKS_INFO = [
       'trackBorderColor',
       'showTooltip',
       'aggregationMode',
-      'valueFormat'
+      'valueFormat',
+      'minHeight'
     ],
     defaultOptions: {
       labelColor: 'black',
@@ -795,7 +796,8 @@ export const TRACKS_INFO = [
       labelTextOpacity: 0.4,
       showTooltip: false,
       aggregationMethod: 'mean',
-      valueFormat: '.3f'
+      valueFormat: '.3f',
+      minHeight: 0
     }
   },
   {
@@ -1266,7 +1268,7 @@ export const TRACKS_INFO = [
       labelRightMargin: 0,
       labelTopMargin: 0,
       labelBottomMargin: 0,
-      minHeight: 24,
+      minHeight: 0,
       plusStrandColor: 'blue',
       minusStrandColor: 'red',
       trackBorderWidth: 0,

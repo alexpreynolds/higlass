@@ -29,6 +29,8 @@ class Horizontal1dHeatmapTrack extends HorizontalLine1DPixiTrack {
   }
 
   rerender(options) {
+    if (this.dimensions[1] < 1.0) return;
+
     if (options && options.colorRange) {
       this.setColorScale(options.colorRange);
     }
@@ -43,7 +45,13 @@ class Horizontal1dHeatmapTrack extends HorizontalLine1DPixiTrack {
   }
 
   drawTile(tile) {
-    if (!tile.graphics || !tile.tileData || !tile.tileData.dense) return;
+    if (
+      !tile.graphics ||
+      !tile.tileData ||
+      !tile.tileData.dense ||
+      this.dimensions[1] < 1.0
+    )
+      return;
 
     const graphics = tile.graphics;
 
