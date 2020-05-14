@@ -86,7 +86,9 @@ class HorizontalGeneBED12AnnotationsTrack extends HorizontalTiled1DPixiTrack {
       if (!Array.isArray(td.fields)) return;
 
       const geneInfo = td.fields;
-      const geneName = geneInfo[3];
+      const geneInfoElems = geneInfo[3].split('|');
+      const geneName =
+        geneInfoElems.length > 1 ? geneInfoElems[0] : geneInfo[3];
       const geneId = this.geneId(geneInfo);
 
       const fillTriplet = geneInfo[8].split(',');
@@ -391,6 +393,8 @@ class HorizontalGeneBED12AnnotationsTrack extends HorizontalTiled1DPixiTrack {
       if (i >= MAX_TEXTS) return;
 
       const text = tile.texts[geneId];
+      // const geneIdElems = tile.texts[geneId].split('|');
+      // const text = (geneIdElems.length > 1) ? geneIdElems[0] : tile.texts[geneId];
 
       if (!text) return;
 
@@ -643,6 +647,8 @@ class HorizontalGeneBED12AnnotationsTrack extends HorizontalTiled1DPixiTrack {
           const geneId = this.geneId(geneInfo);
 
           const text = tile.texts[geneId];
+          // const geneIdElems = tile.texts[geneId].split('|');
+          // const text = (geneIdElems.length > 1) ? geneIdElems[0] : tile.texts[geneId];
 
           if (!text) return;
 
@@ -981,6 +987,14 @@ class HorizontalGeneBED12AnnotationsTrack extends HorizontalTiled1DPixiTrack {
     const blockSizes = bed12FieldsObj[10].split(',');
     const blockStarts = bed12FieldsObj[11].split(',');
 
+    const idElems = id.split('|');
+    const realId = idElems[0];
+    const realScorePrecision = 4;
+    const realScore =
+      idElems.length > 1
+        ? Number.parseFloat(idElems[1]).toPrecision(realScorePrecision)
+        : score;
+
     const hc = document.getElementsByClassName('higlass')[0];
     if (hc) {
       hc.style.cursor = 'pointer';
@@ -1035,9 +1049,21 @@ class HorizontalGeneBED12AnnotationsTrack extends HorizontalTiled1DPixiTrack {
       if (this.options.isBarPlotLike) {
         ecThickWidth = ecThickWidth !== 1 ? 1 : ecThickWidth;
       }
+      let realScoreTextAnchor = '';
+      if (ecThickStart < 0.15 * elementCartoonWidth) {
+        realScoreTextAnchor = 'start';
+      } else if (
+        ecThickStart >= 0.15 * elementCartoonWidth &&
+        ecThickStart <= 0.85 * elementCartoonWidth
+      ) {
+        realScoreTextAnchor = 'middle';
+      } else {
+        realScoreTextAnchor = 'end';
+      }
+      // const realScoreTextAnchor = (ecThickStart < (0.15 * elementCartoonWidth)) ? "start" : (ecThickStart > (0.85 * elementCartoonWidth)) ? "end" : "middle";
       elementCartoon += `<rect class="translate" x=${ecThickStart} y=${ecThickY} width=${ecThickWidth} height=${ecThickHeight} />`;
       const ecLabelDy = '-0.25em';
-      elementCartoon += `<text class="score" text-anchor="middle" x=${ecThickStart} y=${ecThickY} dy=${ecLabelDy}>${score}</text>`;
+      elementCartoon += `<text class="score" text-anchor="${realScoreTextAnchor}" x=${ecThickStart} y=${ecThickY} dy=${ecLabelDy}>${realScore}</text>`;
       if (strand === '+' || strand === '-') {
         const ecStrandHref = strand === '+' ? '#ft' : '#rt';
         for (let i = 0; i < elementCartoonWidth; i += 10) {
@@ -1070,8 +1096,8 @@ class HorizontalGeneBED12AnnotationsTrack extends HorizontalTiled1DPixiTrack {
     }
 
     return `<div>
-      <div id="bed12-id" style="display:block; font-size:1.1em; font-weight:bolder;">
-        ${id}
+      <div id="bed12-id" style="display:block; font-size:1.1em; font-weight:bolder; z-index:100000;">
+        ${realId}
       </div>
       <div id="bed12-interval" style="display:block;">
         ${intervalMarkup}
