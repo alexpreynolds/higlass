@@ -103,7 +103,8 @@ export function workerSetPix(
   ignoreUpperRight = false,
   ignoreLowerLeft = false,
   shape = null,
-  selectedRows = null
+  selectedRows = null,
+  highlightRowMd = null
 ) {
   let valueScale = null;
 
@@ -143,6 +144,7 @@ export function workerSetPix(
       break;
   }
 
+  const colorScaleLength = colorScale.length;
   let filteredSize = size;
   if (shape && selectedRows) {
     // If using the `selectedRows` parameter, then the size of the `pixData` array
@@ -160,6 +162,7 @@ export function workerSetPix(
    * @param i Index of the element.
    * @param d The value to be transformed and then inserted.
    */
+  let currentRowIdx = 0;
   const setPixData = (i, d) => {
     // Transparent
     rgbIdx = 255;
@@ -186,12 +189,29 @@ export function workerSetPix(
         ' (should be 0 <= rgbIdx <= 255)'
       );
     }
-    const rgb = colorScale[rgbIdx];
+
+    // cloning is required to keep from clobbering the main colorScale array
+    const rgb = [...colorScale[rgbIdx]];
+
+    // we check if we need to apply alpha to non-highlighted rows
+    if (i % shape[1] === 0) {
+      currentRowIdx += 1;
+    }
+
+    if (highlightRowMd) {
+      if (!highlightRowMd.rows.includes(currentRowIdx - 1)) {
+        if (highlightRowMd.behavior === 'applyAlphaToNonHighlightedRows') {
+          rgb[3] = Math.floor(rgb[3] * highlightRowMd.alpha);
+        }
+      }
+    }
+
+    // console.log(`i ${i} currentRowIdx ${currentRowIdx} rgb ${rgb}`);
 
     pixData[i * 4] = rgb[0];
     pixData[i * 4 + 1] = rgb[1];
     pixData[i * 4 + 2] = rgb[2];
-    pixData[i * 4 + 3] = rgb[3];
+    pixData[i * 4 + 3] = rgb[3]; // alpha
   };
 
   let d;
@@ -215,17 +235,21 @@ export function workerSetPix(
       // The `selectedRows` array has not been passed, so we want to use all of the tile data values,
       // in their default ordering.
       for (let i = 0; i < data.length; i++) {
-        d = data[i];
+        d = data[i] ? data[i] : colorScaleLength; // if data[i] is undefined, use the last color in the scale palette (usually the NA or non-state coloring)
         setPixData(i, d);
       }
     }
   } catch (err) {
     console.warn('Odd datapoint');
+    console.warn('shape:', shape);
+    console.warn('selectedRows:', selectedRows);
+    console.warn('data:', data);
     console.warn('valueScale.domain():', valueScale.domain());
     console.warn('valueScale.range():', valueScale.range());
     console.warn('value:', valueScale(d + pseudocount));
     console.warn('pseudocount:', pseudocount);
     console.warn('rgbIdx:', rgbIdx, 'd:', d, 'ct:', valueScale(d));
+    console.warn('colorScale', colorScale);
     console.error('ERROR:', err);
     return pixData;
   }

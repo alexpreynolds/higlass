@@ -281,7 +281,7 @@ export default class HorizontalMultivecTrack extends HeatmapTiledPixiTrack {
       const elements = visibleData.split('<br/>');
       const color = this.options.colorRange[parseInt(elements[0], 10) - 1];
       const label = elements[1];
-      output = `<svg width="10" height="10"><rect width="10" height="10" rx="2" ry="2"
+      output = `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2"
                  style="fill:${color};stroke:black;stroke-width:2;"></svg> ${label}`;
     } else {
       output += `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;

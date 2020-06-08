@@ -511,7 +511,8 @@ export const tileDataToPixData = (
   finished,
   ignoreUpperRight,
   ignoreLowerLeft,
-  selectedRows
+  selectedRows,
+  highlightRowMd
 ) => {
   const { tileData } = tile;
 
@@ -556,6 +557,8 @@ export const tileDataToPixData = (
   // when being passed to the worker script
   // const newTileData = tileData.dense;
 
+  // console.log(`tile-proxy ${JSON.stringify(highlightRowMd)}`);
+
   // comment this and uncomment the code afterwards to enable threading
   const pixData = workerSetPix(
     tileData.dense.length,
@@ -567,7 +570,8 @@ export const tileDataToPixData = (
     ignoreUpperRight,
     ignoreLowerLeft,
     tile.tileData.shape,
-    selectedRows
+    selectedRows,
+    highlightRowMd
   );
 
   finished({ pixData });

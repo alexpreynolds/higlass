@@ -96,6 +96,8 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
         : colorDomainToRgbaArray(options.colorRange);
     }
 
+    // console.log(`constructor ${this.colorScale}`);
+
     this.gBase = select(svgElement).append('g');
     this.gMain = this.gBase.append('g');
     this.gColorscaleBrush = this.gMain.append('g');
@@ -304,7 +306,6 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
             this.options.scaleEndPercent
       ]);
     }
-
     return [scaleType, valueScale];
   }
 
@@ -375,6 +376,7 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
     const ctx = canvas.getContext('2d');
 
     ctx.fillStyle = 'transparent';
+    // ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const pix = new ImageData(pixData, canvas.width, canvas.height);
@@ -1145,6 +1147,15 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
       }
     }
 
+    let highlightRowsMd = null;
+    if (this.options.highlightRows && this.options.highlightRows.length > 0) {
+      highlightRowsMd = {
+        rows: this.options.highlightRows,
+        behavior: this.options.highlightBehavior,
+        alpha: this.options.highlightBehaviorAlpha
+      };
+    }
+
     tileProxy.tileDataToPixData(
       tile,
       scaleType,
@@ -1194,7 +1205,8 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
         tile.tileData.tilePos[0] === tile.tileData.tilePos[1],
       this.options.extent === 'upper-right' &&
         tile.tileData.tilePos[0] === tile.tileData.tilePos[1],
-      this.options.selectRows
+      this.options.selectRows,
+      highlightRowsMd
     );
   }
 
