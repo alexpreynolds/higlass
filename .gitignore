@@ -24,6 +24,5 @@ jsons/
 report.html
 docs/_build
 webpack-stats.json
-dist
 lib/vendor
 app/test*.html

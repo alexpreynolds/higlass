@@ -1478,6 +1478,8 @@ class HiGlassComponent extends React.Component {
         if (trackDefObject.trackObject.exportSVG) {
           const trackSVG = trackDefObject.trackObject.exportSVG();
 
+          console.log(`trackSVG ${JSON.stringify(trackSVG)}`);
+
           if (trackSVG) svg.appendChild(trackSVG[0]);
         }
       }
