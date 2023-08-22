@@ -50955,7 +50955,7 @@ function _toPrimitive2(input, hint) {
         const quantScale = quantile().domain([...s]).range(range$2(start2, end2, (end2 - start2) / 256));
         quantScale.ticks = (n) => ticks(start2, end2, n);
         return [quantScale, 0];
-      } else {
+      } else if (this.options.valueScaling === "linear") {
         valueScale = linear().domain([minValue, maxValue]).range([maxDimension, minDimension]);
       }
       return [valueScale, offsetValue];
@@ -57310,20 +57310,70 @@ function _toPrimitive2(input, hint) {
       output.setAttribute("transform", `translate(${this.position[0]},${this.position[1]})`);
       const stroke = this.options.lineStrokeColor ? this.options.lineStrokeColor : "blue";
       this.visibleAndFetchedTiles().forEach((tile) => {
-        const g = document.createElement("path");
-        g.setAttribute("fill", "transparent");
-        g.setAttribute("stroke", stroke);
-        let d = "";
-        for (const segment of tile.segments) {
-          const first2 = segment[0];
-          const rest = segment.slice(1);
-          d += `M${first2[0]} ${first2[1]}`;
-          for (const point2 of rest) {
-            d += `L${point2[0]} ${point2[1]}`;
+        if (tile.hasOwnProperty("segments")) {
+          const p = document.createElement("path");
+          p.setAttribute("fill", "transparent");
+          p.setAttribute("stroke", stroke);
+          let d = "";
+          for (const segment of tile.segments) {
+            const first2 = segment[0];
+            const rest = segment.slice(1);
+            d += `M${first2[0]} ${first2[1]}`;
+            for (const point2 of rest) {
+              d += `L${point2[0]} ${point2[1]}`;
+            }
+          }
+          p.setAttribute("d", d);
+          output.appendChild(p);
+        } else if (tile.hasOwnProperty("tileData")) {
+          const { tileX, tileWidth } = this.getTilePosAndDimensions(tile.tileData.zoomLevel, tile.tileData.tilePos, this.tilesetInfo.bins_per_dimension || this.tilesetInfo.tile_size);
+          const tileValues = tile.tileData.dense;
+          if (tileValues.length !== 0) {
+            tile.svgData = void 0;
+            const tileXScale = linear().domain([0, this.tilesetInfo.tile_size || this.tilesetInfo.bins_per_dimension]).range([tileX, tileX + tileWidth]);
+            let xPos;
+            let width;
+            let yPos;
+            let height;
+            let color2 = this.options.barFillColor || "none";
+            const [valueScale, pseudocount] = this.makeValueScale(this.minValue(), 0, this.maxValue(), 0);
+            this.valueScale = valueScale;
+            this.colorScale = colorDomainToRgbaArray(this.options.colorRange);
+            const colorScale = valueScale.copy();
+            colorScale.range([254, 0]).clamp(true);
+            for (let i2 = 0; i2 < tileValues.length; i2++) {
+              xPos = this._xScale(tileXScale(i2));
+              yPos = this.valueScale(this.maxValue() + pseudocount);
+              width = this._xScale(tileXScale(i2 + 1)) - xPos;
+              height = this.dimensions[1];
+              if (this.colorScale && !this.options.colorRangeGradient) {
+                try {
+                  const v = Math.round(colorScale(tileValues[i2] + pseudocount));
+                  color2 = "#" + this.colorScale[v].map((e) => e.toString(16).padStart(2, 0)).join("");
+                  if (Number.isNaN(tileValues[i2]) || height < 0 || yPos < 0)
+                    continue;
+                  this.addSVGInfo(tile, xPos, yPos, width, height, color2);
+                } catch (err2) {
+                }
+              }
+            }
+            const data2 = tile.svgData;
+            for (let j = 0; j < data2.barXValues.length; j++) {
+              const rect = document.createElement("rect");
+              rect.setAttribute("fill", data2.barColors[j]);
+              rect.setAttribute("stroke", data2.barColors[j]);
+              rect.setAttribute("x", data2.barXValues[j]);
+              rect.setAttribute("y", data2.barYValues[j]);
+              rect.setAttribute("height", data2.barHeights[j]);
+              rect.setAttribute("width", data2.barWidths[j]);
+              if (tile.barBorders) {
+                rect.setAttribute("stroke-width", "0.1");
+                rect.setAttribute("stroke", "black");
+              }
+              output.appendChild(rect);
+            }
           }
         }
-        g.setAttribute("d", d);
-        output.appendChild(g);
       });
       const gAxis = document.createElement("g");
       gAxis.setAttribute("id", "axis");
@@ -57337,6 +57387,16 @@ function _toPrimitive2(input, hint) {
         gAxis.appendChild(gDrawnAxis);
       }
       return [base, track];
+    } }, { key: "addSVGInfo", value: function addSVGInfo(tile, x, y, width, height, color2) {
+      if (tile.svgData) {
+        tile.svgData.barXValues.push(x);
+        tile.svgData.barYValues.push(y);
+        tile.svgData.barWidths.push(width);
+        tile.svgData.barHeights.push(height);
+        tile.svgData.barColors.push(color2);
+      } else {
+        tile.svgData = { barXValues: [x], barYValues: [y], barWidths: [width], barHeights: [height], barColors: [color2] };
+      }
     } }, { key: "tileToLocalId", value: function tileToLocalId(tile) {
       if (this.options.aggregationMode && this.options.aggregationMode !== "mean") {
         return `${tile.join(".")}.${this.options.aggregationMode}`;
@@ -57740,7 +57800,7 @@ function _toPrimitive2(input, hint) {
       const tileXScale = linear().domain([0, this.tilesetInfo.tile_size || this.tilesetInfo.bins_per_dimension]).range([tileX, tileX + tileWidth]);
       const strokeWidth = 0;
       graphics.lineStyle(strokeWidth, stroke, 1);
-      const color2 = this.options.barFillColor || "grey";
+      let color2 = this.options.barFillColor || "grey";
       const colorHex = colorToHex(color2);
       const opacity = "barOpacity" in this.options ? this.options.barOpacity : 1;
       graphics.beginFill(colorHex, opacity);
@@ -57767,6 +57827,13 @@ function _toPrimitive2(input, hint) {
         height = this.dimensions[1] - yPos;
         if (isTopAligned)
           yPos = 0;
+        if (this.colorScale && !this.options.colorRangeGradient) {
+          try {
+            color2 = "#" + this.colorScale[Math.round(colorScale(tileValues[i2] + pseudocount))].map((d) => Math.round(d * 255)).map((e) => e.toString(16).padStart(2, 0)).join("");
+          } catch (err2) {
+            color2 = "grey";
+          }
+        }
         if (Number.isNaN(height) || height < 0 || yPos < 0)
           continue;
         this.addSVGInfo(tile, xPos, yPos, width, height, color2);
@@ -80911,7 +80978,7 @@ function _toPrimitive2(input, hint) {
           view.layout.i = view.uid;
         }
       });
-      const rendererOptions = { width: this.state.width, height: this.state.height, view: this.canvasElement, antialias: true, transparent: true, resolution: 2, autoResize: true };
+      const rendererOptions = { width: this.state.width, height: this.state.height, view: this.canvasElement, antialias: true, backgroundAlpha: 0, resolution: 2, autoResize: true };
       const versionNumber = parseInt(PIXI__namespace.VERSION[0], 10);
       if (versionNumber === 4) {
         console.warn("Deprecation warning: please update Pixi.js to version 5 or above!");
@@ -81359,7 +81426,6 @@ function _toPrimitive2(input, hint) {
         for (const trackDefObject of dictValues(tiledPlot.trackRenderer.trackDefObjects)) {
           if (trackDefObject.trackObject.exportSVG) {
             const trackSVG = trackDefObject.trackObject.exportSVG();
-            console.log(`trackSVG ${JSON.stringify(trackSVG)}`);
             if (trackSVG)
               svg.appendChild(trackSVG[0]);
           }
@@ -81399,7 +81465,10 @@ ${svgString}`;
           const targetCanvas = document.createElement("canvas");
           targetCanvas.width = this.canvasElement.width / 2;
           targetCanvas.height = this.canvasElement.height / 2;
-          targetCanvas.getContext("2d").drawImage(img, 0, 0);
+          const ctx = targetCanvas.getContext("2d");
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+          ctx.drawImage(img, 0, 0);
           targetCanvas.toBlob((blob) => {
             resolve2(blob);
           });

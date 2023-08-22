@@ -931,7 +931,8 @@ class TiledPixiTrack extends PixiTrack {
         .range([minDimension, maxDimension]);
 
       // pseudocount = offsetValue;
-    } else if (this.options.valueScaling === 'quantile') {
+    } 
+    else if (this.options.valueScaling === 'quantile') {
       const start = this.dimensions[1] - margin;
       const end = margin;
       const quantScale = scaleQuantile()
@@ -940,7 +941,8 @@ class TiledPixiTrack extends PixiTrack {
       quantScale.ticks = (n) => ticks(start, end, n);
 
       return [quantScale, 0];
-    } else if (this.options.valueScaling === 'setquantile') {
+    } 
+    else if (this.options.valueScaling === 'setquantile') {
       const start = this.dimensions[1] - margin;
       const end = margin;
       const s = new Set(this.allVisibleValues());
@@ -950,7 +952,8 @@ class TiledPixiTrack extends PixiTrack {
       quantScale.ticks = (n) => ticks(start, end, n);
 
       return [quantScale, 0];
-    } else {
+    } 
+    else if (this.options.valueScaling === 'linear') {
       // linear scale
       valueScale = scaleLinear()
         .domain([minValue, maxValue])

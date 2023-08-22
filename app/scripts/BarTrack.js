@@ -148,7 +148,7 @@ class BarTrack extends HorizontalLine1DPixiTrack {
     const strokeWidth = 0;
     graphics.lineStyle(strokeWidth, stroke, 1);
 
-    const color = this.options.barFillColor || 'grey';
+    let color = this.options.barFillColor || 'grey';
     const colorHex = colorToHex(color);
 
     const opacity = 'barOpacity' in this.options ? this.options.barOpacity : 1;
@@ -198,6 +198,15 @@ class BarTrack extends HorizontalLine1DPixiTrack {
       height = this.dimensions[1] - yPos;
 
       if (isTopAligned) yPos = 0;
+
+      if (this.colorScale && !this.options.colorRangeGradient) {
+        try {
+          color = '#' + this.colorScale[Math.round(colorScale(tileValues[i] + pseudocount))].map((d) => Math.round(d * 255)).map(e=>e.toString(16).padStart(2, 0)).join("");
+        }
+        catch (err) {
+          color = 'grey';
+        }
+      }
 
       if (Number.isNaN(height) || height < 0 || yPos < 0) continue;
       this.addSVGInfo(tile, xPos, yPos, width, height, color);

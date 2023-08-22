@@ -508,7 +508,8 @@ class HiGlassComponent extends React.Component {
       height: this.state.height,
       view: this.canvasElement,
       antialias: true,
-      transparent: true,
+      // transparent: true,
+      backgroundAlpha: 0,
       resolution: 2,
       autoResize: true,
     };
@@ -1478,7 +1479,7 @@ class HiGlassComponent extends React.Component {
         if (trackDefObject.trackObject.exportSVG) {
           const trackSVG = trackDefObject.trackObject.exportSVG();
 
-          console.log(`trackSVG ${JSON.stringify(trackSVG)}`);
+          // console.log(`trackSVG ${JSON.stringify(trackSVG)}`);
 
           if (trackSVG) svg.appendChild(trackSVG[0]);
         }
@@ -1568,7 +1569,12 @@ class HiGlassComponent extends React.Component {
         // TODO: I have no idea why dimensions are doubled!
         targetCanvas.width = this.canvasElement.width / 2;
         targetCanvas.height = this.canvasElement.height / 2;
-        targetCanvas.getContext('2d').drawImage(img, 0, 0);
+        const ctx = targetCanvas.getContext('2d');
+        // ctx.globalCompositeOperation = "source-in";
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+        // ctx.globalCompositeOperation = "source-over"; // reset
+        ctx.drawImage(img, 0, 0);
         targetCanvas.toBlob((blob) => {
           resolve(blob);
         });
