@@ -15296,13 +15296,13 @@ function _toPrimitive2(input, hint) {
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    const ctx = canvas.getContext("2d");
-    const grd = ctx.createLinearGradient(fromX, fromY, toX, toY);
+    const ctx2 = canvas.getContext("2d");
+    const grd = ctx2.createLinearGradient(fromX, fromY, toX, toY);
     steps.forEach((step) => {
       grd.addColorStop(step.from, step.color);
     });
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, width, height);
+    ctx2.fillStyle = grd;
+    ctx2.fillRect(0, 0, width, height);
     return canvas;
   };
   const hasParent = (el, target) => {
@@ -16023,11 +16023,11 @@ function _toPrimitive2(input, hint) {
     const canvas = document.createElement("canvas");
     canvas.width = w;
     canvas.height = h;
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "transparent";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const ctx2 = canvas.getContext("2d");
+    ctx2.fillStyle = "transparent";
+    ctx2.fillRect(0, 0, canvas.width, canvas.height);
     const pix = new ImageData(pixData, canvas.width, canvas.height);
-    ctx.putImageData(pix, 0, 0);
+    ctx2.putImageData(pix, 0, 0);
     return canvas;
   };
   const timeout$2 = (ms) => new Promise((resolve2) => {
@@ -51131,11 +51131,11 @@ function _toPrimitive2(input, hint) {
       const canvas = document.createElement("canvas");
       canvas.width = this.binsPerTile();
       canvas.height = this.binsPerTile();
-      const ctx = canvas.getContext("2d");
-      ctx.fillStyle = "transparent";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const ctx2 = canvas.getContext("2d");
+      ctx2.fillStyle = "transparent";
+      ctx2.fillRect(0, 0, canvas.width, canvas.height);
       const pix = new ImageData(pixData, canvas.width, canvas.height);
-      ctx.putImageData(pix, 0, 0);
+      ctx2.putImageData(pix, 0, 0);
       return canvas;
     } }, { key: "exportData", value: function exportData() {
       if (this.tilesetInfo) {
@@ -57576,12 +57576,12 @@ function _toPrimitive2(input, hint) {
         canvas.width = this.tilesetInfo.tile_size;
         canvas.height = 1;
       }
-      const ctx = canvas.getContext("2d");
-      ctx.fillStyle = "transparent";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const ctx2 = canvas.getContext("2d");
+      ctx2.fillStyle = "transparent";
+      ctx2.fillRect(0, 0, canvas.width, canvas.height);
       if (pixData.length !== 0 && pixData.length === 4 * canvas.width * canvas.height) {
         const pix = new ImageData(pixData, canvas.width, canvas.height);
-        ctx.putImageData(pix, 0, 0);
+        ctx2.putImageData(pix, 0, 0);
       } else {
         console.warn("HorizontalMultivecTrack: pixData has an incorrect length.");
       }
@@ -60532,11 +60532,11 @@ function _toPrimitive2(input, hint) {
       const canvas = document.createElement("canvas");
       canvas.width = 256;
       canvas.height = 256;
-      const ctx = canvas.getContext("2d");
-      ctx.fillStyle = "transparent";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const ctx2 = canvas.getContext("2d");
+      ctx2.fillStyle = "transparent";
+      ctx2.fillRect(0, 0, canvas.width, canvas.height);
       const pix = new ImageData(pixData, canvas.width, canvas.height);
-      ctx.putImageData(pix, 0, 0);
+      ctx2.putImageData(pix, 0, 0);
       return canvas;
     } }, { key: "setSpriteProperties", value: function setSpriteProperties(sprite, zoomLevel, tilePos, mirrored) {
       const { tileX, tileY, tileWidth, tileHeight } = this.getTilePosAndDimensions(zoomLevel, tilePos);
@@ -66642,16 +66642,16 @@ function _toPrimitive2(input, hint) {
     var canvas = serverCanvas ? new serverCanvas() : document.createElement("canvas");
     canvas.width = size * 2;
     canvas.height = size * 2;
-    var ctx = canvas.getContext("2d");
-    if (!ctx) {
+    var ctx2 = canvas.getContext("2d");
+    if (!ctx2) {
       return null;
     }
-    ctx.fillStyle = c1;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = c2;
-    ctx.fillRect(0, 0, size, size);
-    ctx.translate(size, size);
-    ctx.fillRect(0, 0, size, size);
+    ctx2.fillStyle = c1;
+    ctx2.fillRect(0, 0, canvas.width, canvas.height);
+    ctx2.fillStyle = c2;
+    ctx2.fillRect(0, 0, size, size);
+    ctx2.translate(size, size);
+    ctx2.fillRect(0, 0, size, size);
     return canvas.toDataURL();
   };
   var get = function get2(c1, c2, size, serverCanvas) {
@@ -80978,7 +80978,7 @@ function _toPrimitive2(input, hint) {
           view.layout.i = view.uid;
         }
       });
-      const rendererOptions = { width: this.state.width, height: this.state.height, view: this.canvasElement, antialias: true, backgroundAlpha: 0, resolution: 2, autoResize: true };
+      const rendererOptions = { width: this.state.width, height: this.state.height, view: this.canvasElement, antialias: true, transparent: true, resolution: 2, autoResize: true };
       const versionNumber = parseInt(PIXI__namespace.VERSION[0], 10);
       if (versionNumber === 4) {
         console.warn("Deprecation warning: please update Pixi.js to version 5 or above!");
@@ -81465,9 +81465,6 @@ ${svgString}`;
           const targetCanvas = document.createElement("canvas");
           targetCanvas.width = this.canvasElement.width / 2;
           targetCanvas.height = this.canvasElement.height / 2;
-          const ctx = targetCanvas.getContext("2d");
-          ctx.fillStyle = "#ffffff";
-          ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
           ctx.drawImage(img, 0, 0);
           targetCanvas.toBlob((blob) => {
             resolve2(blob);
