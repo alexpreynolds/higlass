@@ -1569,7 +1569,7 @@ class HiGlassComponent extends React.Component {
         // TODO: I have no idea why dimensions are doubled!
         targetCanvas.width = this.canvasElement.width / 2;
         targetCanvas.height = this.canvasElement.height / 2;
-        // const ctx = targetCanvas.getContext('2d');
+        const ctx = targetCanvas.getContext('2d');
         // ctx.globalCompositeOperation = "source-in";
         // ctx.fillStyle = '#ffffff';
         // ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
