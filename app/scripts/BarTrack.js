@@ -208,8 +208,12 @@ class BarTrack extends HorizontalLine1DPixiTrack {
         }
       }
 
-      if (Number.isNaN(height) || height < 0 || yPos < 0) continue;
-      this.addSVGInfo(tile, xPos, yPos, width, height, color);
+      if (Number.isNaN(height) || height < 0 || yPos < 0) {
+        continue;
+      }
+      else {
+        this.addSVGInfo(tile, xPos, yPos, width, height, color);
+      }
 
       // this data is in the last tile and extends beyond the length
       // of the coordinate system

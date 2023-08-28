@@ -1520,6 +1520,8 @@ class HiGlassComponent extends React.Component {
       '$1',
     );
 
+    svgString = svgString.replace('xmlns="http://www.w3.org/1999/xhtml"', '');
+
     const xmlDeclaration =
       '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
     const doctype =
@@ -1570,9 +1572,9 @@ class HiGlassComponent extends React.Component {
         targetCanvas.width = this.canvasElement.width / 2;
         targetCanvas.height = this.canvasElement.height / 2;
         const ctx = targetCanvas.getContext('2d');
-        // ctx.globalCompositeOperation = "source-in";
-        // ctx.fillStyle = '#ffffff';
-        // ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
         // ctx.globalCompositeOperation = "source-over"; // reset
         ctx.drawImage(img, 0, 0);
         targetCanvas.toBlob((blob) => {

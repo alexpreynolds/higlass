@@ -369,7 +369,10 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
               try {
                 const v = Math.round(colorScale(tileValues[i] + pseudocount));
                 color = '#' + this.colorScale[v].map(e => e.toString(16).padStart(2, 0)).join("");
-                if (Number.isNaN(tileValues[i]) || height < 0 || yPos < 0) continue;
+                if (Number.isNaN(tileValues[i]) || height < 0 || yPos < 0) {
+                  height = this.dimensions[1];
+                  color = '#ffffff';
+                }
                 this.addSVGInfo(tile, xPos, yPos, width, height, color);
               }
               catch (err) {}

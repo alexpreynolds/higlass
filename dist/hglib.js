@@ -57350,8 +57350,10 @@ function _toPrimitive2(input, hint) {
                 try {
                   const v = Math.round(colorScale(tileValues[i2] + pseudocount));
                   color2 = "#" + this.colorScale[v].map((e) => e.toString(16).padStart(2, 0)).join("");
-                  if (Number.isNaN(tileValues[i2]) || height < 0 || yPos < 0)
-                    continue;
+                  if (Number.isNaN(tileValues[i2]) || height < 0 || yPos < 0) {
+                    height = this.dimensions[1];
+                    color2 = "#ffffff";
+                  }
                   this.addSVGInfo(tile, xPos, yPos, width, height, color2);
                 } catch (err2) {
                 }
@@ -57834,9 +57836,11 @@ function _toPrimitive2(input, hint) {
             color2 = "grey";
           }
         }
-        if (Number.isNaN(height) || height < 0 || yPos < 0)
+        if (Number.isNaN(height) || height < 0 || yPos < 0) {
           continue;
-        this.addSVGInfo(tile, xPos, yPos, width, height, color2);
+        } else {
+          this.addSVGInfo(tile, xPos, yPos, width, height, color2);
+        }
         if (tileXScale(i2) > this.tilesetInfo.max_pos[0])
           break;
         if (this.colorScale && !this.options.colorRangeGradient) {
@@ -81445,6 +81449,7 @@ function _toPrimitive2(input, hint) {
       svgString = svgString.replace(/<\/a0:/g, "</");
       svgString = svgString.replace(/(<svg[\n\r])(\s+xmlns="http:\/\/www\.w3\.org\/1999\/xhtml"[\n\r])/gm, "$1");
       svgString = svgString.replace(/(\s+<clipPath[\n\r]\s+)(xmlns="http:\/\/www\.w3\.org\/2000\/svg")/gm, "$1");
+      svgString = svgString.replace('xmlns="http://www.w3.org/1999/xhtml"', "");
       const xmlDeclaration = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
       const doctype2 = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
       return `${xmlDeclaration}
@@ -81466,6 +81471,9 @@ ${svgString}`;
           targetCanvas.width = this.canvasElement.width / 2;
           targetCanvas.height = this.canvasElement.height / 2;
           const ctx = targetCanvas.getContext("2d");
+          ctx.globalCompositeOperation = "source-over";
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
           ctx.drawImage(img, 0, 0);
           targetCanvas.toBlob((blob) => {
             resolve2(blob);
