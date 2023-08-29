@@ -381,9 +381,16 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
 
           const data = tile.svgData;
           for (let j = 0; j < data.barXValues.length; j++) {
+            //
+            // hex colors with transparency cannot be directly used in SVG opened in Adobe Illustrator
+            //
+            const barColor = data.barColors[j];
+            const barColorFull = barColor.substring(0, barColor.length - 2);
+            const barColorAlpha = parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255.0;
             const rect = document.createElement('rect');
-            rect.setAttribute('fill', data.barColors[j]);
-            rect.setAttribute('stroke', data.barColors[j]);
+            rect.setAttribute('fill', barColorFull);
+            rect.setAttribute('fill-opacity', barColorAlpha);
+            // rect.setAttribute('stroke', data.barColors[j]);
             rect.setAttribute('x', data.barXValues[j]);
             rect.setAttribute('y', data.barYValues[j]);
             rect.setAttribute('height', data.barHeights[j]);
@@ -391,6 +398,10 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
             if (tile.barBorders) {
               rect.setAttribute('stroke-width', '0.1');
               rect.setAttribute('stroke', 'black');
+            }
+            else {
+              // rect.setAttribute('stroke-width', '0');
+              // rect.setAttribute('stroke', data.barColors[j]);
             }
             output.appendChild(rect);
           }

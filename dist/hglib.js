@@ -57361,9 +57361,12 @@ function _toPrimitive2(input, hint) {
             }
             const data2 = tile.svgData;
             for (let j = 0; j < data2.barXValues.length; j++) {
+              const barColor = data2.barColors[j];
+              const barColorFull = barColor.substring(0, barColor.length - 2);
+              const barColorAlpha = parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255;
               const rect = document.createElement("rect");
-              rect.setAttribute("fill", data2.barColors[j]);
-              rect.setAttribute("stroke", data2.barColors[j]);
+              rect.setAttribute("fill", barColorFull);
+              rect.setAttribute("fill-opacity", barColorAlpha);
               rect.setAttribute("x", data2.barXValues[j]);
               rect.setAttribute("y", data2.barYValues[j]);
               rect.setAttribute("height", data2.barHeights[j]);
@@ -57930,9 +57933,12 @@ function _toPrimitive2(input, hint) {
       this.visibleAndFetchedTiles().filter((tile) => tile.svgData && tile.svgData.barXValues).forEach((tile) => {
         const data2 = tile.svgData;
         for (let i2 = 0; i2 < data2.barXValues.length; i2++) {
+          const barColor = data2.barColors[i2];
+          const barColorFull = barColor.substring(0, barColor.length - 2);
+          const barColorAlpha = parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255;
           const rect = document.createElement("rect");
-          rect.setAttribute("fill", data2.barColors[i2]);
-          rect.setAttribute("stroke", data2.barColors[i2]);
+          rect.setAttribute("fill", barColorFull);
+          rect.setAttribute("fill-opacity", barColorAlpha);
           rect.setAttribute("x", data2.barXValues[i2]);
           rect.setAttribute("y", data2.barYValues[i2]);
           rect.setAttribute("height", data2.barHeights[i2]);
