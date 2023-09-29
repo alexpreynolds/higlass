@@ -50779,13 +50779,17 @@ function _toPrimitive2(input, hint) {
         this.updateTile(tile);
       }
     } }, { key: "synchronizeTilesAndGraphics", value: function synchronizeTilesAndGraphics() {
-      this.addMissingGraphics();
-      this.removeOldTiles();
-      this.updateExistingGraphics();
-      if (this.listeners.dataChanged) {
-        for (const callback of this.listeners.dataChanged) {
-          callback(this.visibleAndFetchedTiles().map((x) => x.tileData));
+      try {
+        this.addMissingGraphics();
+        this.removeOldTiles();
+        this.updateExistingGraphics();
+        if (this.listeners.dataChanged) {
+          for (const callback of this.listeners.dataChanged) {
+            callback(this.visibleAndFetchedTiles().map((x) => x.tileData));
+          }
         }
+      } catch (err2) {
+        console.log(`Error: TiledPixiTrack > synchronizeTilesAndGraphics: ${err2.message}`);
       }
     } }, { key: "loadTileData", value: function loadTileData(tile, dataLoader) {
       let loadedTileData = this.lruCache.get(tile.tileId);

@@ -588,14 +588,19 @@ class TiledPixiTrack extends PixiTrack {
      */
 
     // keep track of which tiles are visible at the moment
-    this.addMissingGraphics();
-    this.removeOldTiles();
-    this.updateExistingGraphics();
+    try {
+      this.addMissingGraphics();
+      this.removeOldTiles();
+      this.updateExistingGraphics();
 
-    if (this.listeners.dataChanged) {
-      for (const callback of this.listeners.dataChanged) {
-        callback(this.visibleAndFetchedTiles().map((x) => x.tileData));
+      if (this.listeners.dataChanged) {
+        for (const callback of this.listeners.dataChanged) {
+          callback(this.visibleAndFetchedTiles().map((x) => x.tileData));
+        }
       }
+    }
+    catch (err) {
+      console.log(`Error: TiledPixiTrack > synchronizeTilesAndGraphics: ${err.message}`);
     }
   }
 
