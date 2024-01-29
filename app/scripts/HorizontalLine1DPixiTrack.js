@@ -43,6 +43,8 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
 
     // return `${textValue}`;
 
+    if (!textValue || textValue.length === 0) return '';
+
     let output = `<div class="track-mouseover-menu-table">`;
 
     output += `

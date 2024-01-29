@@ -57185,6 +57185,8 @@ function _toPrimitive2(input, hint) {
       const markerWidth = 4;
       graphics.drawRect(trackX - markerWidth / 2, yPos - markerWidth / 2, markerWidth, markerWidth);
       this.animate();
+      if (!textValue || textValue.length === 0)
+        return "";
       let output = `<div class="track-mouseover-menu-table">`;
       output += `
       <div class="track-mouseover-menu-table-item">
