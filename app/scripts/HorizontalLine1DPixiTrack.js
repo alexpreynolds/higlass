@@ -41,7 +41,20 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
 
     this.animate();
 
-    return `${textValue}`;
+    // return `${textValue}`;
+
+    let output = `<div class="track-mouseover-menu-table">`;
+
+    output += `
+      <div class="track-mouseover-menu-table-item">
+        <label for="value" class="track-mouseover-menu-table-item-label">Value</label>
+        <div name="value" class="track-mouseover-menu-table-item-value">${textValue}</div>
+      </div>
+      `;
+
+    output += `</div>`;
+
+    return output;
   }
 
   /**

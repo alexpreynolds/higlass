@@ -57185,7 +57185,15 @@ function _toPrimitive2(input, hint) {
       const markerWidth = 4;
       graphics.drawRect(trackX - markerWidth / 2, yPos - markerWidth / 2, markerWidth, markerWidth);
       this.animate();
-      return `${textValue}`;
+      let output = `<div class="track-mouseover-menu-table">`;
+      output += `
+      <div class="track-mouseover-menu-table-item">
+        <label for="value" class="track-mouseover-menu-table-item-label">Value</label>
+        <div name="value" class="track-mouseover-menu-table-item-value">${textValue}</div>
+      </div>
+      `;
+      output += `</div>`;
+      return output;
     } }, { key: "initTile", value: function initTile(tile) {
       _get4(_getPrototypeOf4(HorizontalLine1DPixiTrack2.prototype), "initTile", this).call(this, tile);
       if (!tile.tileData || !tile.tileData.dense) {
