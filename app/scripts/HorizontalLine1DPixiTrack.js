@@ -3,7 +3,7 @@ import { scaleLinear } from 'd3-scale';
 
 import HorizontalTiled1DPixiTrack from './HorizontalTiled1DPixiTrack';
 
-import { colorDomainToRgbaArray, colorToHex } from './utils';
+import { colorDomainToRgbaArray, colorToHex, absToChr } from './utils';
 
 class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
   stopHover() {
@@ -45,16 +45,49 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
 
     if (!textValue || textValue.length === 0) return '';
 
-    let output = `<div class="track-mouseover-menu-table">`;
+    let output = '';
 
-    output += `
-      <div class="track-mouseover-menu-table-item">
-        <label for="value" class="track-mouseover-menu-table-item-label">Value</label>
-        <div name="value" class="track-mouseover-menu-table-item-value">${textValue}</div>
-      </div>
-      `;
+    if (!this.options.isCombined) {
+      output = `<div class="track-mouseover-menu-table">`;
 
-    output += `</div>`;
+      output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="value" class="track-mouseover-menu-table-item-label">Value</label>
+          <div name="value" class="track-mouseover-menu-table-item-value">${textValue}</div>
+        </div>
+        `;
+
+      output += `</div>`;  
+    }
+    else {
+      output = (this.options.isFirst) ? `<div class="track-mouseover-menu-table">` : '';
+
+      if (this.options.isFirst && this.options.chromInfo) {
+        const dataX = this._xScale.invert(trackX);
+        const atcX = absToChr(dataX, this.options.chromInfo);
+        const chrom = atcX[0];
+        const position = Math.ceil(atcX[1]);
+        const positionText = `${chrom}:${position}`;
+        output += `
+          <div class="track-mouseover-menu-table-item">
+            <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+            <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+          </div>
+          `;
+      }
+
+      const colorLabelBox = (this.options.barFillColor) ? `<div style="border:1px solid black;background-color:${this.options.barFillColor};width:10px;height:10px;display:inline-block;margin-right:5px;margin-left:2px;"></div>` : '';
+      const itemLabel = (this.options.name) ? `${colorLabelBox}${this.options.name}` : 'Value';
+
+      output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="value" class="track-mouseover-menu-table-item-label">${itemLabel}</label>
+          <div name="value" class="track-mouseover-menu-table-item-value">${textValue}</div>
+        </div>
+        `;
+
+      output += (this.options.isLast) ? `</div>` : '';
+    }
 
     return output;
   }

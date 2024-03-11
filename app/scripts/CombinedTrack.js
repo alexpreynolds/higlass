@@ -231,7 +231,7 @@ class CombinedTrack {
 
         if (trackHtml && trackHtml.length) {
           mouseOverHtml += trackHtml;
-          mouseOverHtml += '<br/>';
+          // mouseOverHtml += '<br/>';
         }
       }
     }
