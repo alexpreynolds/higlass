@@ -657,6 +657,9 @@ class TiledPixiTrack extends PixiTrack {
         // the dense data in `tile-proxy.js :: tileDataToPixData()`
         // Somehow 2d rectangular domain tiles do not come in the flavor of an
         // object but an object array...
+
+        // console.log(`this.visibleTiles[i].remoteId ${this.visibleTiles[i].remoteId}`);
+
         if (Array.isArray(loadedTiles[this.visibleTiles[i].remoteId])) {
           const tileData = loadedTiles[this.visibleTiles[i].remoteId];
           this.fetchedTiles[tileId].tileData = [...tileData];
