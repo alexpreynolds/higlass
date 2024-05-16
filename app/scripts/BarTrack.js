@@ -452,8 +452,8 @@ class BarTrack extends HorizontalLine1DPixiTrack {
           // hex colors with transparency cannot be directly used in SVG opened in Adobe Illustrator
           //
           const barColor = data.barColors[i];
-          const barColorFull = barColor.substring(0, barColor.length - 2);
-          const barColorAlpha = parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255.0;
+          const barColorFull = (barColor.length === 9) ? barColor.substring(0, barColor.length - 2) : barColor;
+          const barColorAlpha = (barColor.length === 9) ? parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255.0 : 1.0;
           const rect = document.createElement('rect');
           rect.setAttribute('fill', barColorFull);
           rect.setAttribute('fill-opacity', barColorAlpha);

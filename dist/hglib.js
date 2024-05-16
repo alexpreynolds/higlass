@@ -57974,8 +57974,8 @@ function _toPrimitive2(input, hint) {
         const data2 = tile.svgData;
         for (let i2 = 0; i2 < data2.barXValues.length; i2++) {
           const barColor = data2.barColors[i2];
-          const barColorFull = barColor.substring(0, barColor.length - 2);
-          const barColorAlpha = parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255;
+          const barColorFull = barColor.length === 9 ? barColor.substring(0, barColor.length - 2) : barColor;
+          const barColorAlpha = barColor.length === 9 ? parseFloat(parseInt(barColor.substring(barColor.length - 2), 16)) / 255 : 1;
           const rect = document.createElement("rect");
           rect.setAttribute("fill", barColorFull);
           rect.setAttribute("fill-opacity", barColorAlpha);
