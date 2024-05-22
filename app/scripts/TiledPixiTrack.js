@@ -532,12 +532,16 @@ class TiledPixiTrack extends PixiTrack {
 
     this.scale.minValue = this.scale.minRawValue;
     this.scale.maxValue = this.scale.maxRawValue;
+
+    console.log(`TiledPixiTrack.initTile    [${this.uuid}]`);
   }
 
   updateTile(/* tile */) {}
 
   destroyTile(/* tile */) {
     // remove all data structures needed to draw this tile
+
+    console.log(`TiledPixiTrack.destroyTile [${this.uuid}]`);
   }
 
   addMissingGraphics() {
