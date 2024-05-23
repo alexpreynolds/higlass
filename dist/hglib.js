@@ -50757,10 +50757,8 @@ function _toPrimitive2(input, hint) {
       this.scale.maxRawValue = this.continuousScaling ? this.maxVisibleValue() : this.maxVisibleValueInTiles();
       this.scale.minValue = this.scale.minRawValue;
       this.scale.maxValue = this.scale.maxRawValue;
-      console.log(`TiledPixiTrack.initTile    [${this.uuid}]`);
     } }, { key: "updateTile", value: function updateTile() {
     } }, { key: "destroyTile", value: function destroyTile() {
-      console.log(`TiledPixiTrack.destroyTile [${this.uuid}]`);
     } }, { key: "addMissingGraphics", value: function addMissingGraphics() {
       const fetchedTileIDs = Object.keys(this.fetchedTiles);
       this.renderVersion += 1;
