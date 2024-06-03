@@ -353,6 +353,11 @@ class TiledPixiTrack extends PixiTrack {
       (x) => !this.visibleTileIds.has(x),
     );
 
+    // console.log(“Visible Tiles”, this.visibleTiles.length)
+    // console.log(“Remove Tiles”, toRemove.length)
+    // console.log(“Fetched Tiles”, Object.keys(this.fetchedTiles).length)
+    console.log('Cached pixi objects', Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length);
+
     this.removeTiles(toRemove);
   }
 

@@ -557,7 +557,8 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
   destroyTile(tile) {
     tile.rectGraphics.destroy();
     tile.rectMaskGraphics.destroy();
-    tile.textGraphics.destroy();
+    // tile.textGraphics.destroy();
+    tile.textGraphics.destroy(true);
     tile.textBgGraphics.destroy();
     tile.graphics.destroy();
   }
