@@ -50668,7 +50668,7 @@ function _toPrimitive2(input, hint) {
       this.calculateVisibleTiles();
       const fetchedTileIDs = new Set(Object.keys(this.fetchedTiles));
       const toRemove = [...fetchedTileIDs].filter((x) => !this.visibleTileIds.has(x));
-      console.log("Cached pixi objects", Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length);
+      console.log(`Cached pixi objects | ${performance.now()} | ${Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length}`);
       this.removeTiles(toRemove);
     } }, { key: "refreshTiles", value: function refreshTiles() {
       if (!this.tilesetInfo) {
