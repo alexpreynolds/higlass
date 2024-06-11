@@ -179,9 +179,9 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     // remove texts
     this.removeTileRects(tile);
 
-    // tile.graphics.destroy(true);
-    tile.graphics.removeChild(tile.textGraphics);
-    tile.graphics.removeChild(tile.rectGraphics);
+    tile.graphics.destroy(true);
+    // tile.graphics.removeChild(tile.textGraphics);
+    // tile.graphics.removeChild(tile.rectGraphics);
   }
 
   removeTiles(toRemoveIds) {
