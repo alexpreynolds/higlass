@@ -56513,7 +56513,8 @@ function _toPrimitive2(input, hint) {
       }
     } }, { key: "destroyTile", value: function destroyTile(tile) {
       this.removeTileRects(tile);
-      tile.graphics.destroy(true);
+      tile.graphics.removeChild(tile.textGraphics);
+      tile.graphics.removeChild(tile.rectGraphics);
     } }, { key: "removeTiles", value: function removeTiles(toRemoveIds) {
       _get4(_getPrototypeOf4(BedLikeTrack2.prototype), "removeTiles", this).call(this, toRemoveIds);
     } }, { key: "drawTile", value: function drawTile(tile) {
@@ -58574,7 +58575,7 @@ function _toPrimitive2(input, hint) {
     } }, { key: "destroyTile", value: function destroyTile(tile) {
       tile.rectGraphics.destroy();
       tile.rectMaskGraphics.destroy();
-      tile.textGraphics.destroy(true);
+      tile.textGraphics.destroy();
       tile.textBgGraphics.destroy();
       tile.graphics.destroy();
     } }, { key: "rerender", value: function rerender(options2, force) {
@@ -60353,7 +60354,6 @@ function _toPrimitive2(input, hint) {
       while (tickTexts.length > ticks2.length) {
         const text2 = tickTexts.pop();
         this.gTicks[cumPos.chr].removeChild(text2);
-        text2.destroy();
       }
       let i2 = 0;
       while (i2 < ticks2.length) {

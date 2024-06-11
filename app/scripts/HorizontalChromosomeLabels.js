@@ -356,7 +356,7 @@ class HorizontalChromosomeLabels extends PixiTrack {
     while (tickTexts.length > ticks.length) {
       const text = tickTexts.pop();
       this.gTicks[cumPos.chr].removeChild(text);
-      text.destroy();
+      // text.destroy();
     }
 
     let i = 0;
