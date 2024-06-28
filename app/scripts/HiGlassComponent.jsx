@@ -1327,19 +1327,22 @@ class HiGlassComponent extends React.Component {
             lockedTrack.maxValue() - lockedTrack.valueScale.domain()[1],
           ) > epsilon;
 
-        const hasBrushMoved =
-          sourceTrack.options &&
-          lockedTrack.options &&
-          typeof sourceTrack.options.scaleStartPercent !== 'undefined' &&
-          typeof sourceTrack.options.scaleEndPercent !== 'undefined' &&
-          (Math.abs(
-            lockedTrack.options.scaleStartPercent -
-              sourceTrack.options.scaleStartPercent,
-          ) > epsilon ||
-            Math.abs(
-              lockedTrack.options.scaleEndPercent -
-                sourceTrack.options.scaleEndPercent,
-            ) > epsilon);
+        let hasBrushMoved = false;
+        try {
+          hasBrushMoved =
+            sourceTrack.options &&
+            lockedTrack.options &&
+            typeof sourceTrack.options.scaleStartPercent !== 'undefined' &&
+            typeof sourceTrack.options.scaleEndPercent !== 'undefined' &&
+            (Math.abs(
+              lockedTrack.options.scaleStartPercent -
+                sourceTrack.options.scaleStartPercent,
+            ) > epsilon ||
+              Math.abs(
+                lockedTrack.options.scaleEndPercent -
+                  sourceTrack.options.scaleEndPercent,
+              ) > epsilon);
+        } catch (e) {}
 
         // If we do view based scaling we want to minimize the number of rerenders
         // Check if it is necessary to rerender

@@ -214,6 +214,7 @@ class PixiTrack extends Track {
     // the entire PIXI stage was probably removed
     this.pBase.clear();
     this.scene.removeChild(this.pBase);
+    // console.log(`[PixiTrack] Removed track ${this.options.name}`);
   }
 
   /**

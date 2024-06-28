@@ -81416,7 +81416,11 @@ function _toPrimitive2(input, hint) {
             continue;
           }
           const hasScaleChanged = Math.abs(lockedTrack.minValue() - lockedTrack.valueScale.domain()[0]) > epsilon3 || Math.abs(lockedTrack.maxValue() - lockedTrack.valueScale.domain()[1]) > epsilon3;
-          const hasBrushMoved = sourceTrack.options && lockedTrack.options && typeof sourceTrack.options.scaleStartPercent !== "undefined" && typeof sourceTrack.options.scaleEndPercent !== "undefined" && (Math.abs(lockedTrack.options.scaleStartPercent - sourceTrack.options.scaleStartPercent) > epsilon3 || Math.abs(lockedTrack.options.scaleEndPercent - sourceTrack.options.scaleEndPercent) > epsilon3);
+          let hasBrushMoved = false;
+          try {
+            hasBrushMoved = sourceTrack.options && lockedTrack.options && typeof sourceTrack.options.scaleStartPercent !== "undefined" && typeof sourceTrack.options.scaleEndPercent !== "undefined" && (Math.abs(lockedTrack.options.scaleStartPercent - sourceTrack.options.scaleStartPercent) > epsilon3 || Math.abs(lockedTrack.options.scaleEndPercent - sourceTrack.options.scaleEndPercent) > epsilon3);
+          } catch (e) {
+          }
           if (lockedTrack.continuousScaling && !hasScaleChanged && !hasBrushMoved) {
             continue;
           }
