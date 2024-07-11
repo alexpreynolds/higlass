@@ -56524,16 +56524,12 @@ function _toPrimitive2(input, hint) {
     } }, { key: "rerender", value: function rerender(options2, force) {
       _get4(_getPrototypeOf4(BedLikeTrack2.prototype), "rerender", this).call(this, options2, force);
       this.valueScale = null;
-      this.drawnRects = {};
       if (this.options.colorRange) {
         this.colorScale = colorDomainToRgbaArray(this.options.colorRange);
       } else {
         this.colorScale = HEATED_OBJECT_MAP;
       }
       for (const tile of this.visibleAndFetchedTiles()) {
-        this.destroyTile(tile);
-        this.initTile(tile);
-        this.renderTile(tile);
       }
     } }, { key: "updateTile", value: function updateTile(tile) {
       if (this.areAllVisibleTilesLoaded()) {
@@ -56616,7 +56612,7 @@ function _toPrimitive2(input, hint) {
     } }, { key: "renderRows", value: function renderRows(tile, rows, maxRows, startY, endY, fill) {
       const zoomLevel = +tile.tileId.split(".")[0];
       this.initialize();
-      const rowScale = band().domain(range$2(maxRows)).range([startY, endY]).paddingInner(0.3);
+      const rowScale = band().domain(range$2(maxRows)).range([startY, endY]).paddingInner(0.1);
       this.allVisibleRects();
       let allRects = null;
       if (this.options.staggered) {
@@ -56834,6 +56830,7 @@ function _toPrimitive2(input, hint) {
       this.refreshTiles();
       this.draw();
     } }, { key: "exportSVG", value: function exportSVG() {
+      console.log(`exportSVG`);
       let track = null;
       let base = null;
       if (_get4(_getPrototypeOf4(BedLikeTrack2.prototype), "exportSVG", this)) {
@@ -56854,6 +56851,7 @@ function _toPrimitive2(input, hint) {
           continue;
         }
         tile.tileData.forEach((td) => {
+          console.log(`exportSVG tile ${tile.tileId}`);
           const zoomLevel = +tile.tileId.split(".")[0];
           const gTile = document.createElement("g");
           gTile.setAttribute("transform", `translate(${tile.rectGraphics.position.x},${tile.rectGraphics.position.y})scale(${tile.rectGraphics.scale.x},${tile.rectGraphics.scale.y})`);
@@ -56954,7 +56952,36 @@ function _toPrimitive2(input, hint) {
           const pc = robustPnp(newArr, point2);
           if (pc === -1) {
             const parts = visibleRects[i2][1].value.fields;
-            return parts.join(" ");
+            let output = `<div class="track-mouseover-menu-table">`;
+            const identifierText = parts.length >= 4 ? parts[3] : null;
+            if (identifierText) {
+              output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="identifier" class="track-mouseover-menu-table-item-label">Identifier</label>
+              <div name="identifier" class="track-mouseover-menu-table-item-value">${identifierText}</div>
+            </div>
+            `;
+            }
+            const intervalText = parts.length >= 5 ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
+            if (intervalText) {
+              output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="interval" class="track-mouseover-menu-table-item-label">Interval</label>
+              <div name="interval" class="track-mouseover-menu-table-item-value">${intervalText}</div>
+            </div>
+            `;
+            }
+            const scoreText = parts.length >= 5 ? parts[4] : null;
+            if (scoreText) {
+              output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="score" class="track-mouseover-menu-table-item-label">Score</label>
+              <div name="score" class="track-mouseover-menu-table-item-value">${scoreText}</div>
+            </div>
+            `;
+            }
+            output += `</div>`;
+            return output;
           }
         }
       }

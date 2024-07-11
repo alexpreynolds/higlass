@@ -159,6 +159,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
    * can be drawn again.
    */
   removeTileRects(tile) {
+    // console.log(`[BedLikeTrack] removing tile rects ${tile.tileId}`);
     const zoomLevel = +tile.tileId.split('.')[0];
     tile.rectGraphics.clear();
     tile.rendered = false;
@@ -176,6 +177,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
   }
 
   destroyTile(tile) {
+    // console.log(`[BedLikeTrack] destroying tile ${tile.tileId}`);
     // remove texts
     this.removeTileRects(tile);
 
@@ -185,6 +187,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
   }
 
   removeTiles(toRemoveIds) {
+    // console.log(`[BedLikeTrack] removing tiles ${toRemoveIds}`);
     super.removeTiles(toRemoveIds);
 
     // Pete: we're going to rerender after destroying tiles to make sure
@@ -207,7 +210,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
 
     // this will get instantiated if a value column is specified
     this.valueScale = null;
-    this.drawnRects = {};
+    // this.drawnRects = {};
 
     if (this.options.colorRange) {
       this.colorScale = colorDomainToRgbaArray(this.options.colorRange);
@@ -216,9 +219,10 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     }
 
     for (const tile of this.visibleAndFetchedTiles()) {
-      this.destroyTile(tile);
-      this.initTile(tile);
-      this.renderTile(tile);
+      // console.log(`[BedLikeTrack] rerendering tile ${tile.tileId}`);
+      // this.destroyTile(tile);
+      // this.initTile(tile);
+      // this.renderTile(tile);
     }
   }
 
@@ -455,7 +459,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     const rowScale = scaleBand()
       .domain(range(maxRows))
       .range([startY, endY])
-      .paddingInner(0.3);
+      .paddingInner(0.1);
 
     this.allVisibleRects();
     let allRects = null;
@@ -918,6 +922,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
   }
 
   exportSVG() {
+    console.log(`exportSVG`)
     let track = null;
     let base = null;
 
@@ -946,6 +951,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
       }
 
       tile.tileData.forEach((td) => {
+        console.log(`exportSVG tile ${tile.tileId}`)
         const zoomLevel = +tile.tileId.split('.')[0];
 
         const gTile = document.createElement('g');
@@ -1110,7 +1116,46 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
         if (pc === -1) {
           const parts = visibleRects[i][1].value.fields;
 
-          return parts.join(' ');
+          let output = `<div class="track-mouseover-menu-table">`;
+
+          const identifierText = parts.length >= 4 ? parts[3] : null;
+
+          if (identifierText) {
+            output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="identifier" class="track-mouseover-menu-table-item-label">Identifier</label>
+              <div name="identifier" class="track-mouseover-menu-table-item-value">${identifierText}</div>
+            </div>
+            `;
+          }
+
+          const intervalText = parts.length >= 5 ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
+
+          if (intervalText) {
+            output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="interval" class="track-mouseover-menu-table-item-label">Interval</label>
+              <div name="interval" class="track-mouseover-menu-table-item-value">${intervalText}</div>
+            </div>
+            `;
+          }
+
+          const scoreText = parts.length >= 5 ? parts[4] : null;
+
+          if (scoreText) {
+            output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="score" class="track-mouseover-menu-table-item-label">Score</label>
+              <div name="score" class="track-mouseover-menu-table-item-value">${scoreText}</div>
+            </div>
+            `;
+          }
+
+          output += `</div>`;
+
+          return output;
+
+          // return parts.join(' ');
         }
       }
     }
