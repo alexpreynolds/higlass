@@ -58604,8 +58604,6 @@ function _toPrimitive2(input, hint) {
       tile.textGraphics.destroy(true);
       tile.textBgGraphics.destroy();
       tile.graphics.destroy();
-    } }, { key: "remove", value: function remove2() {
-      this.removeTiles([...this.visibleTileIds]);
     } }, { key: "rerender", value: function rerender(options2, force) {
       const strOptions = JSON.stringify(options2);
       if (!force && strOptions === this.prevOptions)
