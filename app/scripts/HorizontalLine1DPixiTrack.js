@@ -120,9 +120,9 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
     this.drawTile(tile);
   }
 
-  remove() {
-    this.removeTiles([...this.visibleTileIds]);
-  }
+  // remove() {
+  //   this.removeTiles([...this.visibleTileIds]);
+  // }
 
   rerender(options, force) {
     super.rerender(options, force);

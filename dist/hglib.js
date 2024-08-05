@@ -56521,8 +56521,6 @@ function _toPrimitive2(input, hint) {
         if (this.valueScale)
           this.drawAxis(this.valueScale);
       }
-    } }, { key: "remove", value: function remove2() {
-      this.removeTiles([...this.visibleTileIds]);
     } }, { key: "rerender", value: function rerender(options2, force) {
       _get4(_getPrototypeOf4(BedLikeTrack2.prototype), "rerender", this).call(this, options2, force);
       this.valueScale = null;
@@ -57267,8 +57265,6 @@ function _toPrimitive2(input, hint) {
         }
       }
       this.drawTile(tile);
-    } }, { key: "remove", value: function remove2() {
-      this.removeTiles([...this.visibleTileIds]);
     } }, { key: "rerender", value: function rerender(options2, force) {
       _get4(_getPrototypeOf4(HorizontalLine1DPixiTrack2.prototype), "rerender", this).call(this, options2, force);
       this.options = options2;
@@ -60290,11 +60286,6 @@ function _toPrimitive2(input, hint) {
         this.pTicks.addChild(text2);
         this.pTicks.addChild(this.gTicks[chromName]);
         this.texts.push(text2);
-      }
-    } }, { key: "remove", value: function remove2() {
-      this.removeTiles([...this.visibleTileIds]);
-      for (let idx = 0; idx < this.texts.length; idx++) {
-        this.texts[idx].destroy();
       }
     } }, { key: "rerender", value: function rerender(options2, force) {
       const strOptions = JSON.stringify(options2);

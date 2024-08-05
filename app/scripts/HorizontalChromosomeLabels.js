@@ -157,12 +157,12 @@ class HorizontalChromosomeLabels extends PixiTrack {
     }
   }
 
-  remove() {
-    this.removeTiles([...this.visibleTileIds]);
-    for (let idx = 0; idx < this.texts.length; idx++) {
-      this.texts[idx].destroy();
-    }
-  }
+  // remove() {
+  //   this.removeTiles([...this.visibleTileIds]);
+  //   for (let idx = 0; idx < this.texts.length; idx++) {
+  //     this.texts[idx].destroy();
+  //   }
+  // }
 
   rerender(options, force) {
     const strOptions = JSON.stringify(options);
