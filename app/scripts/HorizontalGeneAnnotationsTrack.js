@@ -563,9 +563,12 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
     tile.graphics.destroy();
   }
 
-  // remove() {
-  //   this.removeTiles([...this.visibleTileIds]);
-  // }
+  remove() {
+    // console.log(`HorizontalGeneAnnotationsTrack | this.visibleTileIds ${JSON.stringify(this.visibleTileIds)}`);
+    if (this.visibleTileIds) {
+      this.removeTiles([...this.visibleTileIds]);
+    }
+  }
 
   /*
    * Redraw the track because the options

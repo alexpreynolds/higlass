@@ -205,9 +205,12 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     }
   }
 
-  // remove() {
-  //   this.removeTiles([...this.visibleTileIds]);
-  // }
+  remove() {
+    // console.log(`BedLikeTrack | this.visibleTileIds ${JSON.stringify(this.visibleTileIds)}`);
+    if (this.visibleTileIds) {
+      this.removeTiles([...this.visibleTileIds]);
+    }
+  }
 
   rerender(options, force) {
     super.rerender(options, force);
