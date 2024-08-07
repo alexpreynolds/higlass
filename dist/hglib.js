@@ -45817,10 +45817,10 @@ function _toPrimitive2(input, hint) {
       graphics.lineStyle(this.options.trackBorderWidth, stroke);
       graphics.drawRect(this.position[0], this.position[1], this.dimensions[0], this.dimensions[1]);
     } }, { key: "drawError", value: function drawError() {
-      this.errorText.x = this.position[0] + this.dimensions[0] / 2;
-      this.errorText.y = this.position[1] + this.dimensions[1] / 2;
-      this.errorText.text = this.errorTextText;
-      if (this.errorTextText && this.errorTextText.length) {
+      if (this.errorText && this.errorTextText && this.errorTextText.length) {
+        this.errorText.x = this.position[0] + this.dimensions[0] / 2;
+        this.errorText.y = this.position[1] + this.dimensions[1] / 2;
+        this.errorText.text = this.errorTextText;
         const graphics = this.pBorder;
         graphics.clear();
         graphics.lineStyle(1, colorToHex("red"));

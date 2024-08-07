@@ -243,12 +243,13 @@ class PixiTrack extends Track {
   }
 
   drawError() {
-    this.errorText.x = this.position[0] + this.dimensions[0] / 2;
-    this.errorText.y = this.position[1] + this.dimensions[1] / 2;
+    if (this.errorText && this.errorTextText && this.errorTextText.length) {
+      this.errorText.x = this.position[0] + this.dimensions[0] / 2;
+      this.errorText.y = this.position[1] + this.dimensions[1] / 2;
 
-    this.errorText.text = this.errorTextText;
+      this.errorText.text = this.errorTextText;
 
-    if (this.errorTextText && this.errorTextText.length) {
+    // if (this.errorTextText && this.errorTextText.length) {
       // draw a red border around the track to bring attention to its
       // error
       const graphics = this.pBorder;
