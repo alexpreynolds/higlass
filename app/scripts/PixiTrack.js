@@ -223,6 +223,8 @@ class PixiTrack extends Track {
   drawBorder() {
     const graphics = this.pBorder;
 
+    if (!graphics || !graphics._geometry) return;
+
     graphics.clear();
 
     // don't display the track label
@@ -243,7 +245,7 @@ class PixiTrack extends Track {
   }
 
   drawError() {
-    if (this.errorText && this.errorTextText && this.errorTextText.length) {
+    if (this && this.position && this.errorText && this.errorTextText && this.errorTextText.length) {
       this.errorText.x = this.position[0] + this.dimensions[0] / 2;
       this.errorText.y = this.position[1] + this.dimensions[1] / 2;
 
@@ -253,6 +255,9 @@ class PixiTrack extends Track {
       // draw a red border around the track to bring attention to its
       // error
       const graphics = this.pBorder;
+
+      if (!graphics || !graphics._geometry) return;
+
       graphics.clear();
       graphics.lineStyle(1, colorToHex('red'));
 
@@ -267,6 +272,8 @@ class PixiTrack extends Track {
 
   drawBackground() {
     const graphics = this.pBackground;
+
+    if (!graphics || !graphics._geometry) return;
 
     graphics.clear();
 
@@ -319,6 +326,8 @@ class PixiTrack extends Track {
     if (!this.labelText) return;
 
     const graphics = this.pLabel;
+
+    if (!graphics || !graphics._geometry) return;
 
     graphics.clear();
 

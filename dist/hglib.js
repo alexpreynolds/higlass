@@ -45810,6 +45810,8 @@ function _toPrimitive2(input, hint) {
       this.scene.removeChild(this.pBase);
     } }, { key: "drawBorder", value: function drawBorder() {
       const graphics = this.pBorder;
+      if (!graphics || !graphics._geometry)
+        return;
       graphics.clear();
       if (!this.options || !this.options.trackBorderWidth)
         return;
@@ -45817,17 +45819,21 @@ function _toPrimitive2(input, hint) {
       graphics.lineStyle(this.options.trackBorderWidth, stroke);
       graphics.drawRect(this.position[0], this.position[1], this.dimensions[0], this.dimensions[1]);
     } }, { key: "drawError", value: function drawError() {
-      if (this.errorText && this.errorTextText && this.errorTextText.length) {
+      if (this && this.position && this.errorText && this.errorTextText && this.errorTextText.length) {
         this.errorText.x = this.position[0] + this.dimensions[0] / 2;
         this.errorText.y = this.position[1] + this.dimensions[1] / 2;
         this.errorText.text = this.errorTextText;
         const graphics = this.pBorder;
+        if (!graphics || !graphics._geometry)
+          return;
         graphics.clear();
         graphics.lineStyle(1, colorToHex("red"));
         graphics.drawRect(this.position[0], this.position[1], this.dimensions[0], this.dimensions[1]);
       }
     } }, { key: "drawBackground", value: function drawBackground() {
       const graphics = this.pBackground;
+      if (!graphics || !graphics._geometry)
+        return;
       graphics.clear();
       if (!this.options || !this.options.backgroundColor) {
         return;
@@ -45852,6 +45858,8 @@ function _toPrimitive2(input, hint) {
       if (!this.labelText)
         return;
       const graphics = this.pLabel;
+      if (!graphics || !graphics._geometry)
+        return;
       graphics.clear();
       if (!this.options || !this.options.labelPosition || this.options.labelPosition === "hidden") {
         this.labelText.alpha = 0;
