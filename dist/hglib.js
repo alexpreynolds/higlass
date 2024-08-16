@@ -50678,7 +50678,7 @@ function _toPrimitive2(input, hint) {
       this.calculateVisibleTiles();
       const fetchedTileIDs = new Set(Object.keys(this.fetchedTiles));
       const toRemove = [...fetchedTileIDs].filter((x) => !this.visibleTileIds.has(x));
-      console.log(`Cached pixi objects | ${performance.now()} | ${Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length}`);
+      console.log(`Pixi objects | ${Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length} (${Math.floor(performance.now())})`);
       this.removeTiles(toRemove);
     } }, { key: "refreshTiles", value: function refreshTiles() {
       if (!this.tilesetInfo) {
@@ -51473,6 +51473,7 @@ function _toPrimitive2(input, hint) {
       }
       api.tileDataToPixData(tile, scaleType, this.limitedValueScale.domain(), pseudocount, this.colorScale, (pixData) => this.pixDataFunction(tile, pixData), this.mirrorTiles() && !tile.mirrored && tile.tileData.tilePos[0] === tile.tileData.tilePos[1], this.options.extent === "upper-right" && tile.tileData.tilePos[0] === tile.tileData.tilePos[1], this.options.zeroValueColor ? colorToRgba(this.options.zeroValueColor) : void 0, { selectedRows: this.options.selectRows, selectedRowsAggregationMode: this.options.selectRowsAggregationMode, selectedRowsAggregationWithRelativeHeight: this.options.selectRowsAggregationWithRelativeHeight, selectedRowsAggregationMethod: this.options.selectRowsAggregationMethod });
     } }, { key: "remove", value: function remove2() {
+      this.visibleAndFetchedTiles().forEach((tile) => this.destroyTile(tile));
       this.gMain.remove();
       this.gMain = null;
       _get4(_getPrototypeOf4(HeatmapTiledPixiTrack2.prototype), "remove", this).call(this);
@@ -52226,6 +52227,9 @@ function _toPrimitive2(input, hint) {
       graphics.addChild(tile.textGraphics);
       this.drawTile(tile);
     } }, { key: "destroyTile", value: function destroyTile(tile) {
+      tile.graphics.destroy(true);
+    } }, { key: "remove", value: function remove2() {
+      this.visibleAndFetchedTiles().forEach((tile) => this.destroyTile(tile));
     } }, { key: "drawTile", value: function drawTile(tile) {
       _get4(_getPrototypeOf4(IdHorizontal1DTiledPixiTrack2.prototype), "drawTile", this).call(this, tile);
       if (!tile.graphics) {
@@ -57279,10 +57283,6 @@ function _toPrimitive2(input, hint) {
         }
       }
       this.drawTile(tile);
-    } }, { key: "remove", value: function remove2() {
-      if (this.visibleTileIds) {
-        this.removeTiles([...this.visibleTileIds]);
-      }
     } }, { key: "rerender", value: function rerender(options2, force) {
       _get4(_getPrototypeOf4(HorizontalLine1DPixiTrack2.prototype), "rerender", this).call(this, options2, force);
       this.options = options2;
@@ -57944,6 +57944,10 @@ function _toPrimitive2(input, hint) {
         graphics.removeChildren();
         graphics.addChild(barSprite, barMask);
       }
+    } }, { key: "destroyTile", value: function destroyTile(tile) {
+      tile.graphics.destroy(true);
+    } }, { key: "remove", value: function remove2() {
+      this.visibleAndFetchedTiles().forEach((tile) => this.destroyTile(tile));
     } }, { key: "rerender", value: function rerender(options2, force) {
       if (options2 && options2.colorRange) {
         if (options2.colorRangeGradient) {
@@ -73016,6 +73020,9 @@ function _toPrimitive2(input, hint) {
     } }, { key: "getIdealizedTrackPositionsOverlay", value: function getIdealizedTrackPositionsOverlay() {
       const evtJson = this.props.draggingHappening;
       const datatype = evtJson.datatype;
+      if (datatype === void 0) {
+        return;
+      }
       if (!(datatype in DEFAULT_TRACKS_FOR_DATATYPE) && !evtJson.defaultTracks) {
         console.warn("unknown data type:", evtJson.higlassTrack);
         return void 0;
