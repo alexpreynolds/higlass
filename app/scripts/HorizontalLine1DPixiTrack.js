@@ -57,7 +57,7 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
         </div>
         `;
 
-      output += `</div>`;  
+      output += `</div>`;
     }
     else {
       output = (this.options.isFirst) ? `<div class="track-mouseover-menu-table">` : '';
@@ -118,13 +118,6 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
     }
 
     this.drawTile(tile);
-  }
-
-  remove() {
-    // console.log(`HorizontalLine1DPixiTrack | this.visibleTileIds ${JSON.stringify(this.visibleTileIds)}`);
-    if (this.visibleTileIds) {
-      this.removeTiles([...this.visibleTileIds]);
-    }
   }
 
   rerender(options, force) {
@@ -351,17 +344,17 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
       : 'blue';
 
     this.visibleAndFetchedTiles().forEach((tile) => {
-      
+
       // const tileProps = Object.getOwnPropertyNames(tile);
       // console.log(`tileProps ${tileProps}`);
-      
+
       //
-      // when the track is used as a 1D heatmap, segments do not work as they 
-      // are not a property contained within the tile in this track mode. 
-      // instead, we use code similar to the BarTrack to render SVG rect elements 
+      // when the track is used as a 1D heatmap, segments do not work as they
+      // are not a property contained within the tile in this track mode.
+      // instead, we use code similar to the BarTrack to render SVG rect elements
       // in order to simulate the heatmap presentation
       //
-      
+
       if (tile.hasOwnProperty('segments')) {
         const p = document.createElement('path');
         p.setAttribute('fill', 'transparent');
@@ -388,7 +381,7 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
         // console.log(`tileValues ${JSON.stringify(tileValues)}`);
         if (tileValues.length !== 0) {
           tile.svgData = undefined;
-          
+
           // this.colorScale = this.colorScale.map((rgb) =>
           //   rgb.map((channel) => channel / 255.0),
           // );
@@ -462,7 +455,7 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
           }
         }
       }
-      
+
     });
 
     const gAxis = document.createElement('g');

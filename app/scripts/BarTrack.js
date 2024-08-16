@@ -237,6 +237,14 @@ class BarTrack extends HorizontalLine1DPixiTrack {
     }
   }
 
+  destroyTile(tile) {
+    tile.graphics.destroy(true)
+  }
+
+  remove() {
+    this.visibleAndFetchedTiles().forEach(tile => this.destroyTile(tile))
+  }
+
   rerender(options, force) {
     if (options && options.colorRange) {
       if (options.colorRangeGradient) {

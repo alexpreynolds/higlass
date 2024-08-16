@@ -356,7 +356,7 @@ class TiledPixiTrack extends PixiTrack {
     // console.log(“Visible Tiles”, this.visibleTiles.length)
     // console.log(“Remove Tiles”, toRemove.length)
     // console.log(“Fetched Tiles”, Object.keys(this.fetchedTiles).length)
-    console.log(`Cached pixi objects | ${performance.now()} | ${Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length}`);
+    console.log(`Pixi objects | ${Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length} (${Math.floor(performance.now())})`);
     // console.log('Cached pixi objects', Object.keys(GLOBALS.PIXI.utils.BaseTextureCache).length);
 
     this.removeTiles(toRemove);
@@ -949,7 +949,7 @@ class TiledPixiTrack extends PixiTrack {
         .range([minDimension, maxDimension]);
 
       // pseudocount = offsetValue;
-    } 
+    }
     else if (this.options.valueScaling === 'quantile') {
       const start = this.dimensions[1] - margin;
       const end = margin;
@@ -959,7 +959,7 @@ class TiledPixiTrack extends PixiTrack {
       quantScale.ticks = (n) => ticks(start, end, n);
 
       return [quantScale, 0];
-    } 
+    }
     else if (this.options.valueScaling === 'setquantile') {
       const start = this.dimensions[1] - margin;
       const end = margin;
@@ -970,7 +970,7 @@ class TiledPixiTrack extends PixiTrack {
       quantScale.ticks = (n) => ticks(start, end, n);
 
       return [quantScale, 0];
-    } 
+    }
     else if (this.options.valueScaling === 'linear') {
       // linear scale
       valueScale = scaleLinear()

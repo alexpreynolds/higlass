@@ -1258,9 +1258,10 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
    * Remove this track from the view
    */
   remove() {
+    this.visibleAndFetchedTiles().forEach(tile => this.destroyTile(tile))
+
     this.gMain.remove();
     this.gMain = null;
-
     super.remove();
   }
 
