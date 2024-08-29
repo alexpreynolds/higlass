@@ -6,6 +6,7 @@ import cloneEvent from './clone-event';
  * @param   {object}  target  Target HTML element for the event.
  */
 const forwardEvent = (event, target) => {
+  // console.log(`[forward-event] | ${event.type} | ${target.tagName} | ${target.id}`);
   target.dispatchEvent(cloneEvent(event));
 };
 

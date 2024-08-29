@@ -50639,6 +50639,7 @@ function _toPrimitive2(input, hint) {
         this.valueScaleMax = this.fixedValueScaleMax;
       }
     } }, { key: "on", value: function on(event, callback) {
+      console.log(`[TiledPixiTrack] | on | ${event.type}`);
       if (!this.listeners[event]) {
         this.listeners[event] = [];
       }
@@ -51965,6 +51966,7 @@ function _toPrimitive2(input, hint) {
       }
       return null;
     } }, { key: "mouseMoveHandler", value: function mouseMoveHandler({ x, y } = {}) {
+      console.log(`[Tiled1DPixiTrack] mouseMoveHandler: ${JSON.stringify({ x, y })}`);
       if (!this.isWithin(x, y))
         return;
       this.mouseX = x;
@@ -82926,6 +82928,7 @@ ${svgString}`;
       }
       this.pubSub.publish("app.click", clickReturns);
     } }, { key: "mouseMoveZoomHandler", value: function mouseMoveZoomHandler(data2) {
+      console.log(`[HiGlassComponent] mouseMoveZoomHandler: ${JSON.stringify(data2)}`);
       this.apiPublish("mouseMoveZoom", data2);
     } }, { key: "geneSearchHandler", value: function geneSearchHandler(data2) {
       this.apiPublish("geneSearch", data2);

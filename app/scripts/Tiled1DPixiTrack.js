@@ -377,6 +377,7 @@ class Tiled1DPixiTrack extends TiledPixiTrack {
   }
 
   mouseMoveHandler({ x, y } = {}) {
+    console.log(`[Tiled1DPixiTrack] mouseMoveHandler: ${JSON.stringify({x, y})}`);
     if (!this.isWithin(x, y)) return;
 
     this.mouseX = x;
@@ -387,6 +388,7 @@ class Tiled1DPixiTrack extends TiledPixiTrack {
 
   mouseMoveZoomHandler() {
     // Implemented in the horizontal and vertical sub-classes
+    
   }
 
   zoomed(...args) {

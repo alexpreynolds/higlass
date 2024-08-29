@@ -449,6 +449,7 @@ class TrackRenderer extends React.Component {
    */
   dispatchEvent(e) {
     if (e.sourceUid === this.uid && e.type !== 'contextmenu') {
+      // console.log(`[TrackRenderer] Received event: ${e.type}`);
       forwardEvent(e, this.element);
     }
   }

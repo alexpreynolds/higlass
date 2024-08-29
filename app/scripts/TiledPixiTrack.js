@@ -272,6 +272,7 @@ class TiledPixiTrack extends PixiTrack {
    *  });
    */
   on(event, callback) {
+    console.log(`[TiledPixiTrack] | on | ${event.type}`);
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
