@@ -355,7 +355,7 @@ class HiGlassComponent extends React.Component {
     this.animateOnGlobalEventBound = this.animateOnGlobalEvent.bind(this);
     this.requestReceivedHandlerBound = this.requestReceivedHandler.bind(this);
     this.wheelHandlerBound = this.wheelHandler.bind(this);
-    this.mouseMoveHandlerBound = throttle(this.mouseMoveHandler.bind(this), 75);
+    this.mouseMoveHandlerBound = throttle(this.mouseMoveHandler.bind(this), 100);
     this.onMouseLeaveHandlerBound = this.onMouseLeaveHandler.bind(this);
     this.onBlurHandlerBound = this.onBlurHandler.bind(this);
     this.openModalBound = this.openModal.bind(this);

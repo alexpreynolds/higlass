@@ -81025,7 +81025,7 @@ function _toPrimitive2(input, hint) {
       _this98.animateOnGlobalEventBound = _this98.animateOnGlobalEvent.bind(_assertThisInitialized3(_this98));
       _this98.requestReceivedHandlerBound = _this98.requestReceivedHandler.bind(_assertThisInitialized3(_this98));
       _this98.wheelHandlerBound = _this98.wheelHandler.bind(_assertThisInitialized3(_this98));
-      _this98.mouseMoveHandlerBound = throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 75);
+      _this98.mouseMoveHandlerBound = throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 100);
       _this98.onMouseLeaveHandlerBound = _this98.onMouseLeaveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onBlurHandlerBound = _this98.onBlurHandler.bind(_assertThisInitialized3(_this98));
       _this98.openModalBound = _this98.openModal.bind(_assertThisInitialized3(_this98));
