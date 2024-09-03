@@ -51966,7 +51966,6 @@ function _toPrimitive2(input, hint) {
       }
       return null;
     } }, { key: "mouseMoveHandler", value: function mouseMoveHandler({ x, y } = {}) {
-      console.log(`[Tiled1DPixiTrack] mouseMoveHandler: ${JSON.stringify({ x, y })}`);
       if (!this.isWithin(x, y))
         return;
       this.mouseX = x;
@@ -67421,7 +67420,7 @@ function _toPrimitive2(input, hint) {
     return debounced;
   }
   var FUNC_ERROR_TEXT = "Expected a function";
-  function throttle(func, wait, options2) {
+  function throttle$1(func, wait, options2) {
     var leading = true, trailing = true;
     if (typeof func != "function") {
       throw new TypeError(FUNC_ERROR_TEXT);
@@ -67507,7 +67506,7 @@ function _toPrimitive2(input, hint) {
       _this.handleMouseUp = function() {
         _this.unbindEventListeners();
       };
-      _this.throttle = throttle(function(fn, data2, e) {
+      _this.throttle = throttle$1(function(fn, data2, e) {
         fn(data2, e);
       }, 50);
       return _this;
@@ -80885,6 +80884,18 @@ function _toPrimitive2(input, hint) {
   const SIZE_MODE_BOUNDED = "bounded";
   const SIZE_MODE_OVERFLOW = "overflow";
   const SIZE_MODE_SCROLL = "scroll";
+  function throttle(callback, limit2) {
+    var waiting = false;
+    return function() {
+      if (!waiting) {
+        callback.apply(this, arguments);
+        waiting = true;
+        setTimeout(function() {
+          waiting = false;
+        }, limit2);
+      }
+    };
+  }
   let HiGlassComponent = /* @__PURE__ */ function(_React__default$defau24) {
     _inherits3(HiGlassComponent2, _React__default$defau24);
     var _super85 = _createSuper3(HiGlassComponent2);
@@ -81014,7 +81025,7 @@ function _toPrimitive2(input, hint) {
       _this98.animateOnGlobalEventBound = _this98.animateOnGlobalEvent.bind(_assertThisInitialized3(_this98));
       _this98.requestReceivedHandlerBound = _this98.requestReceivedHandler.bind(_assertThisInitialized3(_this98));
       _this98.wheelHandlerBound = _this98.wheelHandler.bind(_assertThisInitialized3(_this98));
-      _this98.mouseMoveHandlerBound = _this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98));
+      _this98.mouseMoveHandlerBound = throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 75);
       _this98.onMouseLeaveHandlerBound = _this98.onMouseLeaveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onBlurHandlerBound = _this98.onBlurHandler.bind(_assertThisInitialized3(_this98));
       _this98.openModalBound = _this98.openModal.bind(_assertThisInitialized3(_this98));
@@ -82928,7 +82939,6 @@ ${svgString}`;
       }
       this.pubSub.publish("app.click", clickReturns);
     } }, { key: "mouseMoveZoomHandler", value: function mouseMoveZoomHandler(data2) {
-      console.log(`[HiGlassComponent] mouseMoveZoomHandler: ${JSON.stringify(data2)}`);
       this.apiPublish("mouseMoveZoom", data2);
     } }, { key: "geneSearchHandler", value: function geneSearchHandler(data2) {
       this.apiPublish("geneSearch", data2);

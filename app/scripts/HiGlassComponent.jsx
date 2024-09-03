@@ -93,6 +93,19 @@ const SIZE_MODE_BOUNDED = 'bounded';
 const SIZE_MODE_OVERFLOW = 'overflow';
 const SIZE_MODE_SCROLL = 'scroll';
 
+function throttle (callback, limit) {
+  var waiting = false;                      // Initially, we're not waiting
+  return function () {                      // We return a throttled function
+      if (!waiting) {                       // If we're not waiting
+          callback.apply(this, arguments);  // Execute users function
+          waiting = true;                   // Prevent future invocations
+          setTimeout(function () {          // After a period of time
+              waiting = false;              // And allow future invocations
+          }, limit);
+      }
+  }
+}
+
 class HiGlassComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -342,7 +355,7 @@ class HiGlassComponent extends React.Component {
     this.animateOnGlobalEventBound = this.animateOnGlobalEvent.bind(this);
     this.requestReceivedHandlerBound = this.requestReceivedHandler.bind(this);
     this.wheelHandlerBound = this.wheelHandler.bind(this);
-    this.mouseMoveHandlerBound = this.mouseMoveHandler.bind(this);
+    this.mouseMoveHandlerBound = throttle(this.mouseMoveHandler.bind(this), 75);
     this.onMouseLeaveHandlerBound = this.onMouseLeaveHandler.bind(this);
     this.onBlurHandlerBound = this.onBlurHandler.bind(this);
     this.openModalBound = this.openModal.bind(this);
@@ -4420,6 +4433,7 @@ class HiGlassComponent extends React.Component {
    * @param {object}  e  Event object.
    */
   mouseMoveHandler(e) {
+    // console.log(`[HiGlassComponent] mouseMoveHandler | e.type: ${e.type}`);
     if (!this.topDiv || this.state.modal) return;
 
     const absX = e.clientX;
@@ -4761,7 +4775,7 @@ class HiGlassComponent extends React.Component {
    * Handle mousemove and zoom events.
    */
   mouseMoveZoomHandler(data) {
-    console.log(`[HiGlassComponent] mouseMoveZoomHandler: ${JSON.stringify(data)}`);
+    // console.log(`[HiGlassComponent] mouseMoveZoomHandler: ${JSON.stringify(data)}`);
     this.apiPublish('mouseMoveZoom', data);
   }
 
