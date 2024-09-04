@@ -17357,53 +17357,37 @@ function _toPrimitive2(input, hint) {
   var abs$2 = function abs2(x) {
     return $abs(x);
   };
-  var Type$4;
-  var hasRequiredType$1;
-  function requireType$1() {
-    if (hasRequiredType$1)
-      return Type$4;
-    hasRequiredType$1 = 1;
-    Type$4 = function Type2(x) {
-      if (x === null) {
-        return "Null";
-      }
-      if (typeof x === "undefined") {
-        return "Undefined";
-      }
-      if (typeof x === "function" || typeof x === "object") {
-        return "Object";
-      }
-      if (typeof x === "number") {
-        return "Number";
-      }
-      if (typeof x === "boolean") {
-        return "Boolean";
-      }
-      if (typeof x === "string") {
-        return "String";
-      }
-    };
-    return Type$4;
-  }
-  var Type$3;
-  var hasRequiredType;
-  function requireType() {
-    if (hasRequiredType)
-      return Type$3;
-    hasRequiredType = 1;
-    var ES5Type = requireType$1();
-    Type$3 = function Type2(x) {
-      if (typeof x === "symbol") {
-        return "Symbol";
-      }
-      if (typeof x === "bigint") {
-        return "BigInt";
-      }
-      return ES5Type(x);
-    };
-    return Type$3;
-  }
-  var Type$2 = requireType();
+  var Type$4 = function Type2(x) {
+    if (x === null) {
+      return "Null";
+    }
+    if (typeof x === "undefined") {
+      return "Undefined";
+    }
+    if (typeof x === "function" || typeof x === "object") {
+      return "Object";
+    }
+    if (typeof x === "number") {
+      return "Number";
+    }
+    if (typeof x === "boolean") {
+      return "Boolean";
+    }
+    if (typeof x === "string") {
+      return "String";
+    }
+  };
+  var ES5Type = Type$4;
+  var Type$3 = function Type2(x) {
+    if (typeof x === "symbol") {
+      return "Symbol";
+    }
+    if (typeof x === "bigint") {
+      return "BigInt";
+    }
+    return ES5Type(x);
+  };
+  var Type$2 = Type$3;
   var $floor$1 = Math.floor;
   var floor$1 = function floor2(x) {
     if (Type$2(x) === "BigInt") {
@@ -17426,7 +17410,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredIsIntegralNumber = 1;
     var abs2 = abs$2;
     var floor2 = floor$1;
-    var Type2 = requireType();
+    var Type2 = Type$3;
     var $isNaN2 = _isNaN;
     var $isFinite2 = _isFinite;
     IsIntegralNumber$1 = function IsIntegralNumber2(argument) {
@@ -18001,7 +17985,7 @@ function _toPrimitive2(input, hint) {
   var $TypeError$5 = GetIntrinsic$8("%TypeError%");
   var inspect = objectInspect;
   var IsPropertyKey = requireIsPropertyKey();
-  var Type$1 = requireType();
+  var Type$1 = Type$3;
   var Get$4 = function Get2(O, P) {
     if (Type$1(O) !== "Object") {
       throw new $TypeError$5("Assertion failed: Type(O) is not Object");
@@ -18206,7 +18190,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredFromPropertyDescriptor = 1;
     var assertRecord2 = requireAssertRecord();
     var fromPropertyDescriptor2 = requireFromPropertyDescriptor$1();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     FromPropertyDescriptor = function FromPropertyDescriptor2(Desc) {
       if (typeof Desc !== "undefined") {
         assertRecord2(Type2, "Property Descriptor", "Desc", Desc);
@@ -18223,7 +18207,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredIsAccessorDescriptor = 1;
     var has2 = src$1;
     var assertRecord2 = requireAssertRecord();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     IsAccessorDescriptor = function IsAccessorDescriptor2(Desc) {
       if (typeof Desc === "undefined") {
         return false;
@@ -18244,7 +18228,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredIsDataDescriptor = 1;
     var has2 = src$1;
     var assertRecord2 = requireAssertRecord();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     IsDataDescriptor = function IsDataDescriptor2(Desc) {
       if (typeof Desc === "undefined") {
         return false;
@@ -18399,7 +18383,7 @@ function _toPrimitive2(input, hint) {
     var has2 = src$1;
     var GetIntrinsic2 = getIntrinsic;
     var $TypeError2 = GetIntrinsic2("%TypeError%");
-    var Type2 = requireType();
+    var Type2 = Type$3;
     var ToBoolean2 = ToBoolean$1;
     var IsCallable2 = IsCallable$3.exports;
     ToPropertyDescriptor = function ToPropertyDescriptor2(Obj) {
@@ -18456,7 +18440,7 @@ function _toPrimitive2(input, hint) {
     var IsPropertyKey2 = requireIsPropertyKey();
     var SameValue2 = requireSameValue();
     var ToPropertyDescriptor2 = requireToPropertyDescriptor();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     DefinePropertyOrThrow = function DefinePropertyOrThrow2(O, P, desc) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: Type(O) is not Object");
@@ -18514,7 +18498,7 @@ function _toPrimitive2(input, hint) {
   var IsArray$1 = requireIsArray();
   var IsConstructor = requireIsConstructor();
   var IsIntegralNumber = requireIsIntegralNumber();
-  var Type = requireType();
+  var Type = Type$3;
   var ArraySpeciesCreate$2 = function ArraySpeciesCreate2(originalArray, length2) {
     if (!IsIntegralNumber(length2) || length2 < 0) {
       throw new $TypeError$4("Assertion failed: length must be an integer >= 0");
@@ -18665,7 +18649,7 @@ function _toPrimitive2(input, hint) {
     var IsPropertyKey2 = requireIsPropertyKey();
     var IsRegExp2 = requireIsRegExp();
     var ToPropertyDescriptor2 = requireToPropertyDescriptor();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     OrdinaryGetOwnProperty = function OrdinaryGetOwnProperty2(O, P) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: O must be an Object");
@@ -18728,7 +18712,7 @@ function _toPrimitive2(input, hint) {
     var IsExtensible2 = requireIsExtensible();
     var IsPropertyKey2 = requireIsPropertyKey();
     var SameValue2 = requireSameValue();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     CreateDataProperty = function CreateDataProperty2(O, P, V) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: Type(O) is not Object");
@@ -18756,7 +18740,7 @@ function _toPrimitive2(input, hint) {
     var $TypeError2 = GetIntrinsic2("%TypeError%");
     var CreateDataProperty2 = requireCreateDataProperty();
     var IsPropertyKey2 = requireIsPropertyKey();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     CreateDataPropertyOrThrow$2 = function CreateDataPropertyOrThrow2(O, P, V) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: Type(O) is not Object");
@@ -18781,7 +18765,7 @@ function _toPrimitive2(input, hint) {
     var GetIntrinsic2 = getIntrinsic;
     var $TypeError2 = GetIntrinsic2("%TypeError%");
     var IsPropertyKey2 = requireIsPropertyKey();
-    var Type2 = requireType();
+    var Type2 = Type$3;
     HasProperty$2 = function HasProperty2(O, P) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: `O` must be an Object");
@@ -19004,7 +18988,7 @@ function _toPrimitive2(input, hint) {
     var $trim = function(value2) {
       return $replace2(value2, trimRegex, "");
     };
-    var Type2 = requireType();
+    var Type2 = Type$3;
     StringToNumber$1 = function StringToNumber2(argument) {
       if (Type2(argument) !== "String") {
         throw new $TypeError2("Assertion failed: `argument` is not a String");
@@ -19090,7 +19074,7 @@ function _toPrimitive2(input, hint) {
     var $TypeError2 = GetIntrinsic2("%TypeError%");
     var Get2 = Get$4;
     var ToLength2 = ToLength$1;
-    var Type2 = requireType();
+    var Type2 = Type$3;
     LengthOfArrayLike$2 = function LengthOfArrayLike2(obj) {
       if (Type2(obj) !== "Object") {
         throw new $TypeError2("Assertion failed: `obj` must be an Object");
@@ -57433,6 +57417,19 @@ function _toPrimitive2(input, hint) {
         output += `</div>`;
       } else {
         output = this.options.isFirst ? `<div class="track-mouseover-menu-table">` : "";
+        if (this.options.isFirst && this.options.chromInfo) {
+          const dataX = this._xScale.invert(trackX);
+          const atcX = absToChr(dataX, this.options.chromInfo);
+          const chrom = atcX[0];
+          const position = Math.ceil(atcX[1]);
+          const positionText = `${chrom}:${position}`;
+          output += `
+          <div class="track-mouseover-menu-table-item">
+            <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+            <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+          </div>
+          `;
+        }
         const colorLabelBox = this.options.barFillColor ? `<div style="border:1px solid black;background-color:${this.options.barFillColor};width:10px;height:10px;display:inline-block;margin-right:5px;margin-left:2px;"></div>` : "";
         const itemLabel = this.options.name ? `${colorLabelBox}${this.options.name}` : "Value";
         output += `
@@ -81096,25 +81093,6 @@ function _toPrimitive2(input, hint) {
       return result;
     };
   }
-  function isAppleSilicon() {
-    try {
-      const w = document.createElement("canvas").getContext("webgl");
-      if (w == null) {
-        return false;
-      }
-      const d = w.getExtension("WEBGL_debug_renderer_info");
-      const g = d && w.getParameter(d.UNMASKED_RENDERER_WEBGL) || "";
-      if (g.match(/Apple/) && !g.match(/Apple GPU/)) {
-        return true;
-      }
-      if (w.getSupportedExtensions().includes("WEBGL_compressed_texture_s3tc_srgb")) {
-        return true;
-      }
-    } catch {
-      return false;
-    }
-    return false;
-  }
   let HiGlassComponent = /* @__PURE__ */ function(_React__default$defau24) {
     _inherits3(HiGlassComponent2, _React__default$defau24);
     var _super85 = _createSuper3(HiGlassComponent2);
@@ -81227,9 +81205,6 @@ function _toPrimitive2(input, hint) {
       _this98.rangeSelection = [null, null];
       _this98.prevMouseHoverTrack = null;
       _this98.zooming = false;
-      const parser2 = new uaParser.exports.UAParser();
-      console.log(parser2.getResult());
-      const isChromeForMac = parser2.getBrowser().name === "Chrome" && (isAppleSilicon() || parser2.getOS().name === "Mac OS");
       _this98.appClickHandlerBound = _this98.appClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.canvasClickHandlerBound = _this98.canvasClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.keyDownHandlerBound = _this98.keyDownHandler.bind(_assertThisInitialized3(_this98));
@@ -81247,7 +81222,7 @@ function _toPrimitive2(input, hint) {
       _this98.animateOnGlobalEventBound = _this98.animateOnGlobalEvent.bind(_assertThisInitialized3(_this98));
       _this98.requestReceivedHandlerBound = _this98.requestReceivedHandler.bind(_assertThisInitialized3(_this98));
       _this98.wheelHandlerBound = _this98.wheelHandler.bind(_assertThisInitialized3(_this98));
-      _this98.mouseMoveHandlerBound = isChromeForMac ? throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 150, { leading: false, trailing: true }) : _this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98));
+      _this98.mouseMoveHandlerBound = throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 25, { leading: false, trailing: true });
       _this98.onMouseLeaveHandlerBound = _this98.onMouseLeaveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onBlurHandlerBound = _this98.onBlurHandler.bind(_assertThisInitialized3(_this98));
       _this98.openModalBound = _this98.openModal.bind(_assertThisInitialized3(_this98));
