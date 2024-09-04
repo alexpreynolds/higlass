@@ -357,7 +357,7 @@ class HiGlassComponent extends React.Component {
 
     // User-agent specific behavior for mousemove handling
     const parser = new UAParser();
-    console.log(parser.getResult());
+    // console.log(parser.getResult());
     const isChromeForMac = parser.getBrowser().name === 'Chrome' && parser.getOS().name === 'Mac OS';
 
     // Bound functions

@@ -57433,19 +57433,6 @@ function _toPrimitive2(input, hint) {
         output += `</div>`;
       } else {
         output = this.options.isFirst ? `<div class="track-mouseover-menu-table">` : "";
-        if (this.options.isFirst && this.options.chromInfo) {
-          const dataX = this._xScale.invert(trackX);
-          const atcX = absToChr(dataX, this.options.chromInfo);
-          const chrom = atcX[0];
-          const position = Math.ceil(atcX[1]);
-          const positionText = `${chrom}:${position}`;
-          output += `
-          <div class="track-mouseover-menu-table-item">
-            <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
-            <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
-          </div>
-          `;
-        }
         const colorLabelBox = this.options.barFillColor ? `<div style="border:1px solid black;background-color:${this.options.barFillColor};width:10px;height:10px;display:inline-block;margin-right:5px;margin-left:2px;"></div>` : "";
         const itemLabel = this.options.name ? `${colorLabelBox}${this.options.name}` : "Value";
         output += `
@@ -81222,7 +81209,6 @@ function _toPrimitive2(input, hint) {
       _this98.prevMouseHoverTrack = null;
       _this98.zooming = false;
       const parser2 = new uaParser.exports.UAParser();
-      console.log(parser2.getResult());
       const isChromeForMac = parser2.getBrowser().name === "Chrome" && parser2.getOS().name === "Mac OS";
       _this98.appClickHandlerBound = _this98.appClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.canvasClickHandlerBound = _this98.canvasClickHandler.bind(_assertThisInitialized3(_this98));
