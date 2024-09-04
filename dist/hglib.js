@@ -81096,6 +81096,25 @@ function _toPrimitive2(input, hint) {
       return result;
     };
   }
+  function isAppleSilicon() {
+    try {
+      const w = document.createElement("canvas").getContext("webgl");
+      if (w == null) {
+        return false;
+      }
+      const d = w.getExtension("WEBGL_debug_renderer_info");
+      const g = d && w.getParameter(d.UNMASKED_RENDERER_WEBGL) || "";
+      if (g.match(/Apple/) && !g.match(/Apple GPU/)) {
+        return true;
+      }
+      if (w.getSupportedExtensions().includes("WEBGL_compressed_texture_s3tc_srgb")) {
+        return true;
+      }
+    } catch {
+      return false;
+    }
+    return false;
+  }
   let HiGlassComponent = /* @__PURE__ */ function(_React__default$defau24) {
     _inherits3(HiGlassComponent2, _React__default$defau24);
     var _super85 = _createSuper3(HiGlassComponent2);
@@ -81209,7 +81228,8 @@ function _toPrimitive2(input, hint) {
       _this98.prevMouseHoverTrack = null;
       _this98.zooming = false;
       const parser2 = new uaParser.exports.UAParser();
-      const isChromeForMac = parser2.getBrowser().name === "Chrome" && parser2.getOS().name === "Mac OS";
+      console.log(parser2.getResult());
+      const isChromeForMac = parser2.getBrowser().name === "Chrome" && (isAppleSilicon() || parser2.getOS().name === "Mac OS");
       _this98.appClickHandlerBound = _this98.appClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.canvasClickHandlerBound = _this98.canvasClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.keyDownHandlerBound = _this98.keyDownHandler.bind(_assertThisInitialized3(_this98));
@@ -81227,7 +81247,7 @@ function _toPrimitive2(input, hint) {
       _this98.animateOnGlobalEventBound = _this98.animateOnGlobalEvent.bind(_assertThisInitialized3(_this98));
       _this98.requestReceivedHandlerBound = _this98.requestReceivedHandler.bind(_assertThisInitialized3(_this98));
       _this98.wheelHandlerBound = _this98.wheelHandler.bind(_assertThisInitialized3(_this98));
-      _this98.mouseMoveHandlerBound = isChromeForMac ? throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 125, { leading: false, trailing: true }) : _this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98));
+      _this98.mouseMoveHandlerBound = isChromeForMac ? throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 150, { leading: false, trailing: true }) : _this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onMouseLeaveHandlerBound = _this98.onMouseLeaveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onBlurHandlerBound = _this98.onBlurHandler.bind(_assertThisInitialized3(_this98));
       _this98.openModalBound = _this98.openModal.bind(_assertThisInitialized3(_this98));
