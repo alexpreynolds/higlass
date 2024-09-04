@@ -270,6 +270,11 @@ class HiGlassComponent extends React.Component {
     const { viewConfig } = this.props;
     const views = this.loadIfRemoteViewConfig(this.props.viewConfig);
 
+    const posChannelId = `pos_channel_${viewConfig.views[0].uid}`;
+    // console.log(`setting up bc on | ${posChannelId}`);
+    // console.log(`viewConfig | ${JSON.stringify(viewConfig)}`); // viewConfig.views[0].uid
+    this.positionBc = new BroadcastChannel(posChannelId);
+
     if (props.options.authToken) {
       setTileProxyAuthHeader(props.options.authToken);
     }
@@ -744,6 +749,8 @@ class HiGlassComponent extends React.Component {
     this.pixiStage = null;
     this.pixiRenderer.destroy(true);
     this.pixiRenderer = null;
+
+    if (this.positionBc) this.positionBc.close();
 
     window.removeEventListener('focus', this.boundRefreshView);
 
@@ -4578,6 +4585,8 @@ class HiGlassComponent extends React.Component {
       isFrom2dTrack: evt.isFrom2dTrack,
       isFromVerticalTrack: evt.isFromVerticalTrack,
     });
+
+    this.positionBc.postMessage({msg: 'cursorLocation', data: {absX, absY}});
 
     this.showHoverMenu(evt);
   }
