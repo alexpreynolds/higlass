@@ -1674,8 +1674,8 @@ class HeatmapTiledPixiTrack extends TiledPixiTrack {
     );
   }
 
-  getMouseOverHtml(trackX, trackY) {
-    if (!this.options || !this.options.showTooltip) {
+  getMouseOverHtml(trackX, trackY, isShiftDown) {
+    if (!this.options || (!this.options.showTooltip && !isShiftDown)) {
       return '';
     }
 

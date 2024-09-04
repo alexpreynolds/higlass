@@ -11,11 +11,12 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
     this.animate();
   }
 
-  getMouseOverHtml(trackX) {
+  getMouseOverHtml(trackX, trackY, isShiftDown) {
     // if we're not supposed to show the tooltip, don't show it
     // we return here so that the mark isn't drawn in the code
     // below
-    if (!this.tilesetInfo || !this.options.showTooltip || !this.valueScale)
+    // console.log(`[HorizontalLine1DPixiTrack] getMouseOverHtml | trackX: ${trackX} | trackY: ${trackY} | isShiftDown: ${isShiftDown}`);
+    if (!this.tilesetInfo || !this.valueScale)
       return '';
 
     const value = this.getDataAtPos(trackX);
@@ -28,6 +29,12 @@ class HorizontalLine1DPixiTrack extends HorizontalTiled1DPixiTrack {
     const yPos = this.valueScale(value);
 
     graphics.clear();
+
+    if (!this.options.showTooltip && !isShiftDown) {
+      this.animate();
+      return '';
+    }
+
     graphics.beginFill(colorHex, 0.5);
     graphics.lineStyle(1, colorHex, 1);
     const markerWidth = 4;

@@ -15620,11 +15620,11 @@ function _toPrimitive2(input, hint) {
         if (childTrack.stopHover)
           childTrack.stopHover();
       }
-    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY) {
+    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY, isShiftDown) {
       let mouseOverHtml = "";
       for (const childTrack of this.childTracks) {
         if (childTrack.getMouseOverHtml) {
-          const trackHtml = childTrack.getMouseOverHtml(trackX, trackY);
+          const trackHtml = childTrack.getMouseOverHtml(trackX, trackY, isShiftDown);
           if (trackHtml && trackHtml.length) {
             mouseOverHtml += trackHtml;
           }
@@ -51844,8 +51844,8 @@ function _toPrimitive2(input, hint) {
       this.setVisibleTiles(this.tilesToId(this.xTiles, this.yTiles, this.zoomLevel));
     } }, { key: "mirrorTiles", value: function mirrorTiles() {
       return !(this.tilesetInfo.mirror_tiles && (this.tilesetInfo.mirror_tiles === false || this.tilesetInfo.mirror_tiles === "false"));
-    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY) {
-      if (!this.options || !this.options.showTooltip) {
+    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY, isShiftDown) {
+      if (!this.options || !this.options.showTooltip && !isShiftDown) {
         return "";
       }
       if (!this.tilesetInfo) {
@@ -57403,8 +57403,8 @@ function _toPrimitive2(input, hint) {
     _createClass3(HorizontalLine1DPixiTrack2, [{ key: "stopHover", value: function stopHover() {
       this.pMouseOver.clear();
       this.animate();
-    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX) {
-      if (!this.tilesetInfo || !this.options.showTooltip || !this.valueScale)
+    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY, isShiftDown) {
+      if (!this.tilesetInfo || !this.valueScale)
         return "";
       const value2 = this.getDataAtPos(trackX);
       let textValue = "";
@@ -57414,6 +57414,10 @@ function _toPrimitive2(input, hint) {
       const colorHex = 0;
       const yPos = this.valueScale(value2);
       graphics.clear();
+      if (!this.options.showTooltip && !isShiftDown) {
+        this.animate();
+        return "";
+      }
       graphics.beginFill(colorHex, 0.5);
       graphics.lineStyle(1, colorHex, 1);
       const markerWidth = 4;
@@ -81210,7 +81214,7 @@ function _toPrimitive2(input, hint) {
       _this98.mounted = false;
       _this98.pluginTracks = pluginTracks;
       _this98.pluginDataFetchers = pluginDataFetchers;
-      _this98.state = { currentBreakpoint: "lg", width: 0, height: 0, rowHeight, svgElement: null, canvasElement: null, customDialog: null, views, viewConfig, addTrackPositionMenuPosition: null, typedEditable: void 0, mouseOverOverlayUid: null, mouseTool, isDarkTheme: false, rangeSelection1dSize: [0, Infinity], rangeSelectionToInt: false, modal: null };
+      _this98.state = { currentBreakpoint: "lg", width: 0, height: 0, rowHeight, svgElement: null, canvasElement: null, customDialog: null, views, viewConfig, addTrackPositionMenuPosition: null, typedEditable: void 0, mouseOverOverlayUid: null, mouseTool, isDarkTheme: false, rangeSelection1dSize: [0, Infinity], rangeSelectionToInt: false, modal: null, isShiftDown: false };
       _this98.attachedToDOM = false;
       const { public: api2, destroy: apiDestroy, publish: apiPublish, stack: apiStack } = createApi(_assertThisInitialized3(_this98), _this98.pubSub);
       _this98.api = api2;
@@ -81528,7 +81532,13 @@ function _toPrimitive2(input, hint) {
       if (this.props.options.rangeSelectionOnAlt && event.key === "Alt") {
         this.setState({ mouseTool: MOUSE_TOOL_SELECT });
       }
+      if (event.shiftKey) {
+        this.setState({ isShiftDown: true });
+      }
     } }, { key: "keyUpHandler", value: function keyUpHandler(event) {
+      if (event.key === "Shift") {
+        this.setState({ isShiftDown: false });
+      }
       if (this.props.options.rangeSelectionOnAlt && event.key === "Alt") {
         this.setState({ mouseTool: MOUSE_TOOL_MOVE });
       }
@@ -83064,7 +83074,7 @@ ${svgString}`;
       }
       this.apiPublish("cursorLocation", { absX, absY, relX: evt.x, relY: evt.y, relTrackX: evt.relTrackX, relTrackY: evt.relTrackY, dataX: evt.dataX, dataY: evt.dataY, isFrom2dTrack: evt.isFrom2dTrack, isFromVerticalTrack: evt.isFromVerticalTrack });
       this.positionBc.postMessage({ msg: "cursorLocation", data: { absX, absY } });
-      this.showHoverMenu(evt);
+      this.showHoverMenu(evt, this.state.isShiftDown);
     } }, { key: "getMinMaxValue", value: function getMinMaxValue(viewId, trackId, ignoreOffScreenValues, ignoreFixedScale) {
       const track = getTrackObjById(this.tiledPlots, viewId, trackId);
       if (!track) {
@@ -83079,8 +83089,8 @@ ${svgString}`;
         return [track.getAggregatedVisibleValue("min"), track.getAggregatedVisibleValue("max")];
       }
       return [track.minVisibleValueInTiles(ignoreFixedScale), track.maxVisibleValueInTiles(ignoreFixedScale)];
-    } }, { key: "showHoverMenu", value: function showHoverMenu(evt) {
-      const mouseOverHtml = evt.track && evt.track.getMouseOverHtml ? evt.track.getMouseOverHtml(evt.relTrackX, evt.relTrackY) : "";
+    } }, { key: "showHoverMenu", value: function showHoverMenu(evt, isShiftDown) {
+      const mouseOverHtml = evt.track && evt.track.getMouseOverHtml ? evt.track.getMouseOverHtml(evt.relTrackX, evt.relTrackY, isShiftDown) : "";
       if (evt.track !== this.prevMouseHoverTrack) {
         if (this.prevMouseHoverTrack && this.prevMouseHoverTrack.stopHover) {
           this.prevMouseHoverTrack.stopHover();

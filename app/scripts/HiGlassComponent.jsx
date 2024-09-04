@@ -358,6 +358,7 @@ class HiGlassComponent extends React.Component {
       rangeSelection1dSize: [0, Infinity],
       rangeSelectionToInt: false,
       modal: null,
+      isShiftDown: false,
     };
 
     // monitor whether this element is attached to the DOM so that
@@ -974,9 +975,21 @@ class HiGlassComponent extends React.Component {
         mouseTool: MOUSE_TOOL_SELECT,
       });
     }
+
+    if (event.shiftKey) {
+      this.setState({
+        isShiftDown: true,
+      });
+    }
   }
 
   keyUpHandler(event) {
+    if (event.key === 'Shift') {
+      this.setState({
+        isShiftDown: false,
+      });
+    }
+
     if (this.props.options.rangeSelectionOnAlt && event.key === 'Alt') {
       this.setState({
         mouseTool: MOUSE_TOOL_MOVE,
@@ -4588,7 +4601,9 @@ class HiGlassComponent extends React.Component {
 
     this.positionBc.postMessage({msg: 'cursorLocation', data: {absX, absY}});
 
-    this.showHoverMenu(evt);
+    // console.log(`[HiGlassComponent] mouseMoveHandler | this.state.isShiftDown: ${JSON.stringify(this.state.isShiftDown)}`);
+
+    this.showHoverMenu(evt, this.state.isShiftDown);
   }
 
   getMinMaxValue(viewId, trackId, ignoreOffScreenValues, ignoreFixedScale) {
@@ -4622,12 +4637,12 @@ class HiGlassComponent extends React.Component {
   /**
    * Show a menu displaying some information about the track under it
    */
-  showHoverMenu(evt) {
+  showHoverMenu(evt, isShiftDown) {
     // each track should have a function that returns an HTML representation
     // of the data at a give position
     const mouseOverHtml =
       evt.track && evt.track.getMouseOverHtml
-        ? evt.track.getMouseOverHtml(evt.relTrackX, evt.relTrackY)
+        ? evt.track.getMouseOverHtml(evt.relTrackX, evt.relTrackY, isShiftDown)
         : '';
 
     if (evt.track !== this.prevMouseHoverTrack) {
