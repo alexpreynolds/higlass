@@ -357,6 +357,7 @@ class HiGlassComponent extends React.Component {
 
     // User-agent specific behavior for mousemove handling
     const parser = new UAParser();
+    console.log(parser.getResult());
     const isChromeForMac = parser.getBrowser().name === 'Chrome' && parser.getOS().name === 'Mac OS';
 
     // Bound functions
@@ -379,7 +380,7 @@ class HiGlassComponent extends React.Component {
     this.animateOnGlobalEventBound = this.animateOnGlobalEvent.bind(this);
     this.requestReceivedHandlerBound = this.requestReceivedHandler.bind(this);
     this.wheelHandlerBound = this.wheelHandler.bind(this);
-    this.mouseMoveHandlerBound = (isChromeForMac) ? throttle(this.mouseMoveHandler.bind(this), 75, {leading: false, trailing: true}) : this.mouseMoveHandler.bind(this);
+    this.mouseMoveHandlerBound = (isChromeForMac) ? throttle(this.mouseMoveHandler.bind(this), 125, {leading: false, trailing: true}) : this.mouseMoveHandler.bind(this);
     this.onMouseLeaveHandlerBound = this.onMouseLeaveHandler.bind(this);
     this.onBlurHandlerBound = this.onBlurHandler.bind(this);
     this.openModalBound = this.openModal.bind(this);
