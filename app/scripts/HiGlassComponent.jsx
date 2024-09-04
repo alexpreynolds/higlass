@@ -11,6 +11,7 @@ import vkbeautify from 'vkbeautify';
 import parse from 'url-parse';
 import createPubSub, { globalPubSub } from 'pub-sub-es';
 import clsx from 'clsx';
+import { UAParser } from 'ua-parser-js';
 
 import TiledPlot from './TiledPlot';
 import GenomePositionSearchBox from './GenomePositionSearchBox';
@@ -93,18 +94,37 @@ const SIZE_MODE_BOUNDED = 'bounded';
 const SIZE_MODE_OVERFLOW = 'overflow';
 const SIZE_MODE_SCROLL = 'scroll';
 
-function throttle (callback, limit) {
-  var waiting = false;                      // Initially, we're not waiting
-  return function () {                      // We return a throttled function
-      if (!waiting) {                       // If we're not waiting
-          callback.apply(this, arguments);  // Execute users function
-          waiting = true;                   // Prevent future invocations
-          setTimeout(function () {          // After a period of time
-              waiting = false;              // And allow future invocations
-          }, limit);
+function throttle(func, wait, options) {
+  var context, args, result;
+  var timeout = null;
+  var previous = 0;
+  if (!options) options = {};
+  var later = function() {
+    previous = options.leading === false ? 0 : Date.now();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+  return function() {
+    var now = Date.now();
+    if (!previous && options.leading === false) previous = now;
+    var remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
       }
-  }
-}
+      previous = now;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+};
 
 class HiGlassComponent extends React.Component {
   constructor(props) {
@@ -335,6 +355,10 @@ class HiGlassComponent extends React.Component {
     this.prevMouseHoverTrack = null;
     this.zooming = false;
 
+    // User-agent specific behavior for mousemove handling
+    const parser = new UAParser();
+    const isChromeForMac = parser.getBrowser().name === 'Chrome' && parser.getOS().name === 'Mac OS';
+
     // Bound functions
     this.appClickHandlerBound = this.appClickHandler.bind(this);
     this.canvasClickHandlerBound = this.canvasClickHandler.bind(this);
@@ -355,7 +379,7 @@ class HiGlassComponent extends React.Component {
     this.animateOnGlobalEventBound = this.animateOnGlobalEvent.bind(this);
     this.requestReceivedHandlerBound = this.requestReceivedHandler.bind(this);
     this.wheelHandlerBound = this.wheelHandler.bind(this);
-    this.mouseMoveHandlerBound = throttle(this.mouseMoveHandler.bind(this), 100);
+    this.mouseMoveHandlerBound = (isChromeForMac) ? throttle(this.mouseMoveHandler.bind(this), 75, {leading: false, trailing: true}) : this.mouseMoveHandler.bind(this);
     this.onMouseLeaveHandlerBound = this.onMouseLeaveHandler.bind(this);
     this.onBlurHandlerBound = this.onBlurHandler.bind(this);
     this.openModalBound = this.openModal.bind(this);
