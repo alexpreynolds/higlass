@@ -270,11 +270,6 @@ class HiGlassComponent extends React.Component {
     const { viewConfig } = this.props;
     const views = this.loadIfRemoteViewConfig(this.props.viewConfig);
 
-    const posChannelId = `pos_channel_${viewConfig.views[0].uid}`;
-    // console.log(`setting up bc on | ${posChannelId}`);
-    // console.log(`viewConfig | ${JSON.stringify(viewConfig)}`); // viewConfig.views[0].uid
-    this.positionBc = new BroadcastChannel(posChannelId);
-
     if (props.options.authToken) {
       setTileProxyAuthHeader(props.options.authToken);
     }
@@ -4599,7 +4594,18 @@ class HiGlassComponent extends React.Component {
       isFromVerticalTrack: evt.isFromVerticalTrack,
     });
 
-    this.positionBc.postMessage({msg: 'cursorLocation', data: {absX, absY}});
+    // if (this.positionBc) {
+    //   this.positionBc.postMessage({msg: 'cursorLocation', data: {absX, absY}});
+    // }
+    // else {
+    //   if (this.props.viewConfig && this.props.viewConfig.views && this.props.viewConfig.views.length > 0) {
+    //     const posChannelId = `pos_channel_${this.props.viewConfig.views[0].uid}`;
+    //     console.log(`setting up bc on | ${posChannelId}`);
+    //     // console.log(`viewConfig | ${JSON.stringify(viewConfig)}`); // viewConfig.views[0].uid
+    //     this.positionBc = new BroadcastChannel(posChannelId);
+    //     this.positionBc.postMessage({msg: 'cursorLocation', data: {absX, absY}});
+    //   }
+    // }
 
     // console.log(`[HiGlassComponent] mouseMoveHandler | this.state.isShiftDown: ${JSON.stringify(this.state.isShiftDown)}`);
 

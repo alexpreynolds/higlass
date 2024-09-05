@@ -81170,8 +81170,6 @@ function _toPrimitive2(input, hint) {
       _this98.viewconfLoaded = false;
       const { viewConfig } = _this98.props;
       const views = _this98.loadIfRemoteViewConfig(_this98.props.viewConfig);
-      const posChannelId = `pos_channel_${viewConfig.views[0].uid}`;
-      _this98.positionBc = new BroadcastChannel(posChannelId);
       if (props.options.authToken) {
         setTileProxyAuthHeader(props.options.authToken);
       }
@@ -83073,7 +83071,6 @@ ${svgString}`;
         globalPubSub.publish("higlass.mouseMove", eventDataOnly);
       }
       this.apiPublish("cursorLocation", { absX, absY, relX: evt.x, relY: evt.y, relTrackX: evt.relTrackX, relTrackY: evt.relTrackY, dataX: evt.dataX, dataY: evt.dataY, isFrom2dTrack: evt.isFrom2dTrack, isFromVerticalTrack: evt.isFromVerticalTrack });
-      this.positionBc.postMessage({ msg: "cursorLocation", data: { absX, absY } });
       this.showHoverMenu(evt, this.state.isShiftDown);
     } }, { key: "getMinMaxValue", value: function getMinMaxValue(viewId, trackId, ignoreOffScreenValues, ignoreFixedScale) {
       const track = getTrackObjById(this.tiledPlots, viewId, trackId);
