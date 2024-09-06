@@ -15508,6 +15508,25 @@ function _toPrimitive2(input, hint) {
   const hexStrToInt = (str) => parseInt(str.replace(/^#/, ""), 16);
   const intoTheVoid = () => {
   };
+  const isAppleSilicon = () => {
+    try {
+      const w = document.createElement("canvas").getContext("webgl");
+      if (w == null) {
+        return false;
+      }
+      const d = w.getExtension("WEBGL_debug_renderer_info");
+      const g = d && w.getParameter(d.UNMASKED_RENDERER_WEBGL) || "";
+      if (g.match(/Apple/) && !g.match(/Apple GPU/)) {
+        return true;
+      }
+      if (w.getSupportedExtensions().includes("WEBGL_compressed_texture_s3tc_srgb")) {
+        return true;
+      }
+    } catch {
+      return false;
+    }
+    return false;
+  };
   let CombinedTrack = /* @__PURE__ */ function() {
     function CombinedTrack2(context) {
       _classCallCheck3(this, CombinedTrack2);
@@ -16170,6 +16189,41 @@ function _toPrimitive2(input, hint) {
       line.setAttribute("stroke", strokeColor);
     }
     return line;
+  };
+  const throttle$1 = (func, wait, options2) => {
+    var context, args, result;
+    var timeout2 = null;
+    var previous = 0;
+    if (!options2)
+      options2 = {};
+    var later = function() {
+      previous = options2.leading === false ? 0 : Date.now();
+      timeout2 = null;
+      result = func.apply(context, args);
+      if (!timeout2)
+        context = args = null;
+    };
+    return function() {
+      var now2 = Date.now();
+      if (!previous && options2.leading === false)
+        previous = now2;
+      var remaining = wait - (now2 - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout2) {
+          clearTimeout(timeout2);
+          timeout2 = null;
+        }
+        previous = now2;
+        result = func.apply(context, args);
+        if (!timeout2)
+          context = args = null;
+      } else if (!timeout2 && options2.trailing !== false) {
+        timeout2 = setTimeout(later, remaining);
+      }
+      return result;
+    };
   };
   const throttleAndDebounce = (func, interval2, finalWait) => {
     let timeout2;
@@ -45449,7 +45503,7 @@ function _toPrimitive2(input, hint) {
     });
   }
   const trackUtils = { calculate1DVisibleTiles, calculate1DZoomLevel, drawAxis, movedY, getTilePosAndDimensions, stretchRects, zoomedY };
-  const utils$7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({ __proto__: null, absToChr, accessorTransposition, addArrays, addClass: addClass$1, base64ToCanvas, chromInfoBisector, chrToAbs, cloneEvent, colorDomainToRgbaArray, colorToHex, colorToRgba, dataToGenomicLoci, debounce: debounce$1, decToHexStr, dictFromTuples, dictItems, dictKeys, dictValues, download, fillInMinWidths, flatten: flatten$1, forEach: forEach$2, forwardEvent, genomeLociToPixels, genomicRangeToChromosomeChunks, getDefaultTrackForDatatype, getElementDim, getTrackByUid, getTrackConfFromHGC, getTrackObjById, getTrackPositionByUid, getXylofon, gradient, hasClass: hasClass$1, hasParent, hexStrToInt, intoTheVoid, isTrackOrChildTrack, isWithin: _isWithin, latToY, loadChromInfos, lngToX, map: map$5, max, maxNonZero, min, minNonZero, mod, ndarrayAssign, ndarrayFlatten, ndarrayToList, numericifyVersion, objVals, or, parseChromsizesRows, pixiTextToSvg, q: q$1, reduce, rangeQuery2d, relToAbsChromPos, removeClass: removeClass$1, resetD3BrushStyle, rgbToHex: rgbToHex$1, scalesCenterAndK, scalesToGenomeLoci, showMousePosition: setupShowMousePosition, some, sum, svgLine, throttleAndDebounce, tileToCanvas, timeout: timeout$2, totalTrackPixelHeight, toVoid, trimTrailingSlash, valueToColor, expandCombinedTracks, segmentsToRows, visitPositionedTracks, visitTracks, DenseDataExtrema1D, DenseDataExtrema2D, getAggregationFunction, selectedItemsToSize, IS_TRACK_RANGE_SELECTABLE, getTrackObjectFromHGC, getTrackRenderer, getTiledPlot, changeOptions, waitForJsonComplete, waitForTilesLoaded, waitForTransitionsFinished, mountHGComponent, mountHGComponentAsync, removeHGComponent, trackUtils }, Symbol.toStringTag, { value: "Module" }));
+  const utils$7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({ __proto__: null, absToChr, accessorTransposition, addArrays, addClass: addClass$1, base64ToCanvas, chromInfoBisector, chrToAbs, cloneEvent, colorDomainToRgbaArray, colorToHex, colorToRgba, dataToGenomicLoci, debounce: debounce$1, decToHexStr, dictFromTuples, dictItems, dictKeys, dictValues, download, fillInMinWidths, flatten: flatten$1, forEach: forEach$2, forwardEvent, genomeLociToPixels, genomicRangeToChromosomeChunks, getDefaultTrackForDatatype, getElementDim, getTrackByUid, getTrackConfFromHGC, getTrackObjById, getTrackPositionByUid, getXylofon, gradient, hasClass: hasClass$1, hasParent, hexStrToInt, intoTheVoid, isAppleSilicon, isTrackOrChildTrack, isWithin: _isWithin, latToY, loadChromInfos, lngToX, map: map$5, max, maxNonZero, min, minNonZero, mod, ndarrayAssign, ndarrayFlatten, ndarrayToList, numericifyVersion, objVals, or, parseChromsizesRows, pixiTextToSvg, q: q$1, reduce, rangeQuery2d, relToAbsChromPos, removeClass: removeClass$1, resetD3BrushStyle, rgbToHex: rgbToHex$1, scalesCenterAndK, scalesToGenomeLoci, showMousePosition: setupShowMousePosition, some, sum, svgLine, throttle: throttle$1, throttleAndDebounce, tileToCanvas, timeout: timeout$2, totalTrackPixelHeight, toVoid, trimTrailingSlash, valueToColor, expandCombinedTracks, segmentsToRows, visitPositionedTracks, visitTracks, DenseDataExtrema1D, DenseDataExtrema2D, getAggregationFunction, selectedItemsToSize, IS_TRACK_RANGE_SELECTABLE, getTrackObjectFromHGC, getTrackRenderer, getTiledPlot, changeOptions, waitForJsonComplete, waitForTilesLoaded, waitForTransitionsFinished, mountHGComponent, mountHGComponentAsync, removeHGComponent, trackUtils }, Symbol.toStringTag, { value: "Module" }));
   const { Provider: Provider$2, Consumer: Consumer$2 } = React__default.default.createContext({ close: toVoid, open: toVoid });
   const withTheme = (Component) => React__default.default.forwardRef((props, ref2) => /* @__PURE__ */ React__default.default.createElement(Consumer$2, null, (theme) => /* @__PURE__ */ React__default.default.createElement(Component, { ref: ref2, ...props, theme })));
   const classes$a = { "track-control": "_track-control_w7hx2_1", "track-control-vertical": "_track-control-vertical_w7hx2_2", "track-control-dark": "_track-control-dark_w7hx2_15", "track-control-active": "_track-control-active_w7hx2_16 _track-control_w7hx2_1", "track-control-left": "_track-control-left_w7hx2_24", "track-control-vertical-active": "_track-control-vertical-active_w7hx2_30", "track-control-padding-right": "_track-control-padding-right_w7hx2_48", "track-control-button": "_track-control-button_w7hx2_52", "track-control-button-vertical": "_track-control-button-vertical_w7hx2_81" };
@@ -67614,7 +67668,7 @@ function _toPrimitive2(input, hint) {
     return debounced;
   }
   var FUNC_ERROR_TEXT = "Expected a function";
-  function throttle$1(func, wait, options2) {
+  function throttle(func, wait, options2) {
     var leading = true, trailing = true;
     if (typeof func != "function") {
       throw new TypeError(FUNC_ERROR_TEXT);
@@ -67700,7 +67754,7 @@ function _toPrimitive2(input, hint) {
       _this.handleMouseUp = function() {
         _this.unbindEventListeners();
       };
-      _this.throttle = throttle$1(function(fn, data2, e) {
+      _this.throttle = throttle(function(fn, data2, e) {
         fn(data2, e);
       }, 50);
       return _this;
@@ -70225,7 +70279,7 @@ function _toPrimitive2(input, hint) {
       this.eventTracker.addEventListener("click", this.boundForwardEvent);
       this.eventTracker.addEventListener("contextmenu", this.boundForwardContextMenu);
       this.eventTracker.addEventListener("dblclick", this.boundForwardEvent);
-      this.eventTracker.addEventListener("wheel", this.boundForwardEvent);
+      this.eventTracker.addEventListener("wheel", this.boundForwardEvent, { passive: true });
       this.eventTracker.addEventListener("dragstart", this.boundForwardEvent);
       this.eventTracker.addEventListener("selectstart", this.boundForwardEvent);
       this.eventTracker.addEventListener("mouseover", this.boundForwardEvent);
@@ -70234,10 +70288,10 @@ function _toPrimitive2(input, hint) {
       this.eventTracker.addEventListener("mouseup", this.boundForwardEvent);
       this.eventTracker.addEventListener("mouseout", this.boundForwardEvent);
       this.eventTracker.addEventListener("mouseleave", this.boundForwardEvent);
-      this.eventTracker.addEventListener("touchstart", this.boundForwardEvent);
-      this.eventTracker.addEventListener("touchend", this.boundForwardEvent);
-      this.eventTracker.addEventListener("touchmove", this.boundForwardEvent);
-      this.eventTracker.addEventListener("touchcancel", this.boundForwardEvent);
+      this.eventTracker.addEventListener("touchstart", this.boundForwardEvent, { passive: true });
+      this.eventTracker.addEventListener("touchend", this.boundForwardEvent, { passive: true });
+      this.eventTracker.addEventListener("touchmove", this.boundForwardEvent, { passive: true });
+      this.eventTracker.addEventListener("touchcancel", this.boundForwardEvent, { passive: true });
       this.eventTracker.addEventListener("pointerover", this.boundForwardEvent);
       this.eventTracker.addEventListener("pointerenter", this.boundForwardEvent);
       this.eventTracker.addEventListener("pointerdown", this.boundForwardEvent);
@@ -81078,41 +81132,6 @@ function _toPrimitive2(input, hint) {
   const SIZE_MODE_BOUNDED = "bounded";
   const SIZE_MODE_OVERFLOW = "overflow";
   const SIZE_MODE_SCROLL = "scroll";
-  function throttle(func, wait, options2) {
-    var context, args, result;
-    var timeout2 = null;
-    var previous = 0;
-    if (!options2)
-      options2 = {};
-    var later = function() {
-      previous = options2.leading === false ? 0 : Date.now();
-      timeout2 = null;
-      result = func.apply(context, args);
-      if (!timeout2)
-        context = args = null;
-    };
-    return function() {
-      var now2 = Date.now();
-      if (!previous && options2.leading === false)
-        previous = now2;
-      var remaining = wait - (now2 - previous);
-      context = this;
-      args = arguments;
-      if (remaining <= 0 || remaining > wait) {
-        if (timeout2) {
-          clearTimeout(timeout2);
-          timeout2 = null;
-        }
-        previous = now2;
-        result = func.apply(context, args);
-        if (!timeout2)
-          context = args = null;
-      } else if (!timeout2 && options2.trailing !== false) {
-        timeout2 = setTimeout(later, remaining);
-      }
-      return result;
-    };
-  }
   let HiGlassComponent = /* @__PURE__ */ function(_React__default$defau24) {
     _inherits3(HiGlassComponent2, _React__default$defau24);
     var _super85 = _createSuper3(HiGlassComponent2);
@@ -81225,6 +81244,8 @@ function _toPrimitive2(input, hint) {
       _this98.rangeSelection = [null, null];
       _this98.prevMouseHoverTrack = null;
       _this98.zooming = false;
+      const parser2 = new uaParser.exports.UAParser();
+      const isChromeForMac = parser2.getBrowser().name === "Chrome" && (isAppleSilicon() || parser2.getOS().name === "Mac OS");
       _this98.appClickHandlerBound = _this98.appClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.canvasClickHandlerBound = _this98.canvasClickHandler.bind(_assertThisInitialized3(_this98));
       _this98.keyDownHandlerBound = _this98.keyDownHandler.bind(_assertThisInitialized3(_this98));
@@ -81242,7 +81263,7 @@ function _toPrimitive2(input, hint) {
       _this98.animateOnGlobalEventBound = _this98.animateOnGlobalEvent.bind(_assertThisInitialized3(_this98));
       _this98.requestReceivedHandlerBound = _this98.requestReceivedHandler.bind(_assertThisInitialized3(_this98));
       _this98.wheelHandlerBound = _this98.wheelHandler.bind(_assertThisInitialized3(_this98));
-      _this98.mouseMoveHandlerBound = throttle(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 25, { leading: false, trailing: true });
+      _this98.mouseMoveHandlerBound = isChromeForMac ? throttle$1(_this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98)), 50, { leading: false, trailing: true }) : _this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onMouseLeaveHandlerBound = _this98.onMouseLeaveHandler.bind(_assertThisInitialized3(_this98));
       _this98.onBlurHandlerBound = _this98.onBlurHandler.bind(_assertThisInitialized3(_this98));
       _this98.openModalBound = _this98.openModal.bind(_assertThisInitialized3(_this98));

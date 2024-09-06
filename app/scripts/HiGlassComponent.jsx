@@ -53,11 +53,13 @@ import {
   getTrackObjById,
   getTrackPositionByUid,
   hasParent,
+  isAppleSilicon,
   // loadChromInfos,
   numericifyVersion,
   objVals,
   scalesCenterAndK,
   scalesToGenomeLoci,
+  throttle,
   toVoid,
   visitPositionedTracks,
 } from './utils';
@@ -93,64 +95,6 @@ const SIZE_MODE_DEFAULT = 'default';
 const SIZE_MODE_BOUNDED = 'bounded';
 const SIZE_MODE_OVERFLOW = 'overflow';
 const SIZE_MODE_SCROLL = 'scroll';
-
-function throttle(func, wait, options) {
-  var context, args, result;
-  var timeout = null;
-  var previous = 0;
-  if (!options) options = {};
-  var later = function() {
-    previous = options.leading === false ? 0 : Date.now();
-    timeout = null;
-    result = func.apply(context, args);
-    if (!timeout) context = args = null;
-  };
-  return function() {
-    var now = Date.now();
-    if (!previous && options.leading === false) previous = now;
-    var remaining = wait - (now - previous);
-    context = this;
-    args = arguments;
-    if (remaining <= 0 || remaining > wait) {
-      if (timeout) {
-        clearTimeout(timeout);
-        timeout = null;
-      }
-      previous = now;
-      result = func.apply(context, args);
-      if (!timeout) context = args = null;
-    } else if (!timeout && options.trailing !== false) {
-      timeout = setTimeout(later, remaining);
-    }
-    return result;
-  };
-};
-
-// function isAppleSilicon() {
-//   try {
-//     // Best guess if the device uses Apple Silicon: https://stackoverflow.com/a/65412357
-//     const w = document.createElement("canvas").getContext("webgl");
-//     if (w == null) {
-//       return false;
-//     }
-//     const d = w.getExtension("WEBGL_debug_renderer_info");
-//     const g = (d && w.getParameter(d.UNMASKED_RENDERER_WEBGL)) || "";
-//     if (g.match(/Apple/) && !g.match(/Apple GPU/)) {
-//       return true;
-//     }
-
-//     if (
-//       // @ts-expect-error - Object is possibly 'null'
-//       w.getSupportedExtensions().includes("WEBGL_compressed_texture_s3tc_srgb")
-//     ) {
-//       return true;
-//     }
-//   } catch {
-//     return false;
-//   }
-
-//   return false;
-// }
 
 class HiGlassComponent extends React.Component {
   constructor(props) {
@@ -383,10 +327,9 @@ class HiGlassComponent extends React.Component {
     this.zooming = false;
 
     // User-agent specific behavior for mousemove handling
-    // const parser = new UAParser();
+    const parser = new UAParser();
     // console.log(parser.getResult());
-    // const isChromeForMac = parser.getBrowser().name === 'Chrome' && (isAppleSilicon() || parser.getOS().name === 'Mac OS');
-    // console.log(navigator.userAgentData.getHighEntropyValues(['architecture']));
+    const isChromeForMac = parser.getBrowser().name === 'Chrome' && (isAppleSilicon() || parser.getOS().name === 'Mac OS');
 
     // Bound functions
     this.appClickHandlerBound = this.appClickHandler.bind(this);
@@ -408,9 +351,8 @@ class HiGlassComponent extends React.Component {
     this.animateOnGlobalEventBound = this.animateOnGlobalEvent.bind(this);
     this.requestReceivedHandlerBound = this.requestReceivedHandler.bind(this);
     this.wheelHandlerBound = this.wheelHandler.bind(this);
-    // this.mouseMoveHandlerBound = (isChromeForMac) ? throttle(this.mouseMoveHandler.bind(this), 150, {leading: false, trailing: true}) : this.mouseMoveHandler.bind(this);
+    this.mouseMoveHandlerBound = (isChromeForMac) ? throttle(this.mouseMoveHandler.bind(this), 50, {leading: false, trailing: true}) : this.mouseMoveHandler.bind(this);
     // this.mouseMoveHandlerBound = this.mouseMoveHandler.bind(this);
-    this.mouseMoveHandlerBound = throttle(this.mouseMoveHandler.bind(this), 25, {leading: false, trailing: true});
     this.onMouseLeaveHandlerBound = this.onMouseLeaveHandler.bind(this);
     this.onBlurHandlerBound = this.onBlurHandler.bind(this);
     this.openModalBound = this.openModal.bind(this);
