@@ -1095,6 +1095,10 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
       return '';
     }
 
+    if (!this.drawnRects) {
+      return '';
+    }
+
     const zoomLevel = this.calculateZoomLevel();
     const point = [trackX, trackY];
 
