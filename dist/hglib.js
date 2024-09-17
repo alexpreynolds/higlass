@@ -17411,37 +17411,53 @@ function _toPrimitive2(input, hint) {
   var abs$2 = function abs2(x) {
     return $abs(x);
   };
-  var Type$4 = function Type2(x) {
-    if (x === null) {
-      return "Null";
-    }
-    if (typeof x === "undefined") {
-      return "Undefined";
-    }
-    if (typeof x === "function" || typeof x === "object") {
-      return "Object";
-    }
-    if (typeof x === "number") {
-      return "Number";
-    }
-    if (typeof x === "boolean") {
-      return "Boolean";
-    }
-    if (typeof x === "string") {
-      return "String";
-    }
-  };
-  var ES5Type = Type$4;
-  var Type$3 = function Type2(x) {
-    if (typeof x === "symbol") {
-      return "Symbol";
-    }
-    if (typeof x === "bigint") {
-      return "BigInt";
-    }
-    return ES5Type(x);
-  };
-  var Type$2 = Type$3;
+  var Type$4;
+  var hasRequiredType$1;
+  function requireType$1() {
+    if (hasRequiredType$1)
+      return Type$4;
+    hasRequiredType$1 = 1;
+    Type$4 = function Type2(x) {
+      if (x === null) {
+        return "Null";
+      }
+      if (typeof x === "undefined") {
+        return "Undefined";
+      }
+      if (typeof x === "function" || typeof x === "object") {
+        return "Object";
+      }
+      if (typeof x === "number") {
+        return "Number";
+      }
+      if (typeof x === "boolean") {
+        return "Boolean";
+      }
+      if (typeof x === "string") {
+        return "String";
+      }
+    };
+    return Type$4;
+  }
+  var Type$3;
+  var hasRequiredType;
+  function requireType() {
+    if (hasRequiredType)
+      return Type$3;
+    hasRequiredType = 1;
+    var ES5Type = requireType$1();
+    Type$3 = function Type2(x) {
+      if (typeof x === "symbol") {
+        return "Symbol";
+      }
+      if (typeof x === "bigint") {
+        return "BigInt";
+      }
+      return ES5Type(x);
+    };
+    return Type$3;
+  }
+  var Type$2 = requireType();
   var $floor$1 = Math.floor;
   var floor$1 = function floor2(x) {
     if (Type$2(x) === "BigInt") {
@@ -17464,7 +17480,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredIsIntegralNumber = 1;
     var abs2 = abs$2;
     var floor2 = floor$1;
-    var Type2 = Type$3;
+    var Type2 = requireType();
     var $isNaN2 = _isNaN;
     var $isFinite2 = _isFinite;
     IsIntegralNumber$1 = function IsIntegralNumber2(argument) {
@@ -18039,7 +18055,7 @@ function _toPrimitive2(input, hint) {
   var $TypeError$5 = GetIntrinsic$8("%TypeError%");
   var inspect = objectInspect;
   var IsPropertyKey = requireIsPropertyKey();
-  var Type$1 = Type$3;
+  var Type$1 = requireType();
   var Get$4 = function Get2(O, P) {
     if (Type$1(O) !== "Object") {
       throw new $TypeError$5("Assertion failed: Type(O) is not Object");
@@ -18244,7 +18260,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredFromPropertyDescriptor = 1;
     var assertRecord2 = requireAssertRecord();
     var fromPropertyDescriptor2 = requireFromPropertyDescriptor$1();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     FromPropertyDescriptor = function FromPropertyDescriptor2(Desc) {
       if (typeof Desc !== "undefined") {
         assertRecord2(Type2, "Property Descriptor", "Desc", Desc);
@@ -18261,7 +18277,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredIsAccessorDescriptor = 1;
     var has2 = src$1;
     var assertRecord2 = requireAssertRecord();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     IsAccessorDescriptor = function IsAccessorDescriptor2(Desc) {
       if (typeof Desc === "undefined") {
         return false;
@@ -18282,7 +18298,7 @@ function _toPrimitive2(input, hint) {
     hasRequiredIsDataDescriptor = 1;
     var has2 = src$1;
     var assertRecord2 = requireAssertRecord();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     IsDataDescriptor = function IsDataDescriptor2(Desc) {
       if (typeof Desc === "undefined") {
         return false;
@@ -18437,7 +18453,7 @@ function _toPrimitive2(input, hint) {
     var has2 = src$1;
     var GetIntrinsic2 = getIntrinsic;
     var $TypeError2 = GetIntrinsic2("%TypeError%");
-    var Type2 = Type$3;
+    var Type2 = requireType();
     var ToBoolean2 = ToBoolean$1;
     var IsCallable2 = IsCallable$3.exports;
     ToPropertyDescriptor = function ToPropertyDescriptor2(Obj) {
@@ -18494,7 +18510,7 @@ function _toPrimitive2(input, hint) {
     var IsPropertyKey2 = requireIsPropertyKey();
     var SameValue2 = requireSameValue();
     var ToPropertyDescriptor2 = requireToPropertyDescriptor();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     DefinePropertyOrThrow = function DefinePropertyOrThrow2(O, P, desc) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: Type(O) is not Object");
@@ -18552,7 +18568,7 @@ function _toPrimitive2(input, hint) {
   var IsArray$1 = requireIsArray();
   var IsConstructor = requireIsConstructor();
   var IsIntegralNumber = requireIsIntegralNumber();
-  var Type = Type$3;
+  var Type = requireType();
   var ArraySpeciesCreate$2 = function ArraySpeciesCreate2(originalArray, length2) {
     if (!IsIntegralNumber(length2) || length2 < 0) {
       throw new $TypeError$4("Assertion failed: length must be an integer >= 0");
@@ -18703,7 +18719,7 @@ function _toPrimitive2(input, hint) {
     var IsPropertyKey2 = requireIsPropertyKey();
     var IsRegExp2 = requireIsRegExp();
     var ToPropertyDescriptor2 = requireToPropertyDescriptor();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     OrdinaryGetOwnProperty = function OrdinaryGetOwnProperty2(O, P) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: O must be an Object");
@@ -18766,7 +18782,7 @@ function _toPrimitive2(input, hint) {
     var IsExtensible2 = requireIsExtensible();
     var IsPropertyKey2 = requireIsPropertyKey();
     var SameValue2 = requireSameValue();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     CreateDataProperty = function CreateDataProperty2(O, P, V) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: Type(O) is not Object");
@@ -18794,7 +18810,7 @@ function _toPrimitive2(input, hint) {
     var $TypeError2 = GetIntrinsic2("%TypeError%");
     var CreateDataProperty2 = requireCreateDataProperty();
     var IsPropertyKey2 = requireIsPropertyKey();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     CreateDataPropertyOrThrow$2 = function CreateDataPropertyOrThrow2(O, P, V) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: Type(O) is not Object");
@@ -18819,7 +18835,7 @@ function _toPrimitive2(input, hint) {
     var GetIntrinsic2 = getIntrinsic;
     var $TypeError2 = GetIntrinsic2("%TypeError%");
     var IsPropertyKey2 = requireIsPropertyKey();
-    var Type2 = Type$3;
+    var Type2 = requireType();
     HasProperty$2 = function HasProperty2(O, P) {
       if (Type2(O) !== "Object") {
         throw new $TypeError2("Assertion failed: `O` must be an Object");
@@ -19042,7 +19058,7 @@ function _toPrimitive2(input, hint) {
     var $trim = function(value2) {
       return $replace2(value2, trimRegex, "");
     };
-    var Type2 = Type$3;
+    var Type2 = requireType();
     StringToNumber$1 = function StringToNumber2(argument) {
       if (Type2(argument) !== "String") {
         throw new $TypeError2("Assertion failed: `argument` is not a String");
@@ -19128,7 +19144,7 @@ function _toPrimitive2(input, hint) {
     var $TypeError2 = GetIntrinsic2("%TypeError%");
     var Get2 = Get$4;
     var ToLength2 = ToLength$1;
-    var Type2 = Type$3;
+    var Type2 = requireType();
     LengthOfArrayLike$2 = function LengthOfArrayLike2(obj) {
       if (Type2(obj) !== "Object") {
         throw new $TypeError2("Assertion failed: `obj` must be an Object");
@@ -46057,6 +46073,12 @@ function _toPrimitive2(input, hint) {
         graphics.clear();
         graphics.lineStyle(1, colorToHex("red"));
         graphics.drawRect(this.position[0], this.position[1], this.dimensions[0], this.dimensions[1]);
+      } else {
+        this.errorText.text = "";
+        const graphics = this.pBorder;
+        if (!graphics || !graphics._geometry)
+          return;
+        graphics.clear();
       }
     } }, { key: "drawBackground", value: function drawBackground() {
       const graphics = this.pBackground;

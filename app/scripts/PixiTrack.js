@@ -268,6 +268,12 @@ class PixiTrack extends Track {
         this.dimensions[1],
       );
     }
+    else {
+      this.errorText.text = '';
+      const graphics = this.pBorder;
+      if (!graphics || !graphics._geometry) return;
+      graphics.clear();
+    }
   }
 
   drawBackground() {
