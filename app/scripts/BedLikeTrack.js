@@ -1090,12 +1090,17 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
     this.animate();
   }
 
-  getMouseOverHtml(trackX, trackY) {
+  getMouseOverHtml(trackX, trackY, isShiftDown) {
     if (!this.tilesetInfo) {
       return '';
     }
 
     if (!this.drawnRects) {
+      return '';
+    }
+
+    if (!this.options.showTooltip && !isShiftDown) {
+      this.animate();
       return '';
     }
 
@@ -1129,7 +1134,7 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
 
           let output = `<div class="track-mouseover-menu-table">`;
 
-          const identifierText = parts.length >= 4 ? parts[3] : null;
+          const identifierText = (parts.length >= 4) ? parts[3] : null;
 
           if (identifierText) {
             output += `
@@ -1140,9 +1145,11 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
             `;
           }
 
-          const intervalText = parts.length >= 5 ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
+          const intervalText = ((parts.length >= 5) && (typeof parts[5] !== 'undefined')) ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
 
-          if (intervalText) {
+          console.log(`parts ${JSON.stringify(parts)}`);
+
+          if ((intervalText) && (intervalText !== identifierText)) {
             output += `
             <div class="track-mouseover-menu-table-item">
               <label for="interval" class="track-mouseover-menu-table-item-label">Interval</label>
@@ -1151,7 +1158,11 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
             `;
           }
 
-          const scoreText = parts.length >= 5 ? parts[4] : null;
+          function isNumber(value) {
+            return typeof value === 'number';
+          }
+
+          const scoreText = (parts.length >= 5) ? ((isNumber(Number(parts[4]))) ? Number(parts[4]).toExponential(3) : null) : null;
 
           if (scoreText) {
             output += `

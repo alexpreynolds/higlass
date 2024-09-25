@@ -57198,11 +57198,15 @@ function _toPrimitive2(input, hint) {
       });
       this.draw();
       this.animate();
-    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY) {
+    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY, isShiftDown) {
       if (!this.tilesetInfo) {
         return "";
       }
       if (!this.drawnRects) {
+        return "";
+      }
+      if (!this.options.showTooltip && !isShiftDown) {
+        this.animate();
         return "";
       }
       const zoomLevel = this.calculateZoomLevel();
@@ -57222,6 +57226,9 @@ function _toPrimitive2(input, hint) {
           }
           const pc = robustPnp(newArr, point2);
           if (pc === -1) {
+            let isNumber2 = function(value2) {
+              return typeof value2 === "number";
+            };
             const parts = visibleRects[i2][1].value.fields;
             let output = `<div class="track-mouseover-menu-table">`;
             const identifierText = parts.length >= 4 ? parts[3] : null;
@@ -57233,8 +57240,9 @@ function _toPrimitive2(input, hint) {
             </div>
             `;
             }
-            const intervalText = parts.length >= 5 ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
-            if (intervalText) {
+            const intervalText = parts.length >= 5 && typeof parts[5] !== "undefined" ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
+            console.log(`parts ${JSON.stringify(parts)}`);
+            if (intervalText && intervalText !== identifierText) {
               output += `
             <div class="track-mouseover-menu-table-item">
               <label for="interval" class="track-mouseover-menu-table-item-label">Interval</label>
@@ -57242,7 +57250,7 @@ function _toPrimitive2(input, hint) {
             </div>
             `;
             }
-            const scoreText = parts.length >= 5 ? parts[4] : null;
+            const scoreText = parts.length >= 5 ? isNumber2(Number(parts[4])) ? Number(parts[4]).toExponential(3) : null : null;
             if (scoreText) {
               output += `
             <div class="track-mouseover-menu-table-item">
