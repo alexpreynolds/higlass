@@ -57241,7 +57241,6 @@ function _toPrimitive2(input, hint) {
             `;
             }
             const intervalText = parts.length >= 5 && typeof parts[5] !== "undefined" ? `${parts[0]}:${+parts[1]}-${+parts[2]} (${parts[5]})` : `${parts[0]}:${+parts[1]}-${+parts[2]}`;
-            console.log(`parts ${JSON.stringify(parts)}`);
             if (intervalText && intervalText !== identifierText) {
               output += `
             <div class="track-mouseover-menu-table-item">
