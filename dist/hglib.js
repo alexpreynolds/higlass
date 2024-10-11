@@ -69882,8 +69882,15 @@ function _toPrimitive2(input, hint) {
       });
     } }, { key: "removeTracks", value: function removeTracks(trackUids) {
       for (let i2 = 0; i2 < trackUids.length; i2++) {
-        this.trackDefObjects[trackUids[i2]].trackObject.remove();
-        delete this.trackDefObjects[trackUids[i2]];
+        if (this.trackDefObjects[trackUids[i2]] == null)
+          return;
+        if (this.trackDefObjects[trackUids[i2]].trackObject == null)
+          return;
+        try {
+          this.trackDefObjects[trackUids[i2]].trackObject.remove();
+          delete this.trackDefObjects[trackUids[i2]];
+        } catch (err2) {
+        }
       }
     } }, { key: "setCenter", value: function setCenter(centerX, centerY, sourceK, notify = false, animateTime = 0, xScale = this.xScale, yScale = this.yScale) {
       const refK = this.xScale.invert(1) - this.xScale.invert(0);
