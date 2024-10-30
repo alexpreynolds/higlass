@@ -45251,9 +45251,10 @@ function _toPrimitive2(input, hint) {
       if (this.track.getTheme() === THEME_DARK)
         stroke = "#cccccc";
       const line = document.createElement("path");
+      const lineVerticalAxisUniqueId = Math.random().toString(36).substring(7);
       line.setAttribute("fill", "transparent");
       line.setAttribute("stroke", stroke);
-      line.setAttribute("id", "axis-line");
+      line.setAttribute("id", `axis-line-${lineVerticalAxisUniqueId}`);
       line.setAttribute("d", `M0,0 L0,${axisHeight}`);
       gAxis.appendChild(line);
       return gAxis;
@@ -45265,14 +45266,16 @@ function _toPrimitive2(input, hint) {
       if (this.track.getTheme() === THEME_DARK)
         stroke = "#cccccc";
       const line = document.createElement("path");
-      line.setAttribute("id", "tick-mark");
+      const lineAxisSVGUniqueId = Math.random().toString(36).substring(7);
+      line.setAttribute("id", `tick-mark-${lineAxisSVGUniqueId}`);
       line.setAttribute("fill", "transparent");
       line.setAttribute("stroke", stroke);
       return line;
     } }, { key: "createAxisSVGText", value: function createAxisSVGText(text2) {
       const t = document.createElement("text");
+      const textAxisSVGUniqueId = Math.random().toString(36).substring(7);
       t.innerHTML = text2;
-      t.setAttribute("id", "axis-text");
+      t.setAttribute("id", `axis-text-${textAxisSVGUniqueId}`);
       t.setAttribute("text-anchor", "middle");
       t.setAttribute("font-family", this.axisTextFontFamily);
       t.setAttribute("font-size", this.axisTextFontSize);
@@ -57730,7 +57733,8 @@ function _toPrimitive2(input, hint) {
         }
       });
       const gAxis = document.createElement("g");
-      gAxis.setAttribute("id", "axis");
+      const gAxisUniqueId = Math.random().toString(36).substring(7);
+      gAxis.setAttribute("id", `axis-${gAxisUniqueId}`);
       base.appendChild(gAxis);
       gAxis.setAttribute("transform", `translate(${this.axis.pAxis.position.x}, ${this.axis.pAxis.position.y})`);
       if (this.options.axisPositionHorizontal === "left" || this.options.axisPositionVertical === "top") {
@@ -57860,7 +57864,8 @@ function _toPrimitive2(input, hint) {
         }
       }
       const gAxis = document.createElement("g");
-      gAxis.setAttribute("id", "axis");
+      const gAxisUniqueId = Math.random().toString(36).substring(7);
+      gAxis.setAttribute("id", `axis-${gAxisUniqueId}`);
       base.appendChild(gAxis);
       gAxis.setAttribute("transform", `translate(${this.axis.pAxis.position.x}, ${this.axis.pAxis.position.y})`);
       if (this.options.axisPositionHorizontal === "left" || this.options.axisPositionVertical === "top") {
@@ -58231,7 +58236,8 @@ function _toPrimitive2(input, hint) {
       this.zeroLine.drawRect(0, this.dimensions[1] - 1, this.dimensions[0], 1);
     } }, { key: "drawZeroLineSvg", value: function drawZeroLineSvg(output) {
       const zeroLine = document.createElement("rect");
-      zeroLine.setAttribute("id", "zero-line");
+      const zeroLineUniqueID = Math.random().toString(36).substring(7);
+      zeroLine.setAttribute("id", `zero-line-${zeroLineUniqueID}`);
       zeroLine.setAttribute("x", 0);
       zeroLine.setAttribute("y", this.dimensions[1] - 1);
       zeroLine.setAttribute("height", 1);
@@ -58304,7 +58310,8 @@ function _toPrimitive2(input, hint) {
         }
       });
       const gAxis = document.createElement("g");
-      gAxis.setAttribute("id", "axis");
+      const gAxisUniqueId = Math.random().toString(36).substring(7);
+      gAxis.setAttribute("id", `axis-${gAxisUniqueId}`);
       base.appendChild(gAxis);
       gAxis.setAttribute("transform", `translate(${this.axis.pAxis.position.x}, ${this.axis.pAxis.position.y})`);
       if (this.options.axisPositionHorizontal === "left" || this.options.axisPositionVertical === "top") {
@@ -60386,7 +60393,8 @@ function _toPrimitive2(input, hint) {
       }
       const output = document.createElement("g");
       track.appendChild(output);
-      base.setAttribute("id", "ChromosomeGrid");
+      const cgUniqueUd = Math.random().toString(36).substring(7);
+      base.setAttribute("id", `ChromosomeGrid-${cgUniqueUd}`);
       output.setAttribute("transform", `translate(${this.position[0]},${this.position[1]})`);
       if (!this.chromInfo) {
         return [base, track];

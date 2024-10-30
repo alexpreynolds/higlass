@@ -278,7 +278,8 @@ class BarTrack extends HorizontalLine1DPixiTrack {
 
   drawZeroLineSvg(output) {
     const zeroLine = document.createElement('rect');
-    zeroLine.setAttribute('id', 'zero-line');
+    const zeroLineUniqueID = Math.random().toString(36).substring(7);
+    zeroLine.setAttribute('id', `zero-line-${zeroLineUniqueID}`);
 
     zeroLine.setAttribute('x', 0);
     zeroLine.setAttribute('y', this.dimensions[1] - 1);
@@ -480,7 +481,8 @@ class BarTrack extends HorizontalLine1DPixiTrack {
       });
 
     const gAxis = document.createElement('g');
-    gAxis.setAttribute('id', 'axis');
+    const gAxisUniqueId = Math.random().toString(36).substring(7);
+    gAxis.setAttribute('id', `axis-${gAxisUniqueId}`);
 
     // append the axis to base so that it's not clipped
     base.appendChild(gAxis);
