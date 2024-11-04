@@ -58072,15 +58072,65 @@ function _toPrimitive2(input, hint) {
         return "";
       const tilePos = this.getTilePosAtPosition(trackX, trackY);
       let output = "";
+      const visibleData = this.getVisibleData(trackX, trackY);
+      const elements = visibleData.split("<br/>");
       if (this.options && this.options.heatmapValueScaling && this.options.heatmapValueScaling === "categorical" && this.options.colorRange) {
-        const visibleData = this.getVisibleData(trackX, trackY);
-        const elements = visibleData.split("<br/>");
+        let capitalize = function(text2) {
+          return text2[0].toUpperCase() + text2.substring(1);
+        };
         const color2 = this.options.colorRange[parseInt(elements[0], 10) - 1];
-        const label = elements[1];
-        if (Number.isNaN(color2) || color2 === "NaN" || typeof color2 === "undefined" || color2 === "undefined")
+        if (Number.isNaN(color2) || color2 === "NaN" || typeof color2 === "undefined" || color2 === "undefined") {
           return "";
-        output = `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2"
-                 style="fill:${color2};stroke:black;stroke-width:2;"></svg> ${label}`;
+        }
+        let label = elements[1];
+        const colorIndex = parseInt(elements[0], 10);
+        if (!label || label === "undefined" || typeof label === "undefined")
+          return "";
+        let colorLabel = "NA";
+        if (this.options.colorLabels) {
+          colorLabel = this.options.colorLabels[colorIndex] ? this.options.colorLabels[colorIndex][0] : null;
+          if (!colorLabel || colorLabel === "undefined" || typeof colorLabel === "undefined")
+            colorLabel = "NA";
+          label += ` | ${colorLabel}`;
+        }
+        const dataX = this._xScale.invert(trackX);
+        let positionText = null;
+        if (this.options.chromInfo && this.options.binSize) {
+          const atcX = absToChr(dataX, this.options.chromInfo);
+          const chrom = atcX[0];
+          const position = Math.ceil(atcX[1] / this.options.binSize) * this.options.binSize - this.options.binSize;
+          positionText = `${chrom}:${position}`;
+        }
+        const metadataElements = elements[1].split("|").map((d) => d.trim());
+        output = `<div class="track-mouseover-menu-table">`;
+        if (positionText) {
+          output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+          <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+        </div>
+        `;
+        }
+        const sampleName = capitalize(metadataElements[1]);
+        const specificSampleName = metadataElements.length === 3 && metadataElements[1] !== metadataElements[2] ? `(${metadataElements[2]})` : "";
+        output += `<div class="track-mouseover-menu-table-item">
+        <label for="sampleName" class="track-mouseover-menu-table-item-label">Biosample</label>
+        <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleName} ${specificSampleName}</div>
+      </div>`;
+        const sampleId = metadataElements[0];
+        output += `<div class="track-mouseover-menu-table-item">
+        <label for="sampleId" class="track-mouseover-menu-table-item-label">Identifier</label>
+        <div name="sampleId" class="track-mouseover-menu-table-item-value">${sampleId}</div>
+      </div>`;
+        const stateColor = color2;
+        const stateName = colorLabel;
+        const stateRGBMarkup = `<svg width="10" height="10" style="position:relative; top:-2px;"><rect width="10" height="10" rx="2" ry="2" style="fill:${stateColor};stroke:black;stroke-width:2;"></svg> ${stateName}`;
+        output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="stateName" class="track-mouseover-menu-table-item-label">Chromatin state</label>
+          <div name="stateName" class="track-mouseover-menu-table-item-value">${stateRGBMarkup}</div>
+        </div>`;
+        output += `</div>`;
       } else {
         output += `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
         output += `Zoom level: ${tilePos[0]} tile position: ${tilePos[1]}`;
@@ -59073,13 +59123,27 @@ function _toPrimitive2(input, hint) {
           const pc = robustPnp(newArr, point2);
           if (pc === -1) {
             const gene = tile.allRects[i2][2];
-            return `
-            <div>
-              <b>${gene.fields[3]}</b><br>
-              <b>Position:</b> ${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]}<br>
-              <b>Strand:</b> ${gene.fields[5]}
+            let output = `<div class="track-mouseover-menu-table">`;
+            let symbolNameText = gene.fields.length >= 4 ? `${gene.fields[3]}` : null;
+            if (symbolNameText) {
+              output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="name" class="track-mouseover-menu-table-item-label">Name</label>
+              <div name="name" class="track-mouseover-menu-table-item-value">${symbolNameText}</div>
             </div>
-          `;
+            `;
+            }
+            let strandText = gene.fields.length >= 6 ? `${gene.fields[5]}` : null;
+            let positionText = gene.fields.length >= 3 ? strandText ? `${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]} (${strandText})` : `${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]}` : null;
+            if (positionText) {
+              output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+              <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+            </div>
+            `;
+            }
+            return output;
           }
         }
       }

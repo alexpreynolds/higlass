@@ -934,13 +934,40 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
         if (pc === -1) {
           const gene = tile.allRects[i][2];
 
-          return `
-            <div>
-              <b>${gene.fields[3]}</b><br>
-              <b>Position:</b> ${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]}<br>
-              <b>Strand:</b> ${gene.fields[5]}
+          // return `
+          //   <div>
+          //     <b>${gene.fields[3]}</b><br>
+          //     <b>Position:</b> ${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]}<br>
+          //     <b>Strand:</b> ${gene.fields[5]}
+          //   </div>
+          // `;
+
+          let output = `<div class="track-mouseover-menu-table">`;
+
+          let symbolNameText = (gene.fields.length >= 4) ? `${gene.fields[3]}` : null;
+
+          if (symbolNameText) {
+            output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="name" class="track-mouseover-menu-table-item-label">Name</label>
+              <div name="name" class="track-mouseover-menu-table-item-value">${symbolNameText}</div>
             </div>
-          `;
+            `;
+          }
+
+          let strandText = (gene.fields.length >= 6) ? `${gene.fields[5]}` : null;
+          let positionText = (gene.fields.length >= 3) ? ((strandText) ? `${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]} (${strandText})` : `${gene.fields[0]}:${gene.fields[1]}-${gene.fields[2]}`) : null;
+
+          if (positionText) {
+            output += `
+            <div class="track-mouseover-menu-table-item">
+              <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+              <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+            </div>
+            `;
+          }
+
+          return output;
         }
       }
     }
