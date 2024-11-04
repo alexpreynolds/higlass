@@ -50837,13 +50837,13 @@ function _toPrimitive2(input, hint) {
         if (_this38.tilesetInfo && _this38.tilesetInfo.chromsizes) {
           _this38.chromInfo = parseChromsizesRows(_this38.tilesetInfo.chromsizes);
         }
-        if ("error" in _this38.tilesetInfo) {
+        if (_this38.tilesetInfo && "error" in _this38.tilesetInfo) {
           console.warn("Error retrieving tilesetInfo:", dataConfig, _this38.tilesetInfo.error);
           _this38.tilesetInfo = null;
           _this38.setError(_this38.tilesetInfo.error);
           return;
         }
-        if (_this38.tilesetInfo.resolutions) {
+        if (_this38.tilesetInfo && _this38.tilesetInfo.resolutions) {
           _this38.maxZoom = _this38.tilesetInfo.resolutions.length;
         } else {
           _this38.maxZoom = +_this38.tilesetInfo.max_zoom;
@@ -50855,6 +50855,8 @@ function _toPrimitive2(input, hint) {
             console.error("Invalid maxZoom on track:", _assertThisInitialized3(_this38));
           }
         }
+        if (!_this38.tilesetInfo)
+          return;
         _this38.refreshTiles();
         if (handleTilesetInfoReceived)
           handleTilesetInfoReceived(tilesetInfo);
@@ -51115,7 +51117,7 @@ function _toPrimitive2(input, hint) {
         }
       }
     } }, { key: "draw", value: function draw() {
-      if (this.delayDrawing)
+      if (this.delayDrawing || !this.position || !this.trackNotFoundText)
         return;
       if (!this.tilesetInfo) {
         if (this.dataFetcher.tilesetInfoLoading) {
@@ -52334,7 +52336,7 @@ function _toPrimitive2(input, hint) {
         return;
       this.onMouseMoveZoom({ trackId: this.id, data: data2, absX, absY, relX, relY, dataX, dataY, orientation: orientation2 });
     } }, { key: "drawConstIndicator", value: function drawConstIndicator() {
-      if (!this.constIndicator) {
+      if (!this.constIndicator || !this.constIndicator._graphics) {
         return;
       }
       this.constIndicator.clear();

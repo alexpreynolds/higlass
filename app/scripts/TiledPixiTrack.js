@@ -175,7 +175,7 @@ class TiledPixiTrack extends PixiTrack {
         this.chromInfo = parseChromsizesRows(this.tilesetInfo.chromsizes);
       }
 
-      if ('error' in this.tilesetInfo) {
+      if (this.tilesetInfo && 'error' in this.tilesetInfo) {
         // no tileset info for this track
         console.warn(
           'Error retrieving tilesetInfo:',
@@ -191,7 +191,7 @@ class TiledPixiTrack extends PixiTrack {
         return;
       }
 
-      if (this.tilesetInfo.resolutions) {
+      if (this.tilesetInfo && this.tilesetInfo.resolutions) {
         this.maxZoom = this.tilesetInfo.resolutions.length;
       } else {
         this.maxZoom = +this.tilesetInfo.max_zoom;
@@ -204,6 +204,8 @@ class TiledPixiTrack extends PixiTrack {
           console.error('Invalid maxZoom on track:', this);
         }
       }
+
+      if (!this.tilesetInfo) return;
 
       this.refreshTiles();
 
@@ -746,7 +748,7 @@ class TiledPixiTrack extends PixiTrack {
   }
 
   draw() {
-    if (this.delayDrawing) return;
+    if (this.delayDrawing || !this.position || !this.trackNotFoundText) return;
 
     if (!this.tilesetInfo) {
       if (this.dataFetcher.tilesetInfoLoading) {
