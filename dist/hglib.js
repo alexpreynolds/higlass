@@ -45499,10 +45499,11 @@ function _toPrimitive2(input, hint) {
         const newRange = track._xScale.domain().map(tile.drawnAtScale);
         const posOffset = newRange[0];
         for (const graphicsAccessor of graphicsAccessors) {
-          if (!graphicsAccessor(tile))
-            continue;
-          graphicsAccessor(tile).scale.x = tileK;
-          graphicsAccessor(tile).x = -posOffset * tileK;
+          try {
+            graphicsAccessor(tile).scale.x = tileK;
+            graphicsAccessor(tile).x = -posOffset * tileK;
+          } catch (err2) {
+          }
         }
       }
     });
@@ -58318,11 +58319,15 @@ function _toPrimitive2(input, hint) {
         this.zeroLine.clear();
       }
       Object.values(this.fetchedTiles).forEach((tile) => {
-        if (!tile || !tile.graphics || !tile.graphics.scale || !tile.graphics.position)
+        if (!tile || !tile.graphics) {
           return;
-        const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(tile.drawnAtScale);
-        tile.graphics.scale.x = graphicsXScale;
-        tile.graphics.position.x = graphicsXPos;
+        }
+        try {
+          const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(tile.drawnAtScale);
+          tile.graphics.scale.x = graphicsXScale;
+          tile.graphics.position.x = graphicsXPos;
+        } catch (err2) {
+        }
       });
     } }, { key: "zoomed", value: function zoomed(newXScale, newYScale) {
       _get4(_getPrototypeOf4(BarTrack2.prototype), "zoomed", this).call(this, newXScale, newYScale);
@@ -60846,9 +60851,7 @@ function _toPrimitive2(input, hint) {
         text2.anchor.y = this.options.reverseOrientation ? 0 : 1;
         text2.x = viewportMidX;
         text2.y = this.dimensions[1] - yPadding;
-        if (text2.transform && text2.transform._worldID) {
-          text2.updateTransform();
-        }
+        text2.updateTransform();
         if (this.flipText)
           text2.scale.x = -1;
         const numTicksDrawn = this.drawTicks(xCumPos);

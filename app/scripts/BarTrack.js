@@ -327,13 +327,16 @@ class BarTrack extends HorizontalLine1DPixiTrack {
     }
 
     Object.values(this.fetchedTiles).forEach((tile) => {
-      if (!tile || !tile.graphics || !tile.graphics.scale || !tile.graphics.position) return;
-      const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(
-        tile.drawnAtScale,
-      );
-
-      tile.graphics.scale.x = graphicsXScale;
-      tile.graphics.position.x = graphicsXPos;
+      if (!tile || !tile.graphics) {
+        return;
+      }
+      try {
+        const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(
+          tile.drawnAtScale,
+        );
+        tile.graphics.scale.x = graphicsXScale;
+        tile.graphics.position.x = graphicsXPos;
+      } catch (err) {}
     });
   }
 

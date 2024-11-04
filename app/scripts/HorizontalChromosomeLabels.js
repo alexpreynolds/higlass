@@ -508,9 +508,7 @@ class HorizontalChromosomeLabels extends PixiTrack {
       text.anchor.y = this.options.reverseOrientation ? 0 : 1;
       text.x = viewportMidX;
       text.y = this.dimensions[1] - yPadding;
-      if (text.transform && text.transform._worldID) {
-        text.updateTransform();
-      }
+      text.updateTransform();
 
       if (this.flipText) text.scale.x = -1;
 
