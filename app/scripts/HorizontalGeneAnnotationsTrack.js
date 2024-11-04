@@ -798,11 +798,13 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
             // if we haven't measured the text's width in renderTile, do it now
             // this can occur if the same gene is in more than one tile, so its
             // dimensions are measured for the first tile and not for the second
-            const textWidth = text.getBounds().width;
-            const textHeight = text.getBounds().height;
+            if (text && text.getBounds()) {
+              const textWidth = text.getBounds().width;
+              const textHeight = text.getBounds().height;
 
-            tile.textHeights[geneId] = textHeight;
-            tile.textWidths[geneId] = textWidth;
+              tile.textHeights[geneId] = textHeight;
+              tile.textWidths[geneId] = textWidth;
+            }
           }
 
           if (!parentInFetched) {

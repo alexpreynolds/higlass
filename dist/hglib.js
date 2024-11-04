@@ -45499,6 +45499,8 @@ function _toPrimitive2(input, hint) {
         const newRange = track._xScale.domain().map(tile.drawnAtScale);
         const posOffset = newRange[0];
         for (const graphicsAccessor of graphicsAccessors) {
+          if (!graphicsAccessor(tile))
+            continue;
           graphicsAccessor(tile).scale.x = tileK;
           graphicsAccessor(tile).x = -posOffset * tileK;
         }
@@ -56961,12 +56963,14 @@ function _toPrimitive2(input, hint) {
           const fontColor = this.options.fontColor !== void 0 ? colorToHex(this.options.fontColor) : fill;
           text2.style = { ...TEXT_STYLE, fill: fontColor, fontSize: +this.options.fontSize || TEXT_STYLE.fontSize };
           if (!(geneInfo[3] in tile.textWidths)) {
-            text2.updateTransform();
-            const textWidth = text2.getBounds().width;
-            const textHeight = text2.getBounds().height;
-            const TEXT_SIZE_ADJUSTMENT = 5;
-            tile.textWidths[geneInfo[3]] = textWidth;
-            tile.textHeights[geneInfo[3]] = textHeight - TEXT_SIZE_ADJUSTMENT;
+            if (text2 && text2.getBounds()) {
+              text2.updateTransform();
+              const textWidth = text2.getBounds().width;
+              const textHeight = text2.getBounds().height;
+              const TEXT_SIZE_ADJUSTMENT = 5;
+              tile.textWidths[geneInfo[3]] = textWidth;
+              tile.textHeights[geneInfo[3]] = textHeight - TEXT_SIZE_ADJUSTMENT;
+            }
           }
         }
       }
@@ -58305,12 +58309,12 @@ function _toPrimitive2(input, hint) {
       const posOffset = newRange[0];
       return [tileK, -posOffset * tileK];
     } }, { key: "draw", value: function draw() {
-      if (!this.initialized)
+      if (!this.initialized || !this.zeroLine)
         return;
       _get4(_getPrototypeOf4(BarTrack2.prototype), "draw", this).call(this);
-      if (this.options.zeroLineVisible)
+      if (this.zeroLine && this.options.zeroLineVisible)
         this.drawZeroLine();
-      else
+      else if (this.zeroLine)
         this.zeroLine.clear();
       Object.values(this.fetchedTiles).forEach((tile) => {
         const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(tile.drawnAtScale);
@@ -59051,10 +59055,12 @@ function _toPrimitive2(input, hint) {
           text2.position.x = this._xScale(txMiddle);
           text2.position.y = textYMiddle;
           if (!tile.textWidths[geneId]) {
-            const textWidth = text2.getBounds().width;
-            const textHeight = text2.getBounds().height;
-            tile.textHeights[geneId] = textHeight;
-            tile.textWidths[geneId] = textWidth;
+            if (text2 && text2.getBounds()) {
+              const textWidth = text2.getBounds().width;
+              const textHeight = text2.getBounds().height;
+              tile.textHeights[geneId] = textHeight;
+              tile.textWidths[geneId] = textWidth;
+            }
           }
           if (!parentInFetched) {
             text2.visible = true;

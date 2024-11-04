@@ -617,16 +617,18 @@ class BedLikeTrack extends HorizontalTiled1DPixiTrack {
         };
 
         if (!(geneInfo[3] in tile.textWidths)) {
-          text.updateTransform();
-          const textWidth = text.getBounds().width;
-          const textHeight = text.getBounds().height;
+          if (text && text.getBounds()) {
+            text.updateTransform();
+            const textWidth = text.getBounds().width;
+            const textHeight = text.getBounds().height;
 
-          // the text size adjustment compensates for the extra
-          // size that the show gives it
-          const TEXT_SIZE_ADJUSTMENT = 5;
+            // the text size adjustment compensates for the extra
+            // size that the show gives it
+            const TEXT_SIZE_ADJUSTMENT = 5;
 
-          tile.textWidths[geneInfo[3]] = textWidth;
-          tile.textHeights[geneInfo[3]] = textHeight - TEXT_SIZE_ADJUSTMENT;
+            tile.textWidths[geneInfo[3]] = textWidth;
+            tile.textHeights[geneInfo[3]] = textHeight - TEXT_SIZE_ADJUSTMENT;
+          }
         }
       }
     }

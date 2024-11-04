@@ -454,6 +454,7 @@ function stretchRects(track, graphicsAccessors) {
         const posOffset = newRange[0];
 
         for (const graphicsAccessor of graphicsAccessors) {
+          if (!graphicsAccessor(tile)) continue;
           graphicsAccessor(tile).scale.x = tileK;
           graphicsAccessor(tile).x = -posOffset * tileK;
         }
