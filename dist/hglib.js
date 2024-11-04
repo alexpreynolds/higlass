@@ -58312,10 +58312,11 @@ function _toPrimitive2(input, hint) {
       if (!this.initialized || !this.zeroLine)
         return;
       _get4(_getPrototypeOf4(BarTrack2.prototype), "draw", this).call(this);
-      if (this.zeroLine && this.options.zeroLineVisible)
+      if (this.zeroLine && this.zeroLine._graphics && this.options.zeroLineVisible) {
         this.drawZeroLine();
-      else if (this.zeroLine)
+      } else if (this.zeroLine && this.zeroLine._graphics) {
         this.zeroLine.clear();
+      }
       Object.values(this.fetchedTiles).forEach((tile) => {
         const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(tile.drawnAtScale);
         tile.graphics.scale.x = graphicsXScale;

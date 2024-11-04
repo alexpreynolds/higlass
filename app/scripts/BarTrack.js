@@ -319,8 +319,12 @@ class BarTrack extends HorizontalLine1DPixiTrack {
     // but rather its parent's
     super.draw();
 
-    if (this.zeroLine && this.options.zeroLineVisible) this.drawZeroLine();
-    else if (this.zeroLine) this.zeroLine.clear();
+    if (this.zeroLine && this.zeroLine._graphics && this.options.zeroLineVisible) {
+      this.drawZeroLine();
+    }
+    else if (this.zeroLine && this.zeroLine._graphics) {
+      this.zeroLine.clear();
+    }
 
     Object.values(this.fetchedTiles).forEach((tile) => {
       const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(
