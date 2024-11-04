@@ -58318,6 +58318,8 @@ function _toPrimitive2(input, hint) {
         this.zeroLine.clear();
       }
       Object.values(this.fetchedTiles).forEach((tile) => {
+        if (!tile || !tile.graphics || !tile.graphics.scale || !tile.graphics.position)
+          return;
         const [graphicsXScale, graphicsXPos] = this.getXScaleAndOffset(tile.drawnAtScale);
         tile.graphics.scale.x = graphicsXScale;
         tile.graphics.position.x = graphicsXPos;
@@ -60844,7 +60846,9 @@ function _toPrimitive2(input, hint) {
         text2.anchor.y = this.options.reverseOrientation ? 0 : 1;
         text2.x = viewportMidX;
         text2.y = this.dimensions[1] - yPadding;
-        text2.updateTransform();
+        if (text2.transform && text2.transform._worldID) {
+          text2.updateTransform();
+        }
         if (this.flipText)
           text2.scale.x = -1;
         const numTicksDrawn = this.drawTicks(xCumPos);
