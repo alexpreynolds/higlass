@@ -17,7 +17,7 @@ function ChromosomeInfo(filepath, success, pubSub = fakePubSub) {
       filepath,
       (error, chrInfoText) => {
         if (error) {
-          // console.warn('Chromosome info not found at:', filepath);
+          console.log('Chromosome info not found at:', filepath);
           if (success) success(null);
         } else {
           const data = tsvParseRows(chrInfoText);
@@ -26,6 +26,7 @@ function ChromosomeInfo(filepath, success, pubSub = fakePubSub) {
           Object.keys(chromInfo).forEach((key) => {
             ret[key] = chromInfo[key];
           });
+          console.log(`ret ${JSON.stringify(ret)}`);
           if (success) success(ret);
         }
       },
