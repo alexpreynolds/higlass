@@ -1668,6 +1668,14 @@ class TrackRenderer extends React.Component {
       case 'vertical-gene-annotations': // legacy, included for backwards compatiblity
         return new HorizontalGeneAnnotationsTrack(context, options);
 
+      case 'horizontal-gene-bed12-annotations':
+        return new HorizontalGeneBED12AnnotationsTrack(context, options);
+
+      case 'vertical-gene-bed12-annotations':
+        return new LeftTrackModifier(
+          new HorizontalGeneBED12AnnotationsTrack(context, options)
+        );
+
       case '2d-rectangle-domains':
       case 'arrowhead-domains':
         return new ArrowheadDomainsTrack(context, options);
