@@ -56694,12 +56694,12 @@ function _toPrimitive2(input, hint) {
     }
     return 2 * inside - 1;
   }
-  const GENE_RECT_HEIGHT$1 = 16;
-  const MAX_TEXTS$1 = 50;
+  const GENE_RECT_HEIGHT$2 = 16;
+  const MAX_TEXTS$2 = 50;
   const MAX_TILE_ENTRIES = 5e3;
   const STAGGERED_OFFSET = 5;
-  const FONT_SIZE$1 = 14;
-  const TEXT_STYLE = { fontSize: `${FONT_SIZE$1}px`, fontFamily: "Arial", stroke: "white", strokeThickness: 2, fontWeight: 400, dropShadow: true, dropShadowColor: "white", dropShadowDistance: 0, dropShadowBlur: 2 };
+  const FONT_SIZE$2 = 14;
+  const TEXT_STYLE = { fontSize: `${FONT_SIZE$2}px`, fontFamily: "Arial", stroke: "white", strokeThickness: 2, fontWeight: 400, dropShadow: true, dropShadowColor: "white", dropShadowDistance: 0, dropShadowBlur: 2 };
   let BedLikeTrack = /* @__PURE__ */ function(_HorizontalTiled1DPix2) {
     _inherits3(BedLikeTrack2, _HorizontalTiled1DPix2);
     var _super20 = _createSuper3(BedLikeTrack2);
@@ -56755,7 +56755,7 @@ function _toPrimitive2(input, hint) {
             }
             tile.textWidths = {};
             tile.textHeights = {};
-            if (i2 >= (+this.options.maxTexts || MAX_TEXTS$1)) {
+            if (i2 >= (+this.options.maxTexts || MAX_TEXTS$2)) {
               return;
             }
             const text2 = new GLOBALS.PIXI.Text(geneInfo[3], { ...TEXT_STYLE, fontSize: +this.options.fontSize || TEXT_STYLE.fontSize });
@@ -56850,7 +56850,7 @@ function _toPrimitive2(input, hint) {
       if (this.options.annotationStyle === "segment") {
         return this.drawSegmentStyle(tile, xStartPos, xEndPos, rectY, rectHeight, strand);
       }
-      if ((strand === "+" || strand === "-") && xEndPos - xStartPos < GENE_RECT_HEIGHT$1 / 2) {
+      if ((strand === "+" || strand === "-") && xEndPos - xStartPos < GENE_RECT_HEIGHT$2 / 2) {
         drawnPoly = [xStartPos, rectY, xStartPos + rectHeight / 2, rectY + rectHeight / 2, xStartPos, rectY + rectHeight];
         if (strand === "+") {
           tile.rectGraphics.drawPolygon(drawnPoly);
@@ -56903,7 +56903,7 @@ function _toPrimitive2(input, hint) {
           const txEnd = +geneInfo[2] + chrOffset;
           const txMiddle = (txStart + txEnd) / 2;
           let yMiddle = rowScale(j) + rowScale.step() / 2;
-          let rectHeight = this.options.annotationHeight || GENE_RECT_HEIGHT$1;
+          let rectHeight = this.options.annotationHeight || GENE_RECT_HEIGHT$2;
           if (rectHeight === "scaled") {
             rectHeight = rowScale.bandwidth();
             if (this.options.maxAnnotationHeight) {
@@ -56950,7 +56950,7 @@ function _toPrimitive2(input, hint) {
             continue;
           if (!tile.texts)
             return;
-          if (i2 >= (+this.options.maxTexts || MAX_TEXTS$1))
+          if (i2 >= (+this.options.maxTexts || MAX_TEXTS$2))
             continue;
           if (!tile.texts[td.uid])
             continue;
@@ -58727,15 +58727,15 @@ function _toPrimitive2(input, hint) {
     } }]);
     return LeftTrackModifier2;
   }();
-  const FONT_SIZE = 11;
-  const FONT_FAMILY = "Arial";
-  const GENE_LABEL_POS = "outside";
-  const GENE_RECT_HEIGHT = 10;
-  const GENE_STRAND_SPACING = 4;
-  const MAX_TEXTS = 20;
-  const WHITE_HEX = colorToHex("#ffffff");
-  const EXON_LINE_HEIGHT = 2;
-  const EXON_HEIGHT = 2 * GENE_RECT_HEIGHT / 3;
+  const FONT_SIZE$1 = 11;
+  const FONT_FAMILY$1 = "Arial";
+  const GENE_LABEL_POS$1 = "outside";
+  const GENE_RECT_HEIGHT$1 = 10;
+  const GENE_STRAND_SPACING$1 = 4;
+  const MAX_TEXTS$1 = 20;
+  const WHITE_HEX$1 = colorToHex("#ffffff");
+  const EXON_LINE_HEIGHT$1 = 2;
+  const EXON_HEIGHT = 2 * GENE_RECT_HEIGHT$1 / 3;
   const GENE_MINI_TRIANGLE_HEIGHT = 2 * EXON_HEIGHT / 3;
   const MAX_GENE_ENTRIES = 50;
   const MAX_FILLER_ENTRIES = 5e3;
@@ -58843,7 +58843,7 @@ function _toPrimitive2(input, hint) {
     const width = xEndPos - xStartPos;
     const yMiddle = centerY;
     const polys = [];
-    let poly = [xStartPos, yMiddle - EXON_LINE_HEIGHT / 2, xStartPos + width, yMiddle - EXON_LINE_HEIGHT / 2, xStartPos + width, yMiddle + EXON_LINE_HEIGHT / 2, xStartPos, yMiddle + EXON_LINE_HEIGHT / 2];
+    let poly = [xStartPos, yMiddle - EXON_LINE_HEIGHT$1 / 2, xStartPos + width, yMiddle - EXON_LINE_HEIGHT$1 / 2, xStartPos + width, yMiddle + EXON_LINE_HEIGHT$1 / 2, xStartPos, yMiddle + EXON_LINE_HEIGHT$1 / 2];
     graphics.drawPolygon(poly);
     polys.push(poly);
     const triangleInterval = 2 * height;
@@ -58943,17 +58943,17 @@ function _toPrimitive2(input, hint) {
       const { animate } = context;
       _this53.animate = animate;
       _this53.options = options2;
-      _this53.fontSize = +_this53.options.fontSize || FONT_SIZE;
-      _this53.geneLabelPos = _this53.options.geneLabelPosition || GENE_LABEL_POS;
-      _this53.geneRectHeight = +_this53.options.geneAnnotationHeight || GENE_RECT_HEIGHT;
+      _this53.fontSize = +_this53.options.fontSize || FONT_SIZE$1;
+      _this53.geneLabelPos = _this53.options.geneLabelPosition || GENE_LABEL_POS$1;
+      _this53.geneRectHeight = +_this53.options.geneAnnotationHeight || GENE_RECT_HEIGHT$1;
       _this53.geneRectHeight -= 2;
-      _this53.geneStrandSpacing = +_this53.options.geneStrandSpacing || GENE_STRAND_SPACING;
+      _this53.geneStrandSpacing = +_this53.options.geneStrandSpacing || GENE_STRAND_SPACING$1;
       _this53.geneStrandHSpacing = _this53.geneStrandSpacing / 2;
       _this53.geneRectHHeight = _this53.geneRectHeight / 2;
       return _this53;
     }
     _createClass3(HorizontalGeneAnnotationsTrack2, [{ key: "initTile", value: function initTile(tile) {
-      externalInitTile(this, tile, { flipText: this.flipText, fontSize: this.fontSize, fontFamily: FONT_FAMILY, plusStrandColor: this.options.plusStrandColor, minusStrandColor: this.options.minusStrandColor, maxGeneEntries: MAX_GENE_ENTRIES, maxFillerEntries: MAX_FILLER_ENTRIES, maxTexts: MAX_TEXTS });
+      externalInitTile(this, tile, { flipText: this.flipText, fontSize: this.fontSize, fontFamily: FONT_FAMILY$1, plusStrandColor: this.options.plusStrandColor, minusStrandColor: this.options.minusStrandColor, maxGeneEntries: MAX_GENE_ENTRIES, maxFillerEntries: MAX_FILLER_ENTRIES, maxTexts: MAX_TEXTS$1 });
       this.renderTile(tile);
     } }, { key: "destroyTile", value: function destroyTile(tile) {
       tile.rectGraphics.destroy();
@@ -58970,9 +58970,9 @@ function _toPrimitive2(input, hint) {
       if (!force && strOptions === this.prevOptions)
         return;
       _get4(_getPrototypeOf4(HorizontalGeneAnnotationsTrack2.prototype), "rerender", this).call(this, options2, force);
-      this.fontSize = +this.options.fontSize || FONT_SIZE;
-      this.geneLabelPos = this.options.geneLabelPosition || GENE_LABEL_POS;
-      this.geneRectHeight = +this.options.geneAnnotationHeight || GENE_RECT_HEIGHT;
+      this.fontSize = +this.options.fontSize || FONT_SIZE$1;
+      this.geneLabelPos = this.options.geneLabelPosition || GENE_LABEL_POS$1;
+      this.geneRectHeight = +this.options.geneAnnotationHeight || GENE_RECT_HEIGHT$1;
       this.geneStrandHSpacing = this.geneStrandSpacing / 2;
       this.geneRectHHeight = this.geneRectHeight / 2;
       this.prevOptions = strOptions;
@@ -59017,7 +59017,7 @@ function _toPrimitive2(input, hint) {
       renderMask(this, tile);
       trackUtils.stretchRects(this, [(x) => x.rectGraphics, (x) => x.rectMaskGraphics]);
       for (const text2 of Object.values(tile.texts)) {
-        text2.style = { fontSize: `${this.fontSize}px`, FONT_FAMILY, fill: colorToHex(text2.strand === "-" ? this.options.minusStrandColor || DEFAULT_MINUS_STRAND_COLOR : this.options.plusStrandColor || DEFAULT_PLUS_STRAND_COLOR) };
+        text2.style = { fontSize: `${this.fontSize}px`, FONT_FAMILY: FONT_FAMILY$1, fill: colorToHex(text2.strand === "-" ? this.options.minusStrandColor || DEFAULT_MINUS_STRAND_COLOR : this.options.plusStrandColor || DEFAULT_PLUS_STRAND_COLOR) };
       }
     } }, { key: "calculateZoomLevel", value: function calculateZoomLevel2() {
       const xZoomLevel = api.calculateZoomLevel(this._xScale, this.tilesetInfo.min_pos[0], this.tilesetInfo.max_pos[0]);
@@ -59034,7 +59034,7 @@ function _toPrimitive2(input, hint) {
       trackUtils.stretchRects(this, [(x) => x.rectGraphics, (x) => x.rectMaskGraphics]);
       Object.values(this.fetchedTiles).filter((tile) => tile.drawnAtScale).forEach((tile) => {
         tile.textBgGraphics.clear();
-        tile.textBgGraphics.beginFill(typeof this.options.labelBackgroundColor !== "undefined" ? colorToHex(this.options.labelBackgroundColor) : WHITE_HEX);
+        tile.textBgGraphics.beginFill(typeof this.options.labelBackgroundColor !== "undefined" ? colorToHex(this.options.labelBackgroundColor) : WHITE_HEX$1);
         const parentInFetched = this.parentInFetched(tile);
         if (!tile.initialized)
           return;
@@ -59204,7 +59204,7 @@ function _toPrimitive2(input, hint) {
         const g = document.createElement("g");
         const t = document.createElement("text");
         t.setAttribute("text-anchor", "middle");
-        t.setAttribute("font-family", FONT_FAMILY);
+        t.setAttribute("font-family", FONT_FAMILY$1);
         t.setAttribute("font-size", `${this.fontSize}px`);
         t.setAttribute("dy", "-.2em");
         g.setAttribute("transform", `scale(${text2.text.scale.x},1)`);
@@ -59221,6 +59221,644 @@ function _toPrimitive2(input, hint) {
       return [base, base];
     } }]);
     return HorizontalGeneAnnotationsTrack2;
+  }(HorizontalTiled1DPixiTrack);
+  const FONT_SIZE = 11;
+  const FONT_FAMILY = "Arial";
+  const GENE_LABEL_POS = "outside";
+  const GENE_RECT_WIDTH = 1;
+  const GENE_RECT_HEIGHT = 10;
+  const GENE_STRAND_SPACING = 4;
+  const TRIANGLE_HEIGHT = 6;
+  const MAX_TEXTS = 100;
+  const WHITE_HEX = colorToHex("#ffffff");
+  const EXON_LINE_HEIGHT = 1;
+  const MIN_SCORE_CUTOFF_FOR_FILL_OPACITY = 500;
+  const DEFAULT_ITEM_RGB_NAME = "Unknown";
+  const DEFAULT_BIOSAMPLE_COUNT = 733;
+  let HorizontalGeneBED12AnnotationsTrack = /* @__PURE__ */ function(_HorizontalTiled1DPix6) {
+    _inherits3(HorizontalGeneBED12AnnotationsTrack2, _HorizontalTiled1DPix6);
+    var _super30 = _createSuper3(HorizontalGeneBED12AnnotationsTrack2);
+    function HorizontalGeneBED12AnnotationsTrack2(context, options2) {
+      var _this54;
+      _classCallCheck3(this, HorizontalGeneBED12AnnotationsTrack2);
+      _this54 = _super30.call(this, context, options2);
+      const { animate } = context;
+      _this54.animate = animate;
+      _this54.options = options2;
+      _this54.drawnGenes = {};
+      _this54.biosampleCount = +_this54.options.biosampleCount || DEFAULT_BIOSAMPLE_COUNT;
+      _this54.fontSize = +_this54.options.fontSize || FONT_SIZE;
+      _this54.geneLabelPos = _this54.options.geneLabelPosition || GENE_LABEL_POS;
+      _this54.geneRectHeight = +_this54.options.geneAnnotationHeight || GENE_RECT_HEIGHT;
+      _this54.geneRectHeight -= 2;
+      _this54.geneTriangleHeight = 0.6 * _this54.geneRectHeight || TRIANGLE_HEIGHT;
+      _this54.geneStrandSpacing = +_this54.options.geneStrandSpacing || GENE_STRAND_SPACING;
+      _this54.geneStrandHSpacing = _this54.geneStrandSpacing / 2;
+      _this54.geneRectHHeight = _this54.geneRectHeight / 2;
+      _this54.nextTxStart = -1;
+      _this54.pushElementToNextRow = false;
+      return _this54;
+    }
+    _createClass3(HorizontalGeneBED12AnnotationsTrack2, [{ key: "initTile", value: function initTile(tile) {
+      tile.texts = {};
+      tile.rectGraphics = new PIXI__namespace.Graphics();
+      tile.textBgGraphics = new PIXI__namespace.Graphics();
+      tile.textGraphics = new PIXI__namespace.Graphics();
+      tile.graphics.addChild(tile.rectGraphics);
+      tile.graphics.addChild(tile.textBgGraphics);
+      tile.graphics.addChild(tile.textGraphics);
+      tile.tileData.forEach((td, i2) => {
+        if (!Array.isArray(td.fields))
+          return;
+        const geneInfo = td.fields;
+        const geneInfoElems = geneInfo[3].split("|");
+        const geneName = geneInfoElems.length > 1 ? geneInfoElems[0] : geneInfo[3];
+        const geneId = this.geneId(geneInfo);
+        const fillTriplet = geneInfo[8].split(",");
+        const fill = PIXI__namespace.utils.rgb2hex([fillTriplet[0] / 255, fillTriplet[1] / 255, fillTriplet[2] / 255]);
+        tile.textWidths = {};
+        tile.textHeights = {};
+        tile.textYMiddles = {};
+        tile.xScaledStarts = {};
+        tile.xScaledEnds = {};
+        tile.yScaledStarts = {};
+        tile.yScaledEnds = {};
+        if (i2 >= MAX_TEXTS)
+          return;
+        const text2 = new PIXI__namespace.Text(geneName, { fontSize: `${this.fontSize}px`, fontFamily: FONT_FAMILY, fill });
+        text2.interactive = true;
+        if (this.flipText)
+          text2.scale.x = -1;
+        text2.anchor.x = 0.5;
+        text2.anchor.y = 1;
+        tile.texts[geneId] = text2;
+        tile.textGraphics.addChild(text2);
+      });
+      tile.initialized = true;
+      this.renderTile(tile);
+    } }, { key: "destroyTile", value: function destroyTile(tile) {
+      const zoomLevel = +tile.tileId.split(".")[0];
+      const tiles = this.visibleAndFetchedTiles();
+      const tileIds = {};
+      tiles.forEach((t) => {
+        tileIds[t.tileId] = t;
+      });
+      if (tile.tileData && tile.tileData.filter && this.drawnGenes[zoomLevel]) {
+        tile.tileData.filter((td) => this.drawnGenes[zoomLevel][td.fields[3]]).forEach((td) => {
+          const gene = td.fields[3];
+          if (this.drawnGenes[zoomLevel][gene]) {
+            const reRender = Object.keys(this.drawnGenes[zoomLevel][gene].otherTileIds).some((tileId) => {
+              if (tileIds[tileId]) {
+                this.drawnGenes[zoomLevel][gene].otherTileIds[tileId] = void 0;
+                delete this.drawnGenes[zoomLevel][gene].otherTileIds[tileId];
+                this.drawnGenes[zoomLevel][gene].tileId = tileId;
+                this.renderTile(tileIds[tileId]);
+                return true;
+              }
+              return false;
+            });
+            if (!reRender)
+              this.drawnGenes[zoomLevel][gene] = void 0;
+          }
+        });
+      }
+    } }, { key: "rerender", value: function rerender(options2, force) {
+      const strOptions = JSON.stringify(options2);
+      if (!force && strOptions === this.prevOptions)
+        return;
+      _get4(_getPrototypeOf4(HorizontalGeneBED12AnnotationsTrack2.prototype), "rerender", this).call(this, options2, force);
+      this.fontSize = +this.options.fontSize || FONT_SIZE;
+      this.geneLabelPos = this.options.geneLabelPosition || GENE_LABEL_POS;
+      this.geneRectHeight = +this.options.geneAnnotationHeight || GENE_RECT_HEIGHT;
+      this.geneTriangleHeight = 0.6 * this.geneRectHeight || TRIANGLE_HEIGHT;
+      this.geneStrandHSpacing = this.geneStrandSpacing / 2;
+      this.geneRectHHeight = this.geneRectHeight / 2;
+      this.prevOptions = strOptions;
+      this.visibleAndFetchedTiles().forEach((tile) => {
+        this.renderTile(tile);
+      });
+    } }, { key: "drawTile", value: function drawTile() {
+    } }, { key: "geneId", value: function geneId(geneInfo) {
+      return `${geneInfo[0]}_${geneInfo[1]}_${geneInfo[2]}_${geneInfo[3]}`;
+    } }, { key: "renderTile", value: function renderTile(tile) {
+      if (!tile.initialized)
+        return;
+      tile.allRects = [];
+      tile.drawnAtScale = this._xScale.copy();
+      tile.rectGraphics.clear();
+      tile.textBgGraphics.clear();
+      const zoomLevel = +tile.tileId.split(".")[0];
+      const filteredTiles = tile.tileData.filter((td) => {
+        if (!this.drawnGenes[zoomLevel])
+          this.drawnGenes[zoomLevel] = {};
+        const gene = td.fields[3];
+        if (!this.drawnGenes[zoomLevel][gene]) {
+          this.drawnGenes[zoomLevel][gene] = { tileId: tile.tileId, otherTileIds: {} };
+          return true;
+        }
+        if (this.drawnGenes[zoomLevel][gene].tileId !== tile.tileId) {
+          this.drawnGenes[zoomLevel][gene].otherTileIds[tile.tileId] = true;
+        }
+        return !this.drawnGenes[zoomLevel][td.fields[3]] || this.drawnGenes[zoomLevel][td.fields[3]].tileId === tile.tileId;
+      });
+      const lastIndex = filteredTiles.length - 1;
+      filteredTiles.forEach((td, i2) => {
+        const geneInfo = td.fields;
+        const chrOffset = +td.chrOffset;
+        const txStart = +geneInfo[1] + chrOffset;
+        const txEnd = +geneInfo[2] + chrOffset;
+        const thickStart = +geneInfo[6] + chrOffset;
+        const thickEnd = +geneInfo[7] + chrOffset;
+        const blockSizes = geneInfo[10];
+        const blockStarts = geneInfo[11];
+        const txMiddle = (txStart + txEnd) / 2;
+        let yMiddle = this.dimensions[1] / 2;
+        const geneId = this.geneId(geneInfo);
+        const fillTriplet = geneInfo[8].split(",");
+        const fill = PIXI__namespace.utils.rgb2hex([fillTriplet[0] / 255, fillTriplet[1] / 255, fillTriplet[2] / 255]);
+        const score = +geneInfo[4];
+        const fillOpacity = (score < MIN_SCORE_CUTOFF_FOR_FILL_OPACITY ? MIN_SCORE_CUTOFF_FOR_FILL_OPACITY : score) / 1e3;
+        if (i2 < lastIndex) {
+          const nextTile = filteredTiles[i2 + 1];
+          this.nextTxStart = +nextTile.fields[1] + nextTile.chrOffset;
+          if (this.nextTxStart < txEnd || !this.pushElementToNextRow) {
+            this.pushElementToNextRow = !this.pushElementToNextRow;
+          }
+        } else if (i2 === 0 && this.nextTxStart !== -1) {
+          const nextTileCompetitor = filteredTiles[i2 + 1];
+          if (nextTileCompetitor) {
+            const nextTxStartCompetitor = +nextTileCompetitor.fields[1] + nextTileCompetitor.chrOffset;
+            this.nextTxStart = nextTxStartCompetitor > this.nextTxStart ? this.nextTxStart : nextTxStartCompetitor;
+            if (this.nextTxStart < txEnd || !this.pushElementToNextRow) {
+              this.pushElementToNextRow = !this.pushElementToNextRow;
+            }
+          }
+        } else {
+          this.nextTxStart = txEnd;
+          this.pushElementToNextRow = !this.pushElementToNextRow;
+        }
+        yMiddle += this.pushElementToNextRow ? +this.geneRectHeight * 1.25 : 0;
+        tile.textYMiddles[geneId] = !this.pushElementToNextRow ? this.dimensions[1] / 2 - this.geneRectHeight * 0.125 + -this.geneRectHeight : yMiddle + this.geneRectHeight * 2.5;
+        tile.rectGraphics.beginFill(fill, fillOpacity);
+        const rectX = this._xScale(txMiddle) - GENE_RECT_WIDTH / 2;
+        const rectY = yMiddle - this.geneRectHHeight + EXON_LINE_HEIGHT / 2;
+        const xStartPos = this._xScale(txStart);
+        const xEndPos = this._xScale(txEnd);
+        const MIN_SIZE_FOR_EXONS = 3;
+        if (xEndPos - xStartPos > MIN_SIZE_FOR_EXONS) {
+          if (geneInfo.length < 12) {
+            console.warn("Gene annotations have less than 12 columns (chrName, chrStart, chrEnd, name, score, strand, thickStart, thickEnd, itemRgb, blockCount, blockSizes, blockStarts):", geneInfo);
+          } else {
+            tile.allRects = tile.allRects.concat(this.drawBlocks(tile.rectGraphics, txStart, txEnd, thickStart, thickEnd, blockStarts, blockSizes, chrOffset, yMiddle, geneInfo[5], fill, fillOpacity).map((x) => [x, geneInfo[5], geneInfo[8], fillOpacity]));
+          }
+        } else {
+          let poly = [];
+          if (geneInfo[5] === "+") {
+            poly = [rectX, yMiddle, rectX + this.geneRectHeight / 2, yMiddle + this.geneRectHeight / 2, rectX, yMiddle + this.geneRectHeight];
+          } else if (geneInfo[5] === "-") {
+            poly = [rectX, yMiddle, rectX - this.geneRectHeight / 2, yMiddle + this.geneRectHeight / 2, rectX, yMiddle + this.geneRectHeight];
+          } else {
+            poly = [rectX, rectY, rectX - this.geneRectHeight / 2, rectY, rectX - this.geneRectHeight / 2, rectY + this.geneRectHeight, rectX, rectY + this.geneRectHeight];
+          }
+          tile.rectGraphics.drawPolygon(poly);
+          tile.allRects.push([poly, geneInfo[5], geneInfo[8], fillOpacity]);
+        }
+        if (!tile.texts)
+          return;
+        if (i2 >= MAX_TEXTS)
+          return;
+        const text2 = tile.texts[geneId];
+        if (!text2)
+          return;
+        text2.style = { fontSize: `${this.fontSize}px`, fontFamily: FONT_FAMILY, fill };
+        text2.alpha = fillOpacity;
+        if (!(geneId in tile.textWidths)) {
+          text2.updateTransform();
+          const textWidth = text2.getBounds().width;
+          const textHeight = text2.getBounds().height;
+          tile.textWidths[geneId] = textWidth;
+          tile.textHeights[geneId] = textHeight;
+        }
+      });
+    } }, { key: "calculateZoomLevel", value: function calculateZoomLevel2() {
+      const xZoomLevel = api.calculateZoomLevel(this._xScale, this.tilesetInfo.min_pos[0], this.tilesetInfo.max_pos[0]);
+      let zoomLevel = Math.min(xZoomLevel, this.maxZoom);
+      zoomLevel = Math.max(zoomLevel, 0);
+      return zoomLevel;
+    } }, { key: "drawBlocks", value: function drawBlocks(graphics, txStart, txEnd, thickStart, thickEnd, blockStarts, blockSizes, chrOffset, yMiddle, strand, fill, fillOpacity) {
+      const blockOffsetStarts = blockStarts.split(",").map((x) => +x + txStart);
+      const blockOffsetEnds = blockSizes.split(",").map((x, i2) => +x + blockOffsetStarts[i2]);
+      const xStartPos = this._xScale(txStart);
+      const xEndPos = this._xScale(txEnd);
+      const lineHeight = EXON_LINE_HEIGHT;
+      const lineHHeight = lineHeight / 2;
+      const exonHeight = this.geneRectHeight;
+      const width = xEndPos - xStartPos;
+      const yPos = yMiddle;
+      const yExonPos = yPos - this.geneRectHHeight + lineHHeight;
+      const polys = [];
+      let poly = [xStartPos, yPos, xStartPos + width, yPos, xStartPos + width, yPos + lineHeight, xStartPos, yPos + lineHeight];
+      graphics.drawPolygon(poly);
+      polys.push([xStartPos, yPos, xStartPos + width, yPos, xStartPos + width, yPos + lineHeight, xStartPos, yPos + lineHeight]);
+      if (strand === "+" || strand === "-") {
+        for (let j = Math.max(this.position[0], xStartPos); j < Math.min(this.position[0] + this.dimensions[0], xStartPos + width); j += 2 * this.geneRectHeight) {
+          if (strand === "+") {
+            poly = [j, yExonPos + (this.geneRectHeight - this.geneTriangleHeight) / 2, j + this.geneTriangleHeight / 2, yExonPos + this.geneRectHeight / 2, j, yExonPos + (this.geneRectHeight + this.geneTriangleHeight) / 2];
+          } else if (strand === "-") {
+            poly = [j, yExonPos + (this.geneRectHeight - this.geneTriangleHeight) / 2, j - this.geneTriangleHeight / 2, yExonPos + this.geneRectHeight / 2, j, yExonPos + (this.geneRectHeight + this.geneTriangleHeight) / 2];
+          }
+          polys.push(poly);
+          graphics.drawPolygon(poly);
+        }
+      }
+      for (let j = 0; j < blockOffsetStarts.length; j++) {
+        const blockStart = blockOffsetStarts[j];
+        const blockEnd = blockOffsetEnds[j];
+        const xStart = this._xScale(blockStart);
+        const localWidth = Math.max(1, this._xScale(blockEnd) - this._xScale(blockStart));
+        const height = exonHeight;
+        const localPoly = [xStart, yExonPos, xStart + localWidth, yExonPos, xStart + localWidth, yExonPos + height, xStart, yExonPos + height, xStart, yExonPos];
+        polys.push(localPoly);
+        graphics.drawPolygon(localPoly);
+      }
+      const thickHeight = this.geneRectHHeight * 2;
+      const thickWidth = Math.max(1, this._xScale(thickEnd) - this._xScale(thickStart));
+      const thickXStart = this._xScale(thickStart);
+      const thickYStart = yPos - thickHeight;
+      const thickPoly = [thickXStart, thickYStart, thickXStart + thickWidth, thickYStart, thickXStart + thickWidth, thickYStart + 2 * thickHeight, thickXStart, thickYStart + 2 * thickHeight, thickXStart, thickYStart];
+      polys.push(thickPoly);
+      graphics.drawPolygon(thickPoly);
+      return polys;
+    } }, { key: "draw", value: function draw() {
+      _get4(_getPrototypeOf4(HorizontalGeneBED12AnnotationsTrack2.prototype), "draw", this).call(this);
+      this.allTexts = [];
+      this.allBoxes = [];
+      const allTiles = [];
+      const fontSizeHalf = this.fontSize / 2;
+      Object.values(this.fetchedTiles).filter((tile) => {
+        if (!tile.drawnAtScale)
+          return false;
+        const tileK = (tile.drawnAtScale.domain()[1] - tile.drawnAtScale.domain()[0]) / (this._xScale.domain()[1] - this._xScale.domain()[0]);
+        return tileK > 3;
+      }).forEach((tile) => {
+        this.renderTile(tile);
+      });
+      Object.values(this.fetchedTiles).filter((tile) => tile.drawnAtScale).forEach((tile) => {
+        const tileK = (tile.drawnAtScale.domain()[1] - tile.drawnAtScale.domain()[0]) / (this._xScale.domain()[1] - this._xScale.domain()[0]);
+        const newRange = this._xScale.domain().map(tile.drawnAtScale);
+        const posOffset = newRange[0];
+        tile.rectGraphics.scale.x = tileK;
+        tile.rectGraphics.position.x = -posOffset * tileK;
+        tile.textBgGraphics.clear();
+        tile.textBgGraphics.beginFill(typeof this.options.labelBackgroundColor !== "undefined" ? colorToHex(this.options.labelBackgroundColor) : WHITE_HEX);
+        const parentInFetched = this.parentInFetched(tile);
+        if (!tile.initialized)
+          return;
+        tile.tileData.forEach((td, i2) => {
+          if (!tile.texts)
+            return;
+          const geneInfo = td.fields;
+          const geneName = geneInfo[3];
+          const geneId = this.geneId(geneInfo);
+          const text2 = tile.texts[geneId];
+          if (!text2)
+            return;
+          const chrOffset = +td.chrOffset;
+          const txStart = +geneInfo[1] + chrOffset;
+          const txEnd = +geneInfo[2] + chrOffset;
+          const txMiddle = (txStart + txEnd) / 2;
+          const thickXStart = +geneInfo[6] + chrOffset;
+          const thickXEnd = +geneInfo[7] + chrOffset;
+          const thickXMiddle = (thickXStart + thickXEnd) / 2;
+          const textYMiddle = tile.textYMiddles[geneId];
+          tile.xScaledStarts[geneId] = Math.floor(this._xScale(txStart));
+          tile.xScaledEnds[geneId] = Math.ceil(this._xScale(txEnd));
+          text2.position.x = thickXMiddle !== 0 ? this._xScale(thickXMiddle) : this._xScale(txMiddle);
+          text2.position.y = textYMiddle;
+          if (!tile.textWidths[geneId]) {
+            const textWidth = text2.getBounds().width;
+            const textHeight = text2.getBounds().height;
+            tile.textHeights[geneId] = textHeight;
+            tile.textWidths[geneId] = textWidth;
+          }
+          tile.yScaledStarts[geneId] = textYMiddle < this.dimensions[1] / 2 ? textYMiddle - tile.textHeights[geneId] : textYMiddle - tile.textHeights[geneId] - this.geneRectHeight * 2;
+          tile.yScaledEnds[geneId] = textYMiddle < this.dimensions[1] / 2 ? textYMiddle + tile.textHeights[geneId] + this.geneRectHeight : textYMiddle + tile.textHeights[geneId] / 2;
+          if (!parentInFetched) {
+            text2.visible = true;
+            const TEXT_MARGIN = 3;
+            if (this.flipText) {
+              this.allBoxes.push([text2.position.x, textYMiddle - fontSizeHalf - 1, text2.position.x + tile.textHeights[geneId] + TEXT_MARGIN, textYMiddle + fontSizeHalf - 1, geneName]);
+            } else {
+              this.allBoxes.push([text2.position.x, textYMiddle - fontSizeHalf - 1, text2.position.x + tile.textWidths[geneId] + TEXT_MARGIN, textYMiddle + fontSizeHalf - 1, geneName]);
+            }
+            const textObj = { importance: +geneInfo[4], text: text2, caption: geneName, strand: geneInfo[5], geneId };
+            this.allTexts.push(textObj);
+            allTiles.push(tile.textBgGraphics);
+          } else {
+            text2.visible = false;
+          }
+        });
+      });
+      this.hideOverlaps(this.allBoxes, this.allTexts);
+      this.renderTextBg(this.allBoxes, this.allTexts, allTiles);
+    } }, { key: "renderTextBg", value: function renderTextBg(allBoxes, allTexts, allTiles) {
+      allTexts.forEach((text2, i2) => {
+        if (text2.text.visible && allBoxes[i2] && allTiles[i2]) {
+          const [minX, minY, maxX, maxY] = allBoxes[i2];
+          const width = maxX - minX;
+          const height = maxY - minY;
+          allTiles[i2].drawRect(minX - width / 2, minY - height / 2, width, height);
+        }
+      });
+    } }, { key: "hideOverlaps", value: function hideOverlaps(allBoxes, allTexts) {
+      boxIntersect_1(allBoxes, (i2, j) => {
+        if (allTexts[i2].importance > allTexts[j].importance) {
+          allTexts[j].text.visible = false;
+        } else {
+          allTexts[i2].text.visible = false;
+        }
+      });
+    } }, { key: "setPosition", value: function setPosition(newPosition) {
+      _get4(_getPrototypeOf4(HorizontalGeneBED12AnnotationsTrack2.prototype), "setPosition", this).call(this, newPosition);
+      [this.pMain.position.x, this.pMain.position.y] = this.position;
+    } }, { key: "setDimensions", value: function setDimensions(newDimensions) {
+      _get4(_getPrototypeOf4(HorizontalGeneBED12AnnotationsTrack2.prototype), "setDimensions", this).call(this, newDimensions);
+      this.halfRectHHeight = this.dimensions[1] / 2;
+      this.visibleAndFetchedTiles().forEach((tile) => {
+        this.renderTile(tile);
+      });
+    } }, { key: "zoomed", value: function zoomed(newXScale, newYScale) {
+      this.xScale(newXScale);
+      this.yScale(newYScale);
+      this.refreshTiles();
+      this.draw();
+    } }, { key: "exportSVG", value: function exportSVG() {
+      let track = null;
+      let base = null;
+      if (_get4(_getPrototypeOf4(HorizontalGeneBED12AnnotationsTrack2.prototype), "exportSVG", this)) {
+        [base, track] = _get4(_getPrototypeOf4(HorizontalGeneBED12AnnotationsTrack2.prototype), "exportSVG", this).call(this);
+      } else {
+        base = document.createElement("g");
+        track = base;
+      }
+      const output = document.createElement("g");
+      output.setAttribute("transform", `translate(${this.position[0]},${this.position[1]})`);
+      track.appendChild(output);
+      this.visibleAndFetchedTiles().filter((tile) => tile.allRects).forEach((tile) => {
+        const gTile = document.createElement("g");
+        gTile.setAttribute("transform", `translate(${tile.rectGraphics.position.x},
+          ${tile.rectGraphics.position.y})
+          scale(${tile.rectGraphics.scale.x},
+          ${tile.rectGraphics.scale.y})`);
+        tile.allRects.forEach((rect) => {
+          const r2 = document.createElement("path");
+          const poly = rect[0];
+          let d = `M ${poly[0]} ${poly[1]}`;
+          for (let i2 = 2; i2 < poly.length; i2 += 2) {
+            d += ` L ${poly[i2]} ${poly[i2 + 1]}`;
+          }
+          r2.setAttribute("d", d);
+          if (rect.length >= 3) {
+            if (rect[2].startsWith("#")) {
+              r2.setAttribute("fill", `${rect[2]}`);
+            } else {
+              r2.setAttribute("fill", `rgb(${rect[2]})`);
+            }
+          }
+          if (rect.length >= 4) {
+            r2.setAttribute("opacity", rect[3]);
+          }
+          gTile.appendChild(r2);
+        });
+        output.appendChild(gTile);
+      });
+      this.allTexts.filter((text2) => text2.text.visible).forEach((text2) => {
+        const g = document.createElement("g");
+        const t = document.createElement("text");
+        t.setAttribute("text-anchor", "middle");
+        t.setAttribute("font-family", FONT_FAMILY);
+        t.setAttribute("font-size", `${this.fontSize}px`);
+        t.setAttribute("dy", "-.2em");
+        g.setAttribute("transform", `scale(${text2.text.scale.x},1)`);
+        t.setAttribute("fill", text2.text.style.fill);
+        t.innerHTML = text2.text.text;
+        g.appendChild(t);
+        g.setAttribute("transform", `translate(${text2.text.x},${text2.text.y})scale(${text2.text.scale.x},1)`);
+        output.appendChild(g);
+      });
+      return [base, base];
+    } }, { key: "getVisibleData", value: function getVisibleData(trackX, trackY) {
+      const zoomLevel = this.calculateZoomLevel();
+      const tileWidth = api.calculateTileWidth(this.tilesetInfo, zoomLevel, this.tilesetInfo.tile_size);
+      const tilePos = this._xScale.invert(trackX) / tileWidth;
+      const numRows = this.tilesetInfo.shape ? this.tilesetInfo.shape[1] : 1;
+      const posInTileX = this.tilesetInfo.tile_size * (tilePos - Math.floor(tilePos));
+      const posInTileY = trackY / this.dimensions[1] * numRows;
+      const tileId = this.tileToLocalId([zoomLevel, Math.floor(tilePos)]);
+      const fetchedTile = this.fetchedTiles[tileId];
+      let value2 = "";
+      if (fetchedTile) {
+        value2 = `${fetchedTile.rectGraphics.position.x} | posInTileX ${posInTileX} (${trackX}) | posInTileY ${posInTileY} (${trackY})`;
+      }
+      if (this.tilesetInfo.row_infos) {
+        value2 += "<br/>";
+        value2 += this.tilesetInfo.row_infos[Math.floor(posInTileY)];
+      }
+      return `${value2}`;
+    } }, { key: "getTilePosAtPosition", value: function getTilePosAtPosition(trackX, trackY) {
+      if (!this.tilesetInfo)
+        return void 0;
+      const zoomLevel = this.calculateZoomLevel();
+      const tileWidth = api.calculateTileWidth(this.tilesetInfo, zoomLevel, this.tilesetInfo.tile_size);
+      const tilePos = this._xScale.invert(trackX) / tileWidth;
+      return [zoomLevel, Math.floor(tilePos)];
+    } }, { key: "formattedBED12HTML", value: function formattedBED12HTML(bed12FieldsObj) {
+      const chrom = bed12FieldsObj[0];
+      const start2 = +bed12FieldsObj[1];
+      const end2 = +bed12FieldsObj[2];
+      const id2 = bed12FieldsObj[3];
+      const score = bed12FieldsObj[4];
+      const strand = bed12FieldsObj[5];
+      const thickStart = +bed12FieldsObj[6];
+      const thickEnd = +bed12FieldsObj[7];
+      const itemRGB = bed12FieldsObj[8] !== "." ? bed12FieldsObj[8] : "0,0,0";
+      const blockCount = +bed12FieldsObj[9];
+      const blockSizes = bed12FieldsObj[10].split(",");
+      const blockStarts = bed12FieldsObj[11].split(",");
+      const idElems = id2.split("|");
+      const realId = idElems[0];
+      const realScorePrecision = 4;
+      const realScore = idElems.length > 1 ? Number.parseFloat(idElems[1]).toPrecision(realScorePrecision) : score;
+      const realBiosampleCount = idElems.length > 2 ? Number.parseInt(idElems[2]) : "NA";
+      const hc = document.getElementsByClassName("higlass")[0];
+      if (hc) {
+        hc.style.cursor = "pointer";
+      }
+      let itemRGBMarkup = "";
+      if (this.options.itemRGBMap) {
+        const itemRGBName = this.options.itemRGBMap[itemRGB] ? this.options.itemRGBMap[itemRGB] : DEFAULT_ITEM_RGB_NAME;
+        itemRGBMarkup = `<div id="bed12-component" style="display:inline-block; position:relative; top:-2px;">
+        <svg width="10" height="10">
+          <rect width="10" height="10" rx="2" ry="2" style="fill:rgb(${itemRGB});stroke:black;stroke-width:2;" />
+        </svg>
+        <span style="position:relative; top:1px; font-weight:600;">${itemRGBName}</span>
+      </div>`;
+      }
+      let elementCartoon = "";
+      const elementCartoonWidth = 200;
+      const elementCartoonGeneHeight = 30;
+      const elementCartoonHeight = elementCartoonGeneHeight + 10;
+      const elementCartoonMiddle = elementCartoonHeight / 2;
+      function pos2pixel(pos) {
+        return (pos - start2) / ((end2 - start2) * 1) * elementCartoonWidth;
+      }
+      if (blockCount > 0) {
+        elementCartoon += `<svg width="${elementCartoonWidth}" height="${elementCartoonHeight}">
+        <style type="text/css">
+          .ticks {stroke:rgb(${itemRGB});stroke-width:1px;fill:none;}
+          .gene {stroke:rgb(${itemRGB});stroke-width:1px;fill:none;}
+          .translate { fill:rgb(${itemRGB});fill-opacity:1;}
+          .exon { fill:rgb(${itemRGB});fill-opacity:1;}
+          .score { fill:rgb(${itemRGB});fill-opacity:1;font:bold 12px sans-serif;}
+          .id { fill:rgb(${itemRGB});fill-opacity:1;font:bold 12px sans-serif;}
+        </style>
+        <defs>
+          <path id="ft" class="ticks" d="m -3 -3  l 3 3  l -3 3" />
+          <path id="rt" class="ticks" d="m 3 -3  l -3 3  l 3 3" />
+        </defs>
+      `;
+        const ecStart = pos2pixel(start2);
+        const ecEnd = pos2pixel(end2);
+        elementCartoon += `<line class="gene" x1=${ecStart} x2=${ecEnd} y1=${elementCartoonMiddle} y2=${elementCartoonMiddle} />`;
+        const ecThickStart = pos2pixel(thickStart);
+        const ecThickEnd = pos2pixel(thickEnd);
+        const ecThickY = elementCartoonMiddle - elementCartoonGeneHeight / 4;
+        const ecThickHeight = elementCartoonGeneHeight / 2;
+        let ecThickWidth = ecThickEnd - ecThickStart;
+        if (this.options.isBarPlotLike) {
+          ecThickWidth = ecThickWidth !== 1 ? 1 : ecThickWidth;
+        }
+        let realIdTextAnchor = "";
+        if (ecThickStart < 0.15 * elementCartoonWidth) {
+          realIdTextAnchor = "start";
+        } else if (ecThickStart >= 0.15 * elementCartoonWidth && ecThickStart <= 0.85 * elementCartoonWidth) {
+          realIdTextAnchor = "middle";
+        } else {
+          realIdTextAnchor = "end";
+        }
+        elementCartoon += `<rect class="translate" x=${ecThickStart} y=${ecThickY} width=${ecThickWidth} height=${ecThickHeight} />`;
+        const ecLabelDy = "-0.25em";
+        elementCartoon += `<text class="id" text-anchor="${realIdTextAnchor}" x=${ecThickStart} y=${ecThickY} dy=${ecLabelDy}>${realId}</text>`;
+        if (strand === "+" || strand === "-") {
+          const ecStrandHref = strand === "+" ? "#ft" : "#rt";
+          for (let i2 = 0; i2 < elementCartoonWidth; i2 += 10) {
+            elementCartoon += `<use x=${i2} y=${elementCartoonMiddle} href=${ecStrandHref} />`;
+          }
+        }
+        for (let i2 = 0; i2 < blockCount; i2++) {
+          let ecExonStart = pos2pixel(start2 + +blockStarts[i2]);
+          const ecExonY = elementCartoonMiddle - elementCartoonGeneHeight / 8;
+          let ecExonWidth = pos2pixel(start2 + +blockSizes[i2]);
+          const ecExonHeight = elementCartoonGeneHeight / 4;
+          if (this.options.isBarPlotLike) {
+            if (i2 === 0) {
+              ecExonStart = ecStart;
+              ecExonWidth = ecStart + 1;
+            } else if (i2 === blockCount - 1) {
+              ecExonStart = ecEnd - 1;
+              ecExonWidth = ecEnd;
+            }
+          }
+          elementCartoon += `<rect class="exon" x=${ecExonStart} y=${ecExonY} width=${ecExonWidth} height=${ecExonHeight} />`;
+        }
+        elementCartoon += "</svg>";
+      }
+      let intervalMarkup = `${chrom}:${start2}-${end2}`;
+      if (strand === "+" || strand === "-") {
+        intervalMarkup += `:${strand}`;
+      }
+      let output = "";
+      output += `<div class="track-mouseover-menu-table">`;
+      output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="dhs_id" class="track-mouseover-menu-table-item-label track-mouseover-menu-table-item-label-narrow">Index DHS</label>
+          <div name="dhs_id" class="track-mouseover-menu-table-item-value">${realId}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="range" class="track-mouseover-menu-table-item-label track-mouseover-menu-table-item-label-narrow">Range</label>
+          <div name="range" class="track-mouseover-menu-table-item-value">${intervalMarkup}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="score" class="track-mouseover-menu-table-item-label track-mouseover-menu-table-item-label-narrow">Score</label>
+          <div name="score" class="track-mouseover-menu-table-item-value">${realScore}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="biosampleCount" class="track-mouseover-menu-table-item-label track-mouseover-menu-table-item-label-narrow">Samples</label>
+          <div name="biosampleCount" class="track-mouseover-menu-table-item-value">Found in <span style="font-weight: bolder;">${realBiosampleCount}</span> / ${this.biosampleCount} biosamples</div>
+        </div>
+        `;
+      if (this.options.itemRGBMap) {
+        const itemRGBMappingAvailable = this.options.itemRGBMap[itemRGB];
+        if (itemRGBMappingAvailable) {
+          output += `
+          <div class="track-mouseover-menu-table-item">
+            <label for="category" class="track-mouseover-menu-table-item-label track-mouseover-menu-table-item-label-narrow">Category</label>
+            <div name="category" class="track-mouseover-menu-table-item-value">${itemRGBMarkup}</div>
+          </div>
+        `;
+        }
+      }
+      output += `
+      <div class="track-mouseover-menu-table-item">
+        <label for="score" class="track-mouseover-menu-table-item-label track-mouseover-menu-table-item-label-narrow track-mouseover-menu-table-item-label-svg">Structure</label>
+        <div name="score" class="track-mouseover-menu-table-item-value track-mouseover-menu-table-item-value-svg">${elementCartoon}</div>
+      </div>
+    `;
+      output += `</div>`;
+      return output;
+    } }, { key: "getMouseOverHtml", value: function getMouseOverHtml(trackX, trackY) {
+      if (!this.tilesetInfo)
+        return "";
+      const tilePos = this.getTilePosAtPosition(trackX, trackY);
+      const zoomLevel = tilePos[0];
+      const tilePosition = +tilePos[1];
+      const previousTilePosition = tilePosition - 1 > 0 ? tilePosition - 1 : 0;
+      const candidateTileId = `${zoomLevel}.${tilePosition}`;
+      const previousCandidateTileId = `${zoomLevel}.${previousTilePosition}`;
+      const candidateTileElements = [];
+      this.visibleAndFetchedTiles().forEach((d) => {
+        if (d.tileId === candidateTileId || d.tileId === previousCandidateTileId) {
+          candidateTileElements.push(d);
+        }
+      });
+      let output = "";
+      if (candidateTileElements.length !== 0) {
+        candidateTileElements.forEach((ct) => {
+          const xStarts = ct.xScaledStarts;
+          const xEnds = ct.xScaledEnds;
+          const yStarts = ct.yScaledStarts;
+          const yEnds = ct.yScaledEnds;
+          let candidateTileElementsIdx = 0;
+          if (!xStarts)
+            return;
+          Object.keys(xStarts).forEach((k) => {
+            if (xStarts[k] < trackX && xEnds[k] && xEnds[k] >= trackX && yStarts[k] && yStarts[k] < trackY && yEnds[k] && yEnds[k] >= trackY) {
+              const candidateTileElementsDataFields = ct.tileData[candidateTileElementsIdx].fields;
+              output = this.formattedBED12HTML(candidateTileElementsDataFields);
+            }
+            candidateTileElementsIdx++;
+          });
+        });
+      }
+      if (output.length === 0) {
+        const hc = document.getElementsByClassName("higlass")[0];
+        if (hc) {
+          hc.style.cursor = "grab";
+        }
+      }
+      return output;
+    } }]);
+    return HorizontalGeneBED12AnnotationsTrack2;
   }(HorizontalTiled1DPixiTrack);
   function drawAnnotation(track, graphics, td, minSquareSize, xMin, xMax, yMin, yMax, minThres, flipDiagonal) {
     const startX = flipDiagonal ? track._xScale(td.yStart) : track._xScale(td.xStart);
@@ -59248,17 +59886,17 @@ function _toPrimitive2(input, hint) {
   }
   let ArrowheadDomainsTrack = /* @__PURE__ */ function(_TiledPixiTrack3) {
     _inherits3(ArrowheadDomainsTrack2, _TiledPixiTrack3);
-    var _super30 = _createSuper3(ArrowheadDomainsTrack2);
+    var _super31 = _createSuper3(ArrowheadDomainsTrack2);
     function ArrowheadDomainsTrack2(...args) {
-      var _this54;
+      var _this55;
       _classCallCheck3(this, ArrowheadDomainsTrack2);
-      _this54 = _super30.call(this, ...args);
-      _this54.drawnRects = {};
+      _this55 = _super31.call(this, ...args);
+      _this55.drawnRects = {};
       const { publish: publish2, subscribe: subscribe2, unsubscribe: unsubscribe2 } = createPubSub();
-      _this54.publish = publish2;
-      _this54.subscribe = subscribe2;
-      _this54.unsubscribe = unsubscribe2;
-      return _this54;
+      _this55.publish = publish2;
+      _this55.subscribe = subscribe2;
+      _this55.unsubscribe = unsubscribe2;
+      return _this55;
     }
     _createClass3(ArrowheadDomainsTrack2, [{ key: "tileToLocalId", value: function tileToLocalId(tile) {
       return `${tile.join(".")}`;
@@ -59381,24 +60019,24 @@ function _toPrimitive2(input, hint) {
   const MOUSE_CLICK_TIME = 250;
   let Annotations2dTrack = /* @__PURE__ */ function(_TiledPixiTrack4) {
     _inherits3(Annotations2dTrack2, _TiledPixiTrack4);
-    var _super31 = _createSuper3(Annotations2dTrack2);
+    var _super32 = _createSuper3(Annotations2dTrack2);
     function Annotations2dTrack2(context, options2) {
-      var _this55;
+      var _this56;
       _classCallCheck3(this, Annotations2dTrack2);
-      _this55 = _super31.call(this, context, options2);
+      _this56 = _super32.call(this, context, options2);
       const { pubSub } = context;
-      _this55.drawnAnnotations = {};
-      _this55.drawnAnnoGfx = {};
-      _this55.selectedAnno = null;
-      _this55.options.minSquareSize = +_this55.options.minSquareSize;
+      _this56.drawnAnnotations = {};
+      _this56.drawnAnnoGfx = {};
+      _this56.selectedAnno = null;
+      _this56.options.minSquareSize = +_this56.options.minSquareSize;
       const { publish: publish2, subscribe: subscribe2, unsubscribe: unsubscribe2 } = createPubSub();
-      _this55.publish = publish2;
-      _this55.subscribe = subscribe2;
-      _this55.unsubscribe = unsubscribe2;
-      _this55.sT = 0;
-      _this55.annoSelectedBound = _this55.annoSelected.bind(_assertThisInitialized3(_this55));
-      _this55.pubSubs.push(pubSub.subscribe("annoSelected", _this55.annoSelectedBound));
-      return _this55;
+      _this56.publish = publish2;
+      _this56.subscribe = subscribe2;
+      _this56.unsubscribe = unsubscribe2;
+      _this56.sT = 0;
+      _this56.annoSelectedBound = _this56.annoSelected.bind(_assertThisInitialized3(_this56));
+      _this56.pubSubs.push(pubSub.subscribe("annoSelected", _this56.annoSelectedBound));
+      return _this56;
     }
     _createClass3(Annotations2dTrack2, [{ key: "minX", get: function() {
       return this.tilesetInfo && this.tilesetInfo.min_pos ? this.tilesetInfo.min_pos[0] : 0;
@@ -59635,17 +60273,17 @@ function _toPrimitive2(input, hint) {
   }(TiledPixiTrack);
   let Annotations1dTrack = /* @__PURE__ */ function(_PixiTrack3) {
     _inherits3(Annotations1dTrack2, _PixiTrack3);
-    var _super32 = _createSuper3(Annotations1dTrack2);
+    var _super33 = _createSuper3(Annotations1dTrack2);
     function Annotations1dTrack2(context, options2, isVertical) {
-      var _this56;
+      var _this57;
       _classCallCheck3(this, Annotations1dTrack2);
-      _this56 = _super32.call(this, context, options2);
-      _this56.pubSub = context.pubSub;
-      _this56.options = options2;
-      _this56.isVertical = isVertical;
-      _this56.rects = {};
-      _this56.defaultColor = color("red");
-      return _this56;
+      _this57 = _super33.call(this, context, options2);
+      _this57.pubSub = context.pubSub;
+      _this57.options = options2;
+      _this57.isVertical = isVertical;
+      _this57.rects = {};
+      _this57.defaultColor = color("red");
+      return _this57;
     }
     _createClass3(Annotations1dTrack2, [{ key: "draw", value: function draw() {
       const globalMinRectWidth = typeof this.options.minRectWidth !== "undefined" ? this.options.minRectWidth : 10;
@@ -59762,14 +60400,14 @@ function _toPrimitive2(input, hint) {
   }(PixiTrack);
   let Horizontal2DDomainsTrack = /* @__PURE__ */ function(_TiledPixiTrack5) {
     _inherits3(Horizontal2DDomainsTrack2, _TiledPixiTrack5);
-    var _super33 = _createSuper3(Horizontal2DDomainsTrack2);
+    var _super34 = _createSuper3(Horizontal2DDomainsTrack2);
     function Horizontal2DDomainsTrack2(context, options2) {
-      var _this57;
+      var _this58;
       _classCallCheck3(this, Horizontal2DDomainsTrack2);
-      _this57 = _super33.call(this, context, options2);
-      _this57.drawnRects = /* @__PURE__ */ new Set();
-      _this57.pMain = _this57.pMobile;
-      return _this57;
+      _this58 = _super34.call(this, context, options2);
+      _this58.drawnRects = /* @__PURE__ */ new Set();
+      _this58.pMain = _this58.pMobile;
+      return _this58;
     }
     _createClass3(Horizontal2DDomainsTrack2, [{ key: "tileToLocalId", value: function tileToLocalId(tile) {
       return `${tile.join(".")}`;
@@ -59899,13 +60537,13 @@ function _toPrimitive2(input, hint) {
   }(TiledPixiTrack);
   let SquareMarkersTrack = /* @__PURE__ */ function(_TiledPixiTrack6) {
     _inherits3(SquareMarkersTrack2, _TiledPixiTrack6);
-    var _super34 = _createSuper3(SquareMarkersTrack2);
+    var _super35 = _createSuper3(SquareMarkersTrack2);
     function SquareMarkersTrack2(context, options2) {
-      var _this58;
+      var _this59;
       _classCallCheck3(this, SquareMarkersTrack2);
-      _this58 = _super34.call(this, context, options2);
-      _this58.drawnRects = /* @__PURE__ */ new Set();
-      return _this58;
+      _this59 = _super35.call(this, context, options2);
+      _this59.drawnRects = /* @__PURE__ */ new Set();
+      return _this59;
     }
     _createClass3(SquareMarkersTrack2, [{ key: "tileToLocalId", value: function tileToLocalId(tile) {
       return `${tile.join(".")}`;
@@ -60194,41 +60832,41 @@ function _toPrimitive2(input, hint) {
   }();
   let Chromosome2DLabels = /* @__PURE__ */ function(_PixiTrack4) {
     _inherits3(Chromosome2DLabels2, _PixiTrack4);
-    var _super35 = _createSuper3(Chromosome2DLabels2);
+    var _super36 = _createSuper3(Chromosome2DLabels2);
     function Chromosome2DLabels2(context, options2) {
-      var _this59;
+      var _this60;
       _classCallCheck3(this, Chromosome2DLabels2);
-      _this59 = _super35.call(this, context, options2);
+      _this60 = _super36.call(this, context, options2);
       const { dataConfig, animate, pubSub } = context;
-      _this59.searchField = null;
-      _this59.chromInfo = null;
-      _this59.animate = animate;
+      _this60.searchField = null;
+      _this60.chromInfo = null;
+      _this60.animate = animate;
       const server = dataConfig.server;
       const uid = dataConfig.tilesetUid;
       const chromSizesPath = `${server}/chrom-sizes/?id=${uid}`;
       ChromosomeInfo(chromSizesPath, (newChromInfo) => {
-        _this59.chromInfo = newChromInfo;
-        _this59.searchField = new SearchField(_this59.chromInfo);
-        _this59.draw();
-        _this59.texts = [];
-        for (let i2 = 0; i2 < _this59.chromInfo.cumPositions.length; i2++) {
+        _this60.chromInfo = newChromInfo;
+        _this60.searchField = new SearchField(_this60.chromInfo);
+        _this60.draw();
+        _this60.texts = [];
+        for (let i2 = 0; i2 < _this60.chromInfo.cumPositions.length; i2++) {
           const thisTexts = [];
-          for (let j = 0; j < _this59.chromInfo.cumPositions.length; j++) {
-            const textStr = `${_this59.chromInfo.cumPositions[i2].chr}/${_this59.chromInfo.cumPositions[j].chr}`;
+          for (let j = 0; j < _this60.chromInfo.cumPositions.length; j++) {
+            const textStr = `${_this60.chromInfo.cumPositions[i2].chr}/${_this60.chromInfo.cumPositions[j].chr}`;
             const text2 = new GLOBALS.PIXI.Text(textStr, { fontSize: "14px", fontFamily: "Arial", fill: "red" });
             text2.anchor.x = 0.5;
             text2.anchor.y = 0.5;
             text2.visible = false;
             text2.hashValue = Math.random();
             thisTexts.push(text2);
-            _this59.pMain.addChild(text2);
+            _this60.pMain.addChild(text2);
           }
-          _this59.texts.push(thisTexts);
+          _this60.texts.push(thisTexts);
         }
-        _this59.draw();
-        _this59.animate();
+        _this60.draw();
+        _this60.animate();
       }, pubSub);
-      return _this59;
+      return _this60;
     }
     _createClass3(Chromosome2DLabels2, [{ key: "draw", value: function draw() {
       const allTexts = [];
@@ -60306,43 +60944,43 @@ function _toPrimitive2(input, hint) {
   }(PixiTrack);
   let ChromosomeGrid = /* @__PURE__ */ function(_PixiTrack5) {
     _inherits3(ChromosomeGrid2, _PixiTrack5);
-    var _super36 = _createSuper3(ChromosomeGrid2);
+    var _super37 = _createSuper3(ChromosomeGrid2);
     function ChromosomeGrid2(context, options2) {
-      var _this60;
+      var _this61;
       _classCallCheck3(this, ChromosomeGrid2);
-      _this60 = _super36.call(this, context, options2);
+      _this61 = _super37.call(this, context, options2);
       const { chromInfoPath, dataConfig, animate, pubSub, orientation: orientation2 = "2d", isOverlay = false } = context;
-      _this60.searchField = null;
-      _this60.chromInfo = null;
-      _this60.animate = animate;
-      _this60.orientation = orientation2;
-      _this60.isOverlay = isOverlay;
+      _this61.searchField = null;
+      _this61.chromInfo = null;
+      _this61.animate = animate;
+      _this61.orientation = orientation2;
+      _this61.isOverlay = isOverlay;
       let chromSizesPath = chromInfoPath;
       if (!chromSizesPath) {
         chromSizesPath = `${dataConfig.server}/chrom-sizes/?id=${dataConfig.tilesetUid}`;
       }
       ChromosomeInfo(chromSizesPath, (newChromInfo) => {
-        _this60.chromInfo = newChromInfo;
-        _this60.searchField = new SearchField(_this60.chromInfo);
-        _this60.texts = [];
-        _this60.lineGraphics = new GLOBALS.PIXI.Graphics();
-        _this60.lineGraphics1dH = new GLOBALS.PIXI.Graphics();
-        _this60.lineGraphics1dV = new GLOBALS.PIXI.Graphics();
-        _this60.lineGraphics2d = new GLOBALS.PIXI.Graphics();
-        _this60.mask1dH = new GLOBALS.PIXI.Graphics();
-        _this60.mask1dV = new GLOBALS.PIXI.Graphics();
-        _this60.mask2d = new GLOBALS.PIXI.Graphics();
-        _this60.lineGraphics.addChild(_this60.lineGraphics1dH);
-        _this60.lineGraphics1dH.addChild(_this60.mask1dH);
-        _this60.lineGraphics.addChild(_this60.lineGraphics1dV);
-        _this60.lineGraphics1dV.addChild(_this60.mask1dV);
-        _this60.lineGraphics.addChild(_this60.lineGraphics2d);
-        _this60.lineGraphics2d.addChild(_this60.mask2d);
-        _this60.pMain.addChild(_this60.lineGraphics);
-        _this60.draw();
-        _this60.animate();
+        _this61.chromInfo = newChromInfo;
+        _this61.searchField = new SearchField(_this61.chromInfo);
+        _this61.texts = [];
+        _this61.lineGraphics = new GLOBALS.PIXI.Graphics();
+        _this61.lineGraphics1dH = new GLOBALS.PIXI.Graphics();
+        _this61.lineGraphics1dV = new GLOBALS.PIXI.Graphics();
+        _this61.lineGraphics2d = new GLOBALS.PIXI.Graphics();
+        _this61.mask1dH = new GLOBALS.PIXI.Graphics();
+        _this61.mask1dV = new GLOBALS.PIXI.Graphics();
+        _this61.mask2d = new GLOBALS.PIXI.Graphics();
+        _this61.lineGraphics.addChild(_this61.lineGraphics1dH);
+        _this61.lineGraphics1dH.addChild(_this61.mask1dH);
+        _this61.lineGraphics.addChild(_this61.lineGraphics1dV);
+        _this61.lineGraphics1dV.addChild(_this61.mask1dV);
+        _this61.lineGraphics.addChild(_this61.lineGraphics2d);
+        _this61.lineGraphics2d.addChild(_this61.mask2d);
+        _this61.pMain.addChild(_this61.lineGraphics);
+        _this61.draw();
+        _this61.animate();
       }, pubSub);
-      return _this60;
+      return _this61;
     }
     _createClass3(ChromosomeGrid2, [{ key: "drawLines", value: function drawLines(orientation2 = this.orientation, left2 = 0, top2 = 0) {
       let graphics = this.lineGraphics;
@@ -60496,19 +61134,19 @@ function _toPrimitive2(input, hint) {
   const MAX_CLICK_DELAY = 300;
   let Chromosome2DAnnotations = /* @__PURE__ */ function(_PixiTrack6) {
     _inherits3(Chromosome2DAnnotations2, _PixiTrack6);
-    var _super37 = _createSuper3(Chromosome2DAnnotations2);
+    var _super38 = _createSuper3(Chromosome2DAnnotations2);
     function Chromosome2DAnnotations2(context, options2) {
-      var _this61;
+      var _this62;
       _classCallCheck3(this, Chromosome2DAnnotations2);
-      _this61 = _super37.call(this, context, options2);
+      _this62 = _super38.call(this, context, options2);
       const { chromInfoPath, pubSub } = context;
-      _this61.pubSub = pubSub;
-      _this61.rects = {};
+      _this62.pubSub = pubSub;
+      _this62.rects = {};
       ChromosomeInfo(chromInfoPath, (newChromInfo) => {
-        _this61.chromInfo = newChromInfo;
-        _this61.draw();
-      }, _this61.pubSub);
-      return _this61;
+        _this62.chromInfo = newChromInfo;
+        _this62.draw();
+      }, _this62.pubSub);
+      return _this62;
     }
     _createClass3(Chromosome2DAnnotations2, [{ key: "draw", value: function draw() {
       if (!this.chromInfo) {
@@ -60583,48 +61221,48 @@ function _toPrimitive2(input, hint) {
   const TICK_COLOR = 7829367;
   let HorizontalChromosomeLabels = /* @__PURE__ */ function(_PixiTrack7) {
     _inherits3(HorizontalChromosomeLabels2, _PixiTrack7);
-    var _super38 = _createSuper3(HorizontalChromosomeLabels2);
+    var _super39 = _createSuper3(HorizontalChromosomeLabels2);
     function HorizontalChromosomeLabels2(context, options2) {
-      var _this62;
+      var _this63;
       _classCallCheck3(this, HorizontalChromosomeLabels2);
-      _this62 = _super38.call(this, context, options2);
+      _this63 = _super39.call(this, context, options2);
       const { dataConfig, animate, chromInfoPath, isShowGlobalMousePosition } = context;
-      _this62.searchField = null;
-      _this62.chromInfo = null;
-      _this62.dataConfig = dataConfig;
-      _this62.pTicks = new GLOBALS.PIXI.Graphics();
-      _this62.pMain.addChild(_this62.pTicks);
-      _this62.gTicks = {};
-      _this62.tickTexts = {};
-      _this62.options = options2;
-      _this62.isShowGlobalMousePosition = isShowGlobalMousePosition;
-      _this62.textFontSize = 12;
-      _this62.textFontFamily = "Arial";
-      _this62.textFontColor = "#808080";
-      _this62.textStrokeColor = _this62.getTheme() === THEME_DARK ? "#000000" : "#ffffff";
-      _this62.pixiTextConfig = { fontSize: +_this62.options.fontSize ? `${+_this62.options.fontSize}px` : `${_this62.textFontSize}px`, fontFamily: _this62.textFontFamily, fill: _this62.options.color || _this62.textFontColor, lineJoin: "round", stroke: _this62.options.stroke || _this62.textStrokeColor, strokeThickness: 2 };
-      _this62.stroke = colorToHex(_this62.pixiTextConfig.stroke);
-      _this62.tickWidth = TICK_WIDTH;
-      _this62.tickHeight = TICK_HEIGHT;
-      _this62.tickTextSeparation = TICK_TEXT_SEPARATION;
-      _this62.tickColor = _this62.options.tickColor ? colorToHex(_this62.options.tickColor) : TICK_COLOR;
-      _this62.animate = animate;
-      _this62.pubSubs = [];
-      if (_this62.options.showMousePosition && !_this62.hideMousePosition) {
-        _this62.hideMousePosition = setupShowMousePosition(_assertThisInitialized3(_this62), _this62.is2d, _this62.isShowGlobalMousePosition());
+      _this63.searchField = null;
+      _this63.chromInfo = null;
+      _this63.dataConfig = dataConfig;
+      _this63.pTicks = new GLOBALS.PIXI.Graphics();
+      _this63.pMain.addChild(_this63.pTicks);
+      _this63.gTicks = {};
+      _this63.tickTexts = {};
+      _this63.options = options2;
+      _this63.isShowGlobalMousePosition = isShowGlobalMousePosition;
+      _this63.textFontSize = 12;
+      _this63.textFontFamily = "Arial";
+      _this63.textFontColor = "#808080";
+      _this63.textStrokeColor = _this63.getTheme() === THEME_DARK ? "#000000" : "#ffffff";
+      _this63.pixiTextConfig = { fontSize: +_this63.options.fontSize ? `${+_this63.options.fontSize}px` : `${_this63.textFontSize}px`, fontFamily: _this63.textFontFamily, fill: _this63.options.color || _this63.textFontColor, lineJoin: "round", stroke: _this63.options.stroke || _this63.textStrokeColor, strokeThickness: 2 };
+      _this63.stroke = colorToHex(_this63.pixiTextConfig.stroke);
+      _this63.tickWidth = TICK_WIDTH;
+      _this63.tickHeight = TICK_HEIGHT;
+      _this63.tickTextSeparation = TICK_TEXT_SEPARATION;
+      _this63.tickColor = _this63.options.tickColor ? colorToHex(_this63.options.tickColor) : TICK_COLOR;
+      _this63.animate = animate;
+      _this63.pubSubs = [];
+      if (_this63.options.showMousePosition && !_this63.hideMousePosition) {
+        _this63.hideMousePosition = setupShowMousePosition(_assertThisInitialized3(_this63), _this63.is2d, _this63.isShowGlobalMousePosition());
       }
       let chromSizesPath = chromInfoPath;
       if (!chromSizesPath) {
         chromSizesPath = `${dataConfig.server}/chrom-sizes/?id=${dataConfig.tilesetUid}`;
       }
       ChromosomeInfo(chromSizesPath, (newChromInfo) => {
-        _this62.chromInfo = newChromInfo;
-        _this62.searchField = new SearchField(_this62.chromInfo);
-        _this62.rerender(_this62.options, true);
-        _this62.draw();
-        _this62.animate();
-      }, _this62.pubSub);
-      return _this62;
+        _this63.chromInfo = newChromInfo;
+        _this63.searchField = new SearchField(_this63.chromInfo);
+        _this63.rerender(_this63.options, true);
+        _this63.draw();
+        _this63.animate();
+      }, _this63.pubSub);
+      return _this63;
     }
     _createClass3(HorizontalChromosomeLabels2, [{ key: "initBoundsTicks", value: function initBoundsTicks() {
       if (this.pTicks) {
@@ -60920,22 +61558,22 @@ function _toPrimitive2(input, hint) {
   }(PixiTrack);
   let HorizontalHeatmapTrack = /* @__PURE__ */ function(_HeatmapTiledPixiTrac3) {
     _inherits3(HorizontalHeatmapTrack2, _HeatmapTiledPixiTrac3);
-    var _super39 = _createSuper3(HorizontalHeatmapTrack2);
+    var _super40 = _createSuper3(HorizontalHeatmapTrack2);
     function HorizontalHeatmapTrack2(context, options2) {
-      var _this63;
+      var _this64;
       _classCallCheck3(this, HorizontalHeatmapTrack2);
-      _this63 = _super39.call(this, context, options2);
+      _this64 = _super40.call(this, context, options2);
       const { animate } = context;
-      _this63.pMain = _this63.pMobile;
-      _this63.colorScale = HEATED_OBJECT_MAP;
-      _this63.continuousScaling = false;
+      _this64.pMain = _this64.pMobile;
+      _this64.colorScale = HEATED_OBJECT_MAP;
+      _this64.continuousScaling = false;
       if (options2 && options2.colorRange) {
-        _this63.colorScale = colorDomainToRgbaArray(options2.colorRange);
+        _this64.colorScale = colorDomainToRgbaArray(options2.colorRange);
       }
-      _this63.animate = animate;
-      _this63.options = options2;
-      _this63.pubSubs = [];
-      return _this63;
+      _this64.animate = animate;
+      _this64.options = options2;
+      _this64.pubSubs = [];
+      return _this64;
     }
     _createClass3(HorizontalHeatmapTrack2, [{ key: "rerender", value: function rerender(options2, force) {
       _get4(_getPrototypeOf4(HorizontalHeatmapTrack2.prototype), "rerender", this).call(this, options2, force);
@@ -61092,14 +61730,14 @@ function _toPrimitive2(input, hint) {
   }(HeatmapTiledPixiTrack);
   let UnknownPixiTrack = /* @__PURE__ */ function(_PixiTrack8) {
     _inherits3(UnknownPixiTrack2, _PixiTrack8);
-    var _super40 = _createSuper3(UnknownPixiTrack2);
+    var _super41 = _createSuper3(UnknownPixiTrack2);
     function UnknownPixiTrack2(context, options2) {
-      var _this64;
+      var _this65;
       _classCallCheck3(this, UnknownPixiTrack2);
-      _this64 = _super40.call(this, context, options2);
-      _this64.tilesetInfo = {};
-      _this64.errorTextText = `Unknown track type: ${options2.type}`;
-      return _this64;
+      _this65 = _super41.call(this, context, options2);
+      _this65.tilesetInfo = {};
+      _this65.errorTextText = `Unknown track type: ${options2.type}`;
+      return _this65;
     }
     _createClass3(UnknownPixiTrack2, [{ key: "zoomed", value: function zoomed() {
       this.draw();
@@ -61108,14 +61746,14 @@ function _toPrimitive2(input, hint) {
   }(PixiTrack);
   let ValueIntervalTrack = /* @__PURE__ */ function(_HorizontalLine1DPixi4) {
     _inherits3(ValueIntervalTrack2, _HorizontalLine1DPixi4);
-    var _super41 = _createSuper3(ValueIntervalTrack2);
+    var _super42 = _createSuper3(ValueIntervalTrack2);
     function ValueIntervalTrack2(context, options2) {
-      var _this65;
+      var _this66;
       _classCallCheck3(this, ValueIntervalTrack2);
-      _this65 = _super41.call(this, context, options2);
-      _this65.axis = new AxisPixi(_assertThisInitialized3(_this65));
-      _this65.pBase.addChild(_this65.axis.pAxis);
-      return _this65;
+      _this66 = _super42.call(this, context, options2);
+      _this66.axis = new AxisPixi(_assertThisInitialized3(_this66));
+      _this66.pBase.addChild(_this66.axis.pAxis);
+      return _this66;
     }
     _createClass3(ValueIntervalTrack2, [{ key: "initTile", value: function initTile(tile) {
       this.scale.minRawValue = this.minVisibleValueInTiles();
@@ -61168,31 +61806,31 @@ function _toPrimitive2(input, hint) {
   }(HorizontalLine1DPixiTrack);
   let ViewportTracker2D$1 = /* @__PURE__ */ function(_SVGTrack3) {
     _inherits3(ViewportTracker2D$12, _SVGTrack3);
-    var _super42 = _createSuper3(ViewportTracker2D$12);
+    var _super43 = _createSuper3(ViewportTracker2D$12);
     function ViewportTracker2D$12(context, options2) {
-      var _this66;
+      var _this67;
       _classCallCheck3(this, ViewportTracker2D$12);
-      _this66 = _super42.call(this, context, options2);
+      _this67 = _super43.call(this, context, options2);
       const { registerViewportChanged, removeViewportChanged, setDomainsCallback } = context;
       const uid = slugid.nice();
-      _this66.uid = uid;
-      _this66.options = options2;
-      _this66.hasFromView = !context.projectionXDomain || !context.projectionYDomain;
-      _this66.removeViewportChanged = removeViewportChanged;
-      _this66.setDomainsCallback = setDomainsCallback;
-      _this66.viewportXDomain = _this66.hasFromView ? null : context.projectionXDomain;
-      _this66.viewportYDomain = _this66.hasFromView ? null : context.projectionYDomain;
-      _this66.brush = brush().on("brush", _this66.brushed.bind(_assertThisInitialized3(_this66)));
-      _this66.gBrush = _this66.gMain.append("g").attr("id", `brush-${_this66.uid}`).call(_this66.brush);
-      _this66.gBrush.selectAll(".overlay").style("pointer-events", "none");
-      _this66.gBrush.selectAll(".handle--n").style("pointer-events", "none");
-      _this66.gBrush.selectAll(".handle--s").style("pointer-events", "none");
-      _this66.gBrush.selectAll(".handle--w").style("pointer-events", "none");
-      _this66.gBrush.selectAll(".handle--e").style("pointer-events", "none");
-      registerViewportChanged(uid, _this66.viewportChanged.bind(_assertThisInitialized3(_this66)));
-      _this66.rerender();
-      _this66.draw();
-      return _this66;
+      _this67.uid = uid;
+      _this67.options = options2;
+      _this67.hasFromView = !context.projectionXDomain || !context.projectionYDomain;
+      _this67.removeViewportChanged = removeViewportChanged;
+      _this67.setDomainsCallback = setDomainsCallback;
+      _this67.viewportXDomain = _this67.hasFromView ? null : context.projectionXDomain;
+      _this67.viewportYDomain = _this67.hasFromView ? null : context.projectionYDomain;
+      _this67.brush = brush().on("brush", _this67.brushed.bind(_assertThisInitialized3(_this67)));
+      _this67.gBrush = _this67.gMain.append("g").attr("id", `brush-${_this67.uid}`).call(_this67.brush);
+      _this67.gBrush.selectAll(".overlay").style("pointer-events", "none");
+      _this67.gBrush.selectAll(".handle--n").style("pointer-events", "none");
+      _this67.gBrush.selectAll(".handle--s").style("pointer-events", "none");
+      _this67.gBrush.selectAll(".handle--w").style("pointer-events", "none");
+      _this67.gBrush.selectAll(".handle--e").style("pointer-events", "none");
+      registerViewportChanged(uid, _this67.viewportChanged.bind(_assertThisInitialized3(_this67)));
+      _this67.rerender();
+      _this67.draw();
+      return _this67;
     }
     _createClass3(ViewportTracker2D$12, [{ key: "brushed", value: function brushed(event) {
       const s = event.selection;
@@ -61253,33 +61891,33 @@ function _toPrimitive2(input, hint) {
   }(SVGTrack);
   let ViewportTrackerHorizontal = /* @__PURE__ */ function(_SVGTrack4) {
     _inherits3(ViewportTrackerHorizontal2, _SVGTrack4);
-    var _super43 = _createSuper3(ViewportTrackerHorizontal2);
+    var _super44 = _createSuper3(ViewportTrackerHorizontal2);
     function ViewportTrackerHorizontal2(context, options2) {
-      var _this67;
+      var _this68;
       _classCallCheck3(this, ViewportTrackerHorizontal2);
-      _this67 = _super43.call(this, context, options2);
+      _this68 = _super44.call(this, context, options2);
       const { registerViewportChanged, removeViewportChanged, setDomainsCallback } = context;
       const uid = slugid.nice();
-      _this67.uid = uid;
-      _this67.options = options2;
-      _this67.hasFromView = !context.projectionXDomain;
-      _this67.removeViewportChanged = removeViewportChanged;
-      _this67.setDomainsCallback = setDomainsCallback;
-      _this67.viewportXDomain = _this67.hasFromView ? null : context.projectionXDomain;
-      _this67.viewportYDomain = _this67.hasFromView ? null : [0, 0];
-      _this67.brush = brushX().on("brush", _this67.brushed.bind(_assertThisInitialized3(_this67)));
-      _this67.gBrush = _this67.gMain.append("g").attr("id", `brush-${_this67.uid}`).call(_this67.brush);
-      _this67.gBrush.selectAll(".overlay").style("pointer-events", "none");
-      _this67.gBrush.selectAll(".handle--ne").style("pointer-events", "none");
-      _this67.gBrush.selectAll(".handle--nw").style("pointer-events", "none");
-      _this67.gBrush.selectAll(".handle--sw").style("pointer-events", "none");
-      _this67.gBrush.selectAll(".handle--se").style("pointer-events", "none");
-      _this67.gBrush.selectAll(".handle--n").style("pointer-events", "none");
-      _this67.gBrush.selectAll(".handle--s").style("pointer-events", "none");
-      registerViewportChanged(uid, _this67.viewportChanged.bind(_assertThisInitialized3(_this67)));
-      _this67.rerender();
-      _this67.draw();
-      return _this67;
+      _this68.uid = uid;
+      _this68.options = options2;
+      _this68.hasFromView = !context.projectionXDomain;
+      _this68.removeViewportChanged = removeViewportChanged;
+      _this68.setDomainsCallback = setDomainsCallback;
+      _this68.viewportXDomain = _this68.hasFromView ? null : context.projectionXDomain;
+      _this68.viewportYDomain = _this68.hasFromView ? null : [0, 0];
+      _this68.brush = brushX().on("brush", _this68.brushed.bind(_assertThisInitialized3(_this68)));
+      _this68.gBrush = _this68.gMain.append("g").attr("id", `brush-${_this68.uid}`).call(_this68.brush);
+      _this68.gBrush.selectAll(".overlay").style("pointer-events", "none");
+      _this68.gBrush.selectAll(".handle--ne").style("pointer-events", "none");
+      _this68.gBrush.selectAll(".handle--nw").style("pointer-events", "none");
+      _this68.gBrush.selectAll(".handle--sw").style("pointer-events", "none");
+      _this68.gBrush.selectAll(".handle--se").style("pointer-events", "none");
+      _this68.gBrush.selectAll(".handle--n").style("pointer-events", "none");
+      _this68.gBrush.selectAll(".handle--s").style("pointer-events", "none");
+      registerViewportChanged(uid, _this68.viewportChanged.bind(_assertThisInitialized3(_this68)));
+      _this68.rerender();
+      _this68.draw();
+      return _this68;
     }
     _createClass3(ViewportTrackerHorizontal2, [{ key: "brushed", value: function brushed(event) {
       const s = event.selection;
@@ -61336,33 +61974,33 @@ function _toPrimitive2(input, hint) {
   }(SVGTrack);
   let ViewportTrackerVertical = /* @__PURE__ */ function(_SVGTrack5) {
     _inherits3(ViewportTrackerVertical2, _SVGTrack5);
-    var _super44 = _createSuper3(ViewportTrackerVertical2);
+    var _super45 = _createSuper3(ViewportTrackerVertical2);
     function ViewportTrackerVertical2(context, options2) {
-      var _this68;
+      var _this69;
       _classCallCheck3(this, ViewportTrackerVertical2);
-      _this68 = _super44.call(this, context, options2);
+      _this69 = _super45.call(this, context, options2);
       const { registerViewportChanged, removeViewportChanged, setDomainsCallback } = context;
       const uid = slugid.nice();
-      _this68.uid = uid;
-      _this68.options = options2;
-      _this68.hasFromView = !context.projectionYDomain;
-      _this68.removeViewportChanged = removeViewportChanged;
-      _this68.setDomainsCallback = setDomainsCallback;
-      _this68.viewportXDomain = _this68.hasFromView ? null : [0, 0];
-      _this68.viewportYDomain = _this68.hasFromView ? null : context.projectionYDomain;
-      _this68.brush = brushY().on("brush", _this68.brushed.bind(_assertThisInitialized3(_this68)));
-      _this68.gBrush = _this68.gMain.append("g").attr("id", `brush-${_this68.uid}`).call(_this68.brush);
-      _this68.gBrush.selectAll(".overlay").style("pointer-events", "none");
-      _this68.gBrush.selectAll(".handle--ne").style("pointer-events", "none");
-      _this68.gBrush.selectAll(".handle--nw").style("pointer-events", "none");
-      _this68.gBrush.selectAll(".handle--sw").style("pointer-events", "none");
-      _this68.gBrush.selectAll(".handle--se").style("pointer-events", "none");
-      _this68.gBrush.selectAll(".handle--e").style("pointer-events", "none");
-      _this68.gBrush.selectAll(".handle--w").style("pointer-events", "none");
-      registerViewportChanged(uid, _this68.viewportChanged.bind(_assertThisInitialized3(_this68)));
-      _this68.rerender();
-      _this68.draw();
-      return _this68;
+      _this69.uid = uid;
+      _this69.options = options2;
+      _this69.hasFromView = !context.projectionYDomain;
+      _this69.removeViewportChanged = removeViewportChanged;
+      _this69.setDomainsCallback = setDomainsCallback;
+      _this69.viewportXDomain = _this69.hasFromView ? null : [0, 0];
+      _this69.viewportYDomain = _this69.hasFromView ? null : context.projectionYDomain;
+      _this69.brush = brushY().on("brush", _this69.brushed.bind(_assertThisInitialized3(_this69)));
+      _this69.gBrush = _this69.gMain.append("g").attr("id", `brush-${_this69.uid}`).call(_this69.brush);
+      _this69.gBrush.selectAll(".overlay").style("pointer-events", "none");
+      _this69.gBrush.selectAll(".handle--ne").style("pointer-events", "none");
+      _this69.gBrush.selectAll(".handle--nw").style("pointer-events", "none");
+      _this69.gBrush.selectAll(".handle--sw").style("pointer-events", "none");
+      _this69.gBrush.selectAll(".handle--se").style("pointer-events", "none");
+      _this69.gBrush.selectAll(".handle--e").style("pointer-events", "none");
+      _this69.gBrush.selectAll(".handle--w").style("pointer-events", "none");
+      registerViewportChanged(uid, _this69.viewportChanged.bind(_assertThisInitialized3(_this69)));
+      _this69.rerender();
+      _this69.draw();
+      return _this69;
     }
     _createClass3(ViewportTrackerVertical2, [{ key: "brushed", value: function brushed(event) {
       const s = event.selection;
@@ -61476,18 +62114,18 @@ function _toPrimitive2(input, hint) {
   const mix = (superclass) => new MixinBuilder(superclass);
   const RuleMixin = Mixin((superclass) => /* @__PURE__ */ function(_superclass) {
     _inherits3(_class3, _superclass);
-    var _super45 = _createSuper3(_class3);
+    var _super46 = _createSuper3(_class3);
     function _class3(context, options2) {
-      var _this69;
+      var _this70;
       _classCallCheck3(this, _class3);
-      _this69 = _super45.call(this, context, options2);
+      _this70 = _super46.call(this, context, options2);
       const { animate } = context;
-      _this69.highlighted = false;
-      _this69.animate = animate;
-      _this69.MOUSEOVER_RADIUS = 4;
-      _this69.pubSub = context.pubSub;
-      _this69.pubSubs.push(_this69.pubSub.subscribe("app.mouseMove", _this69.mouseMoveHandler.bind(_assertThisInitialized3(_this69))));
-      return _this69;
+      _this70.highlighted = false;
+      _this70.animate = animate;
+      _this70.MOUSEOVER_RADIUS = 4;
+      _this70.pubSub = context.pubSub;
+      _this70.pubSubs.push(_this70.pubSub.subscribe("app.mouseMove", _this70.mouseMoveHandler.bind(_assertThisInitialized3(_this70))));
+      return _this70;
     }
     _createClass3(_class3, [{ key: "setPosition", value: function setPosition(newPosition) {
       _get4(_getPrototypeOf4(_class3.prototype), "setPosition", this).call(this, newPosition);
@@ -61503,10 +62141,10 @@ function _toPrimitive2(input, hint) {
   }(superclass));
   const HorizontalRuleMixin = Mixin((superclass) => /* @__PURE__ */ function(_superclass2) {
     _inherits3(_class4, _superclass2);
-    var _super46 = _createSuper3(_class4);
+    var _super47 = _createSuper3(_class4);
     function _class4() {
       _classCallCheck3(this, _class4);
-      return _super46.apply(this, arguments);
+      return _super47.apply(this, arguments);
     }
     _createClass3(_class4, [{ key: "drawHorizontalRule", value: function drawHorizontalRule(graphics) {
       let stroke = colorToHex(this.options.color || "black");
@@ -61530,17 +62168,17 @@ function _toPrimitive2(input, hint) {
   }(superclass));
   let HorizontalRule = /* @__PURE__ */ function(_mix$with) {
     _inherits3(HorizontalRule2, _mix$with);
-    var _super47 = _createSuper3(HorizontalRule2);
+    var _super48 = _createSuper3(HorizontalRule2);
     function HorizontalRule2(context, options2) {
-      var _this70;
+      var _this71;
       _classCallCheck3(this, HorizontalRule2);
-      _this70 = _super47.call(this, context, options2);
-      _this70.yPosition = context.yPosition;
-      _this70.strokeWidth = 2;
-      _this70.strokeOpacity = 1;
-      _this70.dashLength = 5;
-      _this70.dashGap = 3;
-      return _this70;
+      _this71 = _super48.call(this, context, options2);
+      _this71.yPosition = context.yPosition;
+      _this71.strokeWidth = 2;
+      _this71.strokeOpacity = 1;
+      _this71.dashLength = 5;
+      _this71.dashGap = 3;
+      return _this71;
     }
     _createClass3(HorizontalRule2, [{ key: "mouseMoveHandler", value: function mouseMoveHandler(mousePos) {
       if (this.isWithin(mousePos.x, mousePos.y) && this.isMouseOverHorizontalLine(mousePos)) {
@@ -61584,10 +62222,10 @@ function _toPrimitive2(input, hint) {
   }(mix(PixiTrack).with(RuleMixin, HorizontalRuleMixin));
   const VerticalRuleMixin = Mixin((superclass) => /* @__PURE__ */ function(_superclass3) {
     _inherits3(_class5, _superclass3);
-    var _super48 = _createSuper3(_class5);
+    var _super49 = _createSuper3(_class5);
     function _class5() {
       _classCallCheck3(this, _class5);
-      return _super48.apply(this, arguments);
+      return _super49.apply(this, arguments);
     }
     _createClass3(_class5, [{ key: "drawVerticalRule", value: function drawVerticalRule(graphics) {
       let stroke = colorToHex(this.options.color || "black");
@@ -61608,17 +62246,17 @@ function _toPrimitive2(input, hint) {
   }(superclass));
   let VerticalRule = /* @__PURE__ */ function(_mix$with2) {
     _inherits3(VerticalRule2, _mix$with2);
-    var _super49 = _createSuper3(VerticalRule2);
+    var _super50 = _createSuper3(VerticalRule2);
     function VerticalRule2(context, options2) {
-      var _this71;
+      var _this72;
       _classCallCheck3(this, VerticalRule2);
-      _this71 = _super49.call(this, context, options2);
-      _this71.xPosition = context.xPosition;
-      _this71.strokeWidth = 2;
-      _this71.strokeOpacity = 1;
-      _this71.dashLength = 5;
-      _this71.dashGap = 3;
-      return _this71;
+      _this72 = _super50.call(this, context, options2);
+      _this72.xPosition = context.xPosition;
+      _this72.strokeWidth = 2;
+      _this72.strokeOpacity = 1;
+      _this72.dashLength = 5;
+      _this72.dashGap = 3;
+      return _this72;
     }
     _createClass3(VerticalRule2, [{ key: "draw", value: function draw() {
       const graphics = this.pMain;
@@ -61657,19 +62295,19 @@ function _toPrimitive2(input, hint) {
   }(mix(PixiTrack).with(RuleMixin, VerticalRuleMixin));
   let CrossRule = /* @__PURE__ */ function(_mix$with3) {
     _inherits3(CrossRule2, _mix$with3);
-    var _super50 = _createSuper3(CrossRule2);
+    var _super51 = _createSuper3(CrossRule2);
     function CrossRule2(context, options2) {
-      var _this72;
+      var _this73;
       _classCallCheck3(this, CrossRule2);
-      _this72 = _super50.call(this, context, options2);
+      _this73 = _super51.call(this, context, options2);
       const { x, y } = context;
-      _this72.xPosition = x;
-      _this72.yPosition = y;
-      _this72.strokeWidth = 2;
-      _this72.strokeOpacity = 1;
-      _this72.dashLength = 5;
-      _this72.dashGap = 3;
-      return _this72;
+      _this73.xPosition = x;
+      _this73.yPosition = y;
+      _this73.strokeWidth = 2;
+      _this73.strokeOpacity = 1;
+      _this73.dashLength = 5;
+      _this73.dashGap = 3;
+      return _this73;
     }
     _createClass3(CrossRule2, [{ key: "draw", value: function draw() {
       const graphics = this.pMain;
@@ -61731,28 +62369,28 @@ function _toPrimitive2(input, hint) {
   }(mix(PixiTrack).with(RuleMixin, VerticalRuleMixin));
   let OSMTilesTrack = /* @__PURE__ */ function(_PixiTrack9) {
     _inherits3(OSMTilesTrack2, _PixiTrack9);
-    var _super51 = _createSuper3(OSMTilesTrack2);
+    var _super52 = _createSuper3(OSMTilesTrack2);
     function OSMTilesTrack2(context, options2) {
-      var _this73;
+      var _this74;
       _classCallCheck3(this, OSMTilesTrack2);
-      _this73 = _super51.call(this, context, options2);
+      _this74 = _super52.call(this, context, options2);
       const { animate } = context;
-      _this73.visibleTiles = /* @__PURE__ */ new Set();
-      _this73.visibleTileIds = /* @__PURE__ */ new Set();
-      _this73.fetching = /* @__PURE__ */ new Set();
-      _this73.fetchedTiles = {};
-      _this73.tileGraphics = {};
-      _this73.minX = typeof _this73.options.minPos !== "undefined" && !Number.isNaN(+_this73.options.minPos) ? +_this73.options.minPos : -180;
-      _this73.maxX = +_this73.options.maxPos || 180;
-      _this73.maxX = typeof _this73.options.maxPos !== "undefined" && !Number.isNaN(+_this73.options.maxPos) ? +_this73.options.maxPos : 180;
-      _this73.minY = _this73.options.minY || _this73.minX;
-      _this73.maxY = _this73.options.maxY || _this73.maxX;
-      _this73.maxZoom = 19;
-      _this73.maxWidth = _this73.maxX - _this73.minX;
-      _this73.animate = animate;
-      _this73.uuid = slugid.nice();
-      _this73.refreshTilesDebounced = debounce$1(_this73.refreshTiles.bind(_assertThisInitialized3(_this73)), ZOOM_DEBOUNCE);
-      return _this73;
+      _this74.visibleTiles = /* @__PURE__ */ new Set();
+      _this74.visibleTileIds = /* @__PURE__ */ new Set();
+      _this74.fetching = /* @__PURE__ */ new Set();
+      _this74.fetchedTiles = {};
+      _this74.tileGraphics = {};
+      _this74.minX = typeof _this74.options.minPos !== "undefined" && !Number.isNaN(+_this74.options.minPos) ? +_this74.options.minPos : -180;
+      _this74.maxX = +_this74.options.maxPos || 180;
+      _this74.maxX = typeof _this74.options.maxPos !== "undefined" && !Number.isNaN(+_this74.options.maxPos) ? +_this74.options.maxPos : 180;
+      _this74.minY = _this74.options.minY || _this74.minX;
+      _this74.maxY = _this74.options.maxY || _this74.maxX;
+      _this74.maxZoom = 19;
+      _this74.maxWidth = _this74.maxX - _this74.minX;
+      _this74.animate = animate;
+      _this74.uuid = slugid.nice();
+      _this74.refreshTilesDebounced = debounce$1(_this74.refreshTiles.bind(_assertThisInitialized3(_this74)), ZOOM_DEBOUNCE);
+      return _this74;
     }
     _createClass3(OSMTilesTrack2, [{ key: "visibleAndFetchedIds", value: function visibleAndFetchedIds() {
       return Object.keys(this.fetchedTiles).filter((x) => this.visibleTileIds.has(x));
@@ -61976,10 +62614,10 @@ function _toPrimitive2(input, hint) {
   }(PixiTrack);
   let OSMTileIdsTrack = /* @__PURE__ */ function(_OSMTilesTrack) {
     _inherits3(OSMTileIdsTrack2, _OSMTilesTrack);
-    var _super52 = _createSuper3(OSMTileIdsTrack2);
+    var _super53 = _createSuper3(OSMTileIdsTrack2);
     function OSMTileIdsTrack2() {
       _classCallCheck3(this, OSMTileIdsTrack2);
-      return _super52.apply(this, arguments);
+      return _super53.apply(this, arguments);
     }
     _createClass3(OSMTileIdsTrack2, [{ key: "initTile", value: function initTile(tile) {
       _initTile.bind(this)(tile);
@@ -62009,17 +62647,17 @@ function _toPrimitive2(input, hint) {
   }(OSMTilesTrack);
   let MapboxTilesTrack = /* @__PURE__ */ function(_OSMTilesTrack2) {
     _inherits3(MapboxTilesTrack2, _OSMTilesTrack2);
-    var _super53 = _createSuper3(MapboxTilesTrack2);
+    var _super54 = _createSuper3(MapboxTilesTrack2);
     function MapboxTilesTrack2(context, options2) {
-      var _this74;
+      var _this75;
       _classCallCheck3(this, MapboxTilesTrack2);
-      _this74 = _super53.call(this, context, options2);
-      _this74.style = options2.style;
-      if (!_this74.options.accessToken) {
-        _this74.errorTextText = "No access token provided in the viewconf's track options ('accessToken' option).";
-        _this74.drawError();
+      _this75 = _super54.call(this, context, options2);
+      _this75.style = options2.style;
+      if (!_this75.options.accessToken) {
+        _this75.errorTextText = "No access token provided in the viewconf's track options ('accessToken' option).";
+        _this75.drawError();
       }
-      return _this74;
+      return _this75;
     }
     _createClass3(MapboxTilesTrack2, [{ key: "rerender", value: function rerender(newOptions) {
       _get4(_getPrototypeOf4(MapboxTilesTrack2.prototype), "rerender", this).call(this, newOptions);
@@ -62037,17 +62675,17 @@ function _toPrimitive2(input, hint) {
   }(OSMTilesTrack);
   let RasterTilesTrack = /* @__PURE__ */ function(_OSMTilesTrack3) {
     _inherits3(RasterTilesTrack2, _OSMTilesTrack3);
-    var _super54 = _createSuper3(RasterTilesTrack2);
+    var _super55 = _createSuper3(RasterTilesTrack2);
     function RasterTilesTrack2(context, options2) {
-      var _this75;
+      var _this76;
       _classCallCheck3(this, RasterTilesTrack2);
-      _this75 = _super54.call(this, context, options2);
-      _this75.style = options2.style;
-      if (!_this75.options.tileSource) {
-        _this75.errorTextText = "No tile source string provided in the options. It should be in the form of http://a.com/{z}/{x}/{y}";
-        _this75.drawError();
+      _this76 = _super55.call(this, context, options2);
+      _this76.style = options2.style;
+      if (!_this76.options.tileSource) {
+        _this76.errorTextText = "No tile source string provided in the options. It should be in the form of http://a.com/{z}/{x}/{y}";
+        _this76.drawError();
       }
-      return _this75;
+      return _this76;
     }
     _createClass3(RasterTilesTrack2, [{ key: "getTileUrl", value: function getTileUrl(tileZxy) {
       let newUrl = this.options.tileSource.replace("{z}", tileZxy[0]);
@@ -64816,13 +65454,13 @@ function _toPrimitive2(input, hint) {
   const d3Request = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({ __proto__: null, request, html, json, text, xml, csv, tsv }, Symbol.toStringTag, { value: "Module" }));
   let ListWrapper = /* @__PURE__ */ function(_React__default$defau4) {
     _inherits3(ListWrapper2, _React__default$defau4);
-    var _super55 = _createSuper3(ListWrapper2);
+    var _super56 = _createSuper3(ListWrapper2);
     function ListWrapper2({ items: items2 }) {
-      var _this76;
+      var _this77;
       _classCallCheck3(this, ListWrapper2);
-      _this76 = _super55.call(this);
-      _this76.state = { items: items2, isSorting: false };
-      return _this76;
+      _this77 = _super56.call(this);
+      _this77.state = { items: items2, isSorting: false };
+      return _this77;
     }
     _createClass3(ListWrapper2, [{ key: "UNSAFE_componentWillReceiveProps", value: function UNSAFE_componentWillReceiveProps(nextProps) {
       this.setState({ items: nextProps.items });
@@ -64860,25 +65498,25 @@ function _toPrimitive2(input, hint) {
   const classes$8 = { "top-right-handle": "_top-right-handle_cizw2_1", "bottom-right-handle": "_bottom-right-handle_cizw2_2", "top-left-handle": "_top-left-handle_cizw2_7", "bottom-left-handle": "_bottom-left-handle_cizw2_8", "top-draggable-handle": "_top-draggable-handle_cizw2_13", "bottom-draggable-handle": "_bottom-draggable-handle_cizw2_14", "left-draggable-handle": "_left-draggable-handle_cizw2_15", "right-draggable-handle": "_right-draggable-handle_cizw2_16", "draggable-div": "_draggable-div_cizw2_22", "top-draggable-handle-grabber": "_top-draggable-handle-grabber_cizw2_27", "bottom-draggable-handle-grabber": "_bottom-draggable-handle-grabber_cizw2_28", "left-draggable-handle-grabber": "_left-draggable-handle-grabber_cizw2_43", "right-draggable-handle-grabber": "_right-draggable-handle-grabber_cizw2_44" };
   let DraggableDiv = /* @__PURE__ */ function(_React__default$defau5) {
     _inherits3(DraggableDiv2, _React__default$defau5);
-    var _super56 = _createSuper3(DraggableDiv2);
+    var _super57 = _createSuper3(DraggableDiv2);
     function DraggableDiv2(props) {
-      var _this77;
+      var _this78;
       _classCallCheck3(this, DraggableDiv2);
-      _this77 = _super56.call(this, props);
-      _this77.dragTopRight = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragTopRightFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragTopLeft = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragTopLeftFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragBottomRight = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragBottomRightFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragBottomLeft = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragBottomLeftFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragBottom = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragBottomFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragTop = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragTopFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragLeft = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragLeftFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.dragRight = drag().on("start", _this77.dragStart.bind(_assertThisInitialized3(_this77))).on("drag", _this77.dragRightFunc.bind(_assertThisInitialized3(_this77)));
-      _this77.minWidth = 10;
-      _this77.minHeight = 10;
-      _this77.bottomHandleWidth = 20;
-      _this77.state = { uid: _this77.props.uid, width: _this77.props.width, height: _this77.props.height, top: _this77.props.top, left: _this77.props.left };
-      _this77.domBody = select$1("body").node();
-      return _this77;
+      _this78 = _super57.call(this, props);
+      _this78.dragTopRight = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragTopRightFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragTopLeft = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragTopLeftFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragBottomRight = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragBottomRightFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragBottomLeft = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragBottomLeftFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragBottom = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragBottomFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragTop = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragTopFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragLeft = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragLeftFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.dragRight = drag().on("start", _this78.dragStart.bind(_assertThisInitialized3(_this78))).on("drag", _this78.dragRightFunc.bind(_assertThisInitialized3(_this78)));
+      _this78.minWidth = 10;
+      _this78.minHeight = 10;
+      _this78.bottomHandleWidth = 20;
+      _this78.state = { uid: _this78.props.uid, width: _this78.props.width, height: _this78.props.height, top: _this78.props.top, left: _this78.props.left };
+      _this78.domBody = select$1("body").node();
+      return _this78;
     }
     _createClass3(DraggableDiv2, [{ key: "componentDidMount", value: function componentDidMount() {
       select$1(this.bottomHandle).call(this.dragBottom);
@@ -65004,13 +65642,13 @@ function _toPrimitive2(input, hint) {
   const DraggableDiv$1 = withTheme(DraggableDiv);
   let TrackArea = /* @__PURE__ */ function(_React__default$defau6) {
     _inherits3(TrackArea2, _React__default$defau6);
-    var _super57 = _createSuper3(TrackArea2);
+    var _super58 = _createSuper3(TrackArea2);
     function TrackArea2(props) {
-      var _this78;
+      var _this79;
       _classCallCheck3(this, TrackArea2);
-      _this78 = _super57.call(this, props);
-      _this78.state = { controlsVisible: false };
-      return _this78;
+      _this79 = _super58.call(this, props);
+      _this79.state = { controlsVisible: false };
+      return _this79;
     }
     _createClass3(TrackArea2, [{ key: "shouldComponentUpdate", value: function shouldComponentUpdate() {
       return !this.resizing;
@@ -65049,13 +65687,13 @@ function _toPrimitive2(input, hint) {
   TrackArea.propTypes = { configMenuOpen: propTypes$3.exports.bool, onConfigTrackMenuOpened: propTypes$3.exports.func, onCloseTrackMenuOpened: propTypes$3.exports.func, onAddSeries: propTypes$3.exports.func, uid: propTypes$3.exports.string };
   let MoveableTrack = /* @__PURE__ */ function(_TrackArea) {
     _inherits3(MoveableTrack2, _TrackArea);
-    var _super58 = _createSuper3(MoveableTrack2);
+    var _super59 = _createSuper3(MoveableTrack2);
     function MoveableTrack2(props) {
-      var _this79;
+      var _this80;
       _classCallCheck3(this, MoveableTrack2);
-      _this79 = _super58.call(this, props);
-      _this79.moveable = true;
-      return _this79;
+      _this80 = _super59.call(this, props);
+      _this80.moveable = true;
+      return _this80;
     }
     _createClass3(MoveableTrack2, [{ key: "render", value: function render2() {
       return /* @__PURE__ */ React__default.default.createElement("div", { ref: (r2) => {
@@ -65070,10 +65708,10 @@ function _toPrimitive2(input, hint) {
   const STYLES$1 = { pointerEvents: "all" };
   let HorizontalTrack = /* @__PURE__ */ function(_MoveableTrack) {
     _inherits3(HorizontalTrack2, _MoveableTrack);
-    var _super59 = _createSuper3(HorizontalTrack2);
+    var _super60 = _createSuper3(HorizontalTrack2);
     function HorizontalTrack2() {
       _classCallCheck3(this, HorizontalTrack2);
-      return _super59.apply(this, arguments);
+      return _super60.apply(this, arguments);
     }
     _createClass3(HorizontalTrack2, [{ key: "getControls", value: function getControls(isVisible) {
       return /* @__PURE__ */ React__default.default.createElement(TrackControl$1, { configMenuVisible: this.props.item.configMenuVisible, imgStyleAdd: STYLES$1, imgStyleClose: STYLES$1, imgStyleMove: STYLES$1, imgStyleSettings: STYLES$1, isMoveable: this.moveable, isVisible, onAddSeries: this.props.onAddSeries, onCloseTrackMenuOpened: this.props.onCloseTrackMenuOpened, onConfigTrackMenuOpened: this.props.onConfigTrackMenuOpened, uid: this.props.uid });
@@ -65091,13 +65729,13 @@ function _toPrimitive2(input, hint) {
   }
   let HorizontalTiledPlot = /* @__PURE__ */ function(_React__default$defau7) {
     _inherits3(HorizontalTiledPlot2, _React__default$defau7);
-    var _super60 = _createSuper3(HorizontalTiledPlot2);
+    var _super61 = _createSuper3(HorizontalTiledPlot2);
     function HorizontalTiledPlot2(props) {
-      var _this80;
+      var _this81;
       _classCallCheck3(this, HorizontalTiledPlot2);
-      _this80 = _super60.call(this, props);
-      _this80.brushBehavior = brushX().on("start", _this80.brushStarted.bind(_assertThisInitialized3(_this80))).on("brush", _this80.brushed.bind(_assertThisInitialized3(_this80))).on("end", _this80.brushedEnded.bind(_assertThisInitialized3(_this80)));
-      return _this80;
+      _this81 = _super61.call(this, props);
+      _this81.brushBehavior = brushX().on("start", _this81.brushStarted.bind(_assertThisInitialized3(_this81))).on("brush", _this81.brushed.bind(_assertThisInitialized3(_this81))).on("end", _this81.brushedEnded.bind(_assertThisInitialized3(_this81)));
+      return _this81;
     }
     _createClass3(HorizontalTiledPlot2, [{ key: "componentDidMount", value: function componentDidMount() {
       if (this.props.isRangeSelectionActive) {
@@ -65191,10 +65829,10 @@ function _toPrimitive2(input, hint) {
   const STYLES = { pointerEvents: "all" };
   let VerticalTrack = /* @__PURE__ */ function(_MoveableTrack2) {
     _inherits3(VerticalTrack2, _MoveableTrack2);
-    var _super61 = _createSuper3(VerticalTrack2);
+    var _super62 = _createSuper3(VerticalTrack2);
     function VerticalTrack2() {
       _classCallCheck3(this, VerticalTrack2);
-      return _super61.apply(this, arguments);
+      return _super62.apply(this, arguments);
     }
     _createClass3(VerticalTrack2, [{ key: "getControls", value: function getControls(isVisible) {
       return /* @__PURE__ */ React__default.default.createElement(TrackControl$1, { imgStyleAdd: STYLES, imgStyleClose: STYLES, imgStyleMove: STYLES, imgStyleSettings: STYLES, isAlignLeft: this.props.controlAlignLeft, isMoveable: this.moveable, isVertical: true, isVisible, onAddSeries: this.props.onAddSeries, onCloseTrackMenuOpened: this.props.onCloseTrackMenuOpened, onConfigTrackMenuOpened: this.props.onConfigTrackMenuOpened, uid: this.props.uid });
@@ -65203,19 +65841,19 @@ function _toPrimitive2(input, hint) {
   }(MoveableTrack);
   let ViewportTracker2D = /* @__PURE__ */ function(_PixiTrack10) {
     _inherits3(ViewportTracker2D2, _PixiTrack10);
-    var _super62 = _createSuper3(ViewportTracker2D2);
+    var _super63 = _createSuper3(ViewportTracker2D2);
     function ViewportTracker2D2(context, options2) {
-      var _this81;
+      var _this82;
       _classCallCheck3(this, ViewportTracker2D2);
-      _this81 = _super62.call(this, context, options2);
+      _this82 = _super63.call(this, context, options2);
       const { registerViewportChanged, removeViewportChanged } = context;
       const uid = slugid.nice();
-      _this81.uid = uid;
-      _this81.removeViewportChanged = removeViewportChanged;
-      _this81.viewportXDomain = null;
-      _this81.viewportYDomain = null;
-      registerViewportChanged(uid, _this81.viewportChanged.bind(_assertThisInitialized3(_this81)));
-      return _this81;
+      _this82.uid = uid;
+      _this82.removeViewportChanged = removeViewportChanged;
+      _this82.viewportXDomain = null;
+      _this82.viewportYDomain = null;
+      registerViewportChanged(uid, _this82.viewportChanged.bind(_assertThisInitialized3(_this82)));
+      return _this82;
     }
     _createClass3(ViewportTracker2D2, [{ key: "viewportChanged", value: function viewportChanged(viewportXScale, viewportYScale) {
       const viewportXDomain = viewportXScale.domain();
@@ -69432,14 +70070,14 @@ function _toPrimitive2(input, hint) {
   ColorWrap(Google);
   let SketchInlinePicker = /* @__PURE__ */ function(_React__default$defau8) {
     _inherits3(SketchInlinePicker2, _React__default$defau8);
-    var _super63 = _createSuper3(SketchInlinePicker2);
+    var _super64 = _createSuper3(SketchInlinePicker2);
     function SketchInlinePicker2(props) {
-      var _this82;
+      var _this83;
       _classCallCheck3(this, SketchInlinePicker2);
-      _this82 = _super63.call(this, props);
+      _this83 = _super64.call(this, props);
       const startColor = rgb(props.color);
-      _this82.state = { displayColorPicker: false, color: { r: startColor.r, g: startColor.g, b: startColor.b, a: startColor.opacity } };
-      return _this82;
+      _this83.state = { displayColorPicker: false, color: { r: startColor.r, g: startColor.g, b: startColor.b, a: startColor.opacity } };
+      return _this83;
     }
     _createClass3(SketchInlinePicker2, [{ key: "handleClick", value: function handleClick() {
       this.setState((prevState) => ({ displayColorPicker: !prevState.displayColorPicker }));
@@ -69460,13 +70098,13 @@ function _toPrimitive2(input, hint) {
   const TrackOptions = "";
   let HeatmapOptions = /* @__PURE__ */ function(_React__default$defau9) {
     _inherits3(HeatmapOptions2, _React__default$defau9);
-    var _super64 = _createSuper3(HeatmapOptions2);
+    var _super65 = _createSuper3(HeatmapOptions2);
     function HeatmapOptions2(props) {
-      var _this83;
+      var _this84;
       _classCallCheck3(this, HeatmapOptions2);
-      _this83 = _super64.call(this, props);
-      _this83.state = { colors: props.track.options.colorRange.slice() };
-      return _this83;
+      _this84 = _super65.call(this, props);
+      _this84.state = { colors: props.track.options.colorRange.slice() };
+      return _this84;
     }
     _createClass3(HeatmapOptions2, [{ key: "handleColorsChanged", value: function handleColorsChanged(newColors) {
       this.setState({ colors: newColors });
@@ -69576,32 +70214,32 @@ function _toPrimitive2(input, hint) {
   const SCROLL_TIMEOUT = 100;
   let TrackRenderer = /* @__PURE__ */ function(_React__default$defau10) {
     _inherits3(TrackRenderer2, _React__default$defau10);
-    var _super65 = _createSuper3(TrackRenderer2);
+    var _super66 = _createSuper3(TrackRenderer2);
     function TrackRenderer2(props) {
-      var _this84;
+      var _this85;
       _classCallCheck3(this, TrackRenderer2);
-      _this84 = _super65.call(this, props);
-      _this84.dragging = false;
-      _this84.element = null;
-      _this84.closing = false;
-      _this84.yPositionOffset = 0;
-      _this84.xPositionOffset = 0;
-      _this84.scrollTop = 0;
-      _this84.scrollTimeout = null;
-      _this84.activeTransitions = 0;
-      _this84.zoomTransform = identity$4;
-      _this84.windowScrolledBound = _this84.windowScrolled.bind(_assertThisInitialized3(_this84));
-      _this84.zoomStartedBound = _this84.zoomStarted.bind(_assertThisInitialized3(_this84));
-      _this84.zoomedBound = _this84.zoomed.bind(_assertThisInitialized3(_this84));
-      _this84.zoomEndedBound = _this84.zoomEnded.bind(_assertThisInitialized3(_this84));
-      _this84.uid = slugid.nice();
-      _this84.viewUid = _this84.props.uid;
-      _this84.availableForPlugins = { ...AVAILABLE_FOR_PLUGINS, services: { ...AVAILABLE_FOR_PLUGINS.services, pubSub: _this84.props.pubSub, pixiRenderer: _this84.props.pixiRenderer } };
-      _this84.mounted = false;
-      _this84.emptyZoomBehavior = zoom();
-      _this84.currentProps = props;
-      _this84.prevPropsStr = "";
-      _this84.zoomBehavior = zoom().filter((event) => {
+      _this85 = _super66.call(this, props);
+      _this85.dragging = false;
+      _this85.element = null;
+      _this85.closing = false;
+      _this85.yPositionOffset = 0;
+      _this85.xPositionOffset = 0;
+      _this85.scrollTop = 0;
+      _this85.scrollTimeout = null;
+      _this85.activeTransitions = 0;
+      _this85.zoomTransform = identity$4;
+      _this85.windowScrolledBound = _this85.windowScrolled.bind(_assertThisInitialized3(_this85));
+      _this85.zoomStartedBound = _this85.zoomStarted.bind(_assertThisInitialized3(_this85));
+      _this85.zoomedBound = _this85.zoomed.bind(_assertThisInitialized3(_this85));
+      _this85.zoomEndedBound = _this85.zoomEnded.bind(_assertThisInitialized3(_this85));
+      _this85.uid = slugid.nice();
+      _this85.viewUid = _this85.props.uid;
+      _this85.availableForPlugins = { ...AVAILABLE_FOR_PLUGINS, services: { ...AVAILABLE_FOR_PLUGINS.services, pubSub: _this85.props.pubSub, pixiRenderer: _this85.props.pixiRenderer } };
+      _this85.mounted = false;
+      _this85.emptyZoomBehavior = zoom();
+      _this85.currentProps = props;
+      _this85.prevPropsStr = "";
+      _this85.zoomBehavior = zoom().filter((event) => {
         if (event.target.classList.contains("no-zoom")) {
           return false;
         }
@@ -69609,35 +70247,35 @@ function _toPrimitive2(input, hint) {
           return false;
         }
         return true;
-      }).on("start", _this84.zoomStartedBound).on("zoom", _this84.zoomedBound).on("end", _this84.zoomEndedBound);
-      _this84.zoomTransform = identity$4;
-      _this84.prevZoomTransform = identity$4;
-      _this84.initialXDomain = [0, 1];
-      _this84.initialYDomain = [0, 1];
-      _this84.xDomainLimits = [-Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER];
-      _this84.yDomainLimits = [-Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER];
-      _this84.zoomLimits = [0, Number.MAX_SAFE_INTEGER];
-      _this84.prevCenterX = _this84.currentProps.paddingLeft + _this84.currentProps.leftWidth + _this84.currentProps.centerWidth / 2;
-      _this84.prevCenterY = _this84.currentProps.paddingTop + _this84.currentProps.topHeight + _this84.currentProps.centerHeight / 2;
-      _this84.cumCenterXOffset = 0;
-      _this84.cumCenterYOffset = 0;
-      _this84.setUpInitialScales(_this84.currentProps.initialXDomain, _this84.currentProps.initialYDomain, _this84.currentProps.xDomainLimits, _this84.currentProps.yDomainLimits, _this84.currentProps.zoomLimits);
-      _this84.setUpScales();
-      _this84.trackDefObjects = {};
-      _this84.metaTracks = {};
-      _this84.pubSubs = [];
+      }).on("start", _this85.zoomStartedBound).on("zoom", _this85.zoomedBound).on("end", _this85.zoomEndedBound);
+      _this85.zoomTransform = identity$4;
+      _this85.prevZoomTransform = identity$4;
+      _this85.initialXDomain = [0, 1];
+      _this85.initialYDomain = [0, 1];
+      _this85.xDomainLimits = [-Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER];
+      _this85.yDomainLimits = [-Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER];
+      _this85.zoomLimits = [0, Number.MAX_SAFE_INTEGER];
+      _this85.prevCenterX = _this85.currentProps.paddingLeft + _this85.currentProps.leftWidth + _this85.currentProps.centerWidth / 2;
+      _this85.prevCenterY = _this85.currentProps.paddingTop + _this85.currentProps.topHeight + _this85.currentProps.centerHeight / 2;
+      _this85.cumCenterXOffset = 0;
+      _this85.cumCenterYOffset = 0;
+      _this85.setUpInitialScales(_this85.currentProps.initialXDomain, _this85.currentProps.initialYDomain, _this85.currentProps.xDomainLimits, _this85.currentProps.yDomainLimits, _this85.currentProps.zoomLimits);
+      _this85.setUpScales();
+      _this85.trackDefObjects = {};
+      _this85.metaTracks = {};
+      _this85.pubSubs = [];
       if (window.higlassTracksByType) {
         Object.keys(window.higlassTracksByType).forEach((pluginTrackType) => {
           TRACKS_INFO_BY_TYPE[pluginTrackType] = window.higlassTracksByType[pluginTrackType].config;
         });
       }
-      _this84.boundForwardEvent = _this84.forwardEvent.bind(_assertThisInitialized3(_this84));
-      _this84.boundScrollEvent = _this84.scrollEvent.bind(_assertThisInitialized3(_this84));
-      _this84.boundForwardContextMenu = _this84.forwardContextMenu.bind(_assertThisInitialized3(_this84));
-      _this84.dispatchEventBound = _this84.dispatchEvent.bind(_assertThisInitialized3(_this84));
-      _this84.zoomToDataPosHandlerBound = _this84.zoomToDataPosHandler.bind(_assertThisInitialized3(_this84));
-      _this84.onScrollHandlerBound = _this84.onScrollHandler.bind(_assertThisInitialized3(_this84));
-      return _this84;
+      _this85.boundForwardEvent = _this85.forwardEvent.bind(_assertThisInitialized3(_this85));
+      _this85.boundScrollEvent = _this85.scrollEvent.bind(_assertThisInitialized3(_this85));
+      _this85.boundForwardContextMenu = _this85.forwardContextMenu.bind(_assertThisInitialized3(_this85));
+      _this85.dispatchEventBound = _this85.dispatchEvent.bind(_assertThisInitialized3(_this85));
+      _this85.zoomToDataPosHandlerBound = _this85.zoomToDataPosHandler.bind(_assertThisInitialized3(_this85));
+      _this85.onScrollHandlerBound = _this85.onScrollHandler.bind(_assertThisInitialized3(_this85));
+      return _this85;
     }
     _createClass3(TrackRenderer2, [{ key: "UNSAFE_componentWillMount", value: function UNSAFE_componentWillMount() {
       this.pubSubs = [];
@@ -71882,37 +72520,37 @@ function _toPrimitive2(input, hint) {
   const TilesetFinder$2 = "";
   let TilesetFinder = /* @__PURE__ */ function(_React__default$defau11) {
     _inherits3(TilesetFinder2, _React__default$defau11);
-    var _super66 = _createSuper3(TilesetFinder2);
+    var _super67 = _createSuper3(TilesetFinder2);
     function TilesetFinder2(props) {
-      var _this85;
+      var _this86;
       _classCallCheck3(this, TilesetFinder2);
-      _this85 = _super66.call(this, props);
-      _this85.localTracks = TRACKS_INFO.filter((x) => x.local && !x.hidden).map((x) => {
+      _this86 = _super67.call(this, props);
+      _this86.localTracks = TRACKS_INFO.filter((x) => x.local && !x.hidden).map((x) => {
         const y = { ...x };
         y.datatype = x.datatype[0];
         return y;
       });
-      _this85.augmentedTracksInfo = TRACKS_INFO;
+      _this86.augmentedTracksInfo = TRACKS_INFO;
       if (window.higlassTracksByType) {
         Object.keys(window.higlassTracksByType).forEach((pluginTrackType) => {
-          _this85.augmentedTracksInfo.push(window.higlassTracksByType[pluginTrackType].config);
+          _this86.augmentedTracksInfo.push(window.higlassTracksByType[pluginTrackType].config);
         });
       }
       if (props.datatype) {
-        _this85.localTracks = _this85.localTracks.filter((x) => x.datatype[0] === props.datatype);
+        _this86.localTracks = _this86.localTracks.filter((x) => x.datatype[0] === props.datatype);
       } else {
-        _this85.localTracks = _this85.localTracks.filter((x) => x.orientation === _this85.props.orientation);
+        _this86.localTracks = _this86.localTracks.filter((x) => x.orientation === _this86.props.orientation);
       }
-      _this85.localTracks.forEach((x) => {
+      _this86.localTracks.forEach((x) => {
         x.uuid = slugid.nice();
       });
-      const newOptions = _this85.prepareNewEntries("", _this85.localTracks, {});
+      const newOptions = _this86.prepareNewEntries("", _this86.localTracks, {});
       const availableTilesetKeys = Object.keys(newOptions);
       const selectedUuid = availableTilesetKeys.length ? [availableTilesetKeys[0]] : null;
-      _this85.mounted = false;
-      _this85.state = { selectedUuid, options: newOptions, filter: "", checked: [], expanded: [] };
-      _this85.requestTilesetLists();
-      return _this85;
+      _this86.mounted = false;
+      _this86.state = { selectedUuid, options: newOptions, filter: "", checked: [], expanded: [] };
+      _this86.requestTilesetLists();
+      return _this86;
     }
     _createClass3(TilesetFinder2, [{ key: "componentDidMount", value: function componentDidMount() {
       this.mounted = true;
@@ -72042,15 +72680,15 @@ function _toPrimitive2(input, hint) {
   const PlotTypeChooser$1 = "";
   let PlotTypeChooser = /* @__PURE__ */ function(_React__default$defau12) {
     _inherits3(PlotTypeChooser2, _React__default$defau12);
-    var _super67 = _createSuper3(PlotTypeChooser2);
+    var _super68 = _createSuper3(PlotTypeChooser2);
     function PlotTypeChooser2(props) {
-      var _this86;
+      var _this87;
       _classCallCheck3(this, PlotTypeChooser2);
-      _this86 = _super67.call(this, props);
-      _this86.DATATYPE_TO_TRACK_TYPE = DATATYPE_TO_TRACK_TYPE(_this86.props.orientation);
-      _this86.AVAILABLE_TRACK_TYPES = AVAILABLE_TRACK_TYPES(_this86.props.datatypes, _this86.props.orientation);
-      _this86.state = { selectedPlotType: _this86.AVAILABLE_TRACK_TYPES[0] };
-      return _this86;
+      _this87 = _super68.call(this, props);
+      _this87.DATATYPE_TO_TRACK_TYPE = DATATYPE_TO_TRACK_TYPE(_this87.props.orientation);
+      _this87.AVAILABLE_TRACK_TYPES = AVAILABLE_TRACK_TYPES(_this87.props.datatypes, _this87.props.orientation);
+      _this87.state = { selectedPlotType: _this87.AVAILABLE_TRACK_TYPES[0] };
+      return _this87;
     }
     _createClass3(PlotTypeChooser2, [{ key: "UNSAFE_componentWillReceiveProps", value: function UNSAFE_componentWillReceiveProps(newProps) {
       this.AVAILABLE_TRACK_TYPES = AVAILABLE_TRACK_TYPES(newProps.datatypes, this.props.orientation);
@@ -72096,17 +72734,17 @@ function _toPrimitive2(input, hint) {
   const AddTrackDialog_module = { "collapse-toggle-icon": "_collapse-toggle-icon_ub7s6_1", collapsed, "modal-title": "_modal-title_ub7s6_14", "modal-container": "_modal-container_ub7s6_19", modal, "modal-backdrop": "_modal-backdrop_ub7s6_23", "modal-dialog": "_modal-dialog_ub7s6_27" };
   let AddTrackDialog = /* @__PURE__ */ function(_React__default$defau13) {
     _inherits3(AddTrackDialog2, _React__default$defau13);
-    var _super68 = _createSuper3(AddTrackDialog2);
+    var _super69 = _createSuper3(AddTrackDialog2);
     function AddTrackDialog2(props) {
-      var _this87;
+      var _this88;
       _classCallCheck3(this, AddTrackDialog2);
-      _this87 = _super68.call(this, props);
-      _this87.options = {};
-      _this87.state = { selectedTilesets: [{ datatype: "none" }], allTracksSameDatatype: true };
-      _this87.handleSubmitBound = _this87.handleSubmit.bind(_assertThisInitialized3(_this87));
-      _this87.handleTilesetPickerDoubleClickBound = _this87.handleTilesetPickerDoubleClick.bind(_assertThisInitialized3(_this87));
-      _this87.selectedTilesetsChangedBound = _this87.selectedTilesetsChanged.bind(_assertThisInitialized3(_this87));
-      return _this87;
+      _this88 = _super69.call(this, props);
+      _this88.options = {};
+      _this88.state = { selectedTilesets: [{ datatype: "none" }], allTracksSameDatatype: true };
+      _this88.handleSubmitBound = _this88.handleSubmit.bind(_assertThisInitialized3(_this88));
+      _this88.handleTilesetPickerDoubleClickBound = _this88.handleTilesetPickerDoubleClick.bind(_assertThisInitialized3(_this88));
+      _this88.selectedTilesetsChangedBound = _this88.selectedTilesetsChanged.bind(_assertThisInitialized3(_this88));
+      return _this88;
     }
     _createClass3(AddTrackDialog2, [{ key: "getOrientation", value: function getOrientation(position) {
       let orientation2 = null;
@@ -72185,10 +72823,10 @@ function _toPrimitive2(input, hint) {
   AddTrackDialog.propTypes = { datatype: propTypes$3.exports.string, host: propTypes$3.exports.string, onCancel: propTypes$3.exports.func.isRequired, onTracksChosen: propTypes$3.exports.func.isRequired, position: propTypes$3.exports.string, trackSourceServers: propTypes$3.exports.array.isRequired };
   let CustomTrackDialog = /* @__PURE__ */ function(_React__default$defau14) {
     _inherits3(CustomTrackDialog2, _React__default$defau14);
-    var _super69 = _createSuper3(CustomTrackDialog2);
+    var _super70 = _createSuper3(CustomTrackDialog2);
     function CustomTrackDialog2() {
       _classCallCheck3(this, CustomTrackDialog2);
-      return _super69.apply(this, arguments);
+      return _super70.apply(this, arguments);
     }
     _createClass3(CustomTrackDialog2, [{ key: "render", value: function render2() {
       const childrenWithProp = [];
@@ -72205,14 +72843,14 @@ function _toPrimitive2(input, hint) {
   const TRACK_CONTROL_HEIGHT = 20;
   let ContextMenuContainer = /* @__PURE__ */ function(_React__default$defau15) {
     _inherits3(ContextMenuContainer2, _React__default$defau15);
-    var _super70 = _createSuper3(ContextMenuContainer2);
+    var _super71 = _createSuper3(ContextMenuContainer2);
     function ContextMenuContainer2(props) {
-      var _this88;
+      var _this89;
       _classCallCheck3(this, ContextMenuContainer2);
-      _this88 = _super70.call(this, props);
-      _this88.adjusted = false;
-      _this88.state = { orientation: _this88.props.orientation ? _this88.props.orientation : "right", left: _this88.props.position.left, top: _this88.props.position.top, submenuShown: null };
-      return _this88;
+      _this89 = _super71.call(this, props);
+      _this89.adjusted = false;
+      _this89.state = { orientation: _this89.props.orientation ? _this89.props.orientation : "right", left: _this89.props.position.left, top: _this89.props.position.top, submenuShown: null };
+      return _this89;
     }
     _createClass3(ContextMenuContainer2, [{ key: "componentDidMount", value: function componentDidMount() {
       this.updateOrientation();
@@ -72282,10 +72920,10 @@ function _toPrimitive2(input, hint) {
   ContextMenuContainer.propTypes = { children: propTypes$3.exports.node, orientation: propTypes$3.exports.string, parentBbox: propTypes$3.exports.object, position: propTypes$3.exports.object, theme: propTypes$3.exports.symbol.isRequired };
   let NestedContextMenu = /* @__PURE__ */ function(_ContextMenuContainer) {
     _inherits3(NestedContextMenu2, _ContextMenuContainer);
-    var _super71 = _createSuper3(NestedContextMenu2);
+    var _super72 = _createSuper3(NestedContextMenu2);
     function NestedContextMenu2() {
       _classCallCheck3(this, NestedContextMenu2);
-      return _super71.apply(this, arguments);
+      return _super72.apply(this, arguments);
     }
     _createClass3(NestedContextMenu2, [{ key: "getSubmenu", value: function getSubmenu() {
       if (this.state.submenuShown) {
@@ -72310,10 +72948,10 @@ function _toPrimitive2(input, hint) {
   }(ContextMenuContainer);
   let SeriesListMenu = /* @__PURE__ */ function(_ContextMenuContainer2) {
     _inherits3(SeriesListMenu2, _ContextMenuContainer2);
-    var _super72 = _createSuper3(SeriesListMenu2);
+    var _super73 = _createSuper3(SeriesListMenu2);
     function SeriesListMenu2() {
       _classCallCheck3(this, SeriesListMenu2);
-      return _super72.apply(this, arguments);
+      return _super73.apply(this, arguments);
     }
     _createClass3(SeriesListMenu2, [{ key: "getConfigureSeriesMenu", value: function getConfigureSeriesMenu(position, bbox, track) {
       const menuItems = {};
@@ -72467,10 +73105,10 @@ function _toPrimitive2(input, hint) {
   };
   const SeriesListSubmenuMixin = Mixin((superclass) => /* @__PURE__ */ function(_superclass4) {
     _inherits3(_class6, _superclass4);
-    var _super73 = _createSuper3(_class6);
+    var _super74 = _createSuper3(_class6);
     function _class6() {
       _classCallCheck3(this, _class6);
-      return _super73.apply(this, arguments);
+      return _super74.apply(this, arguments);
     }
     _createClass3(_class6, [{ key: "getSubmenu", value: function getSubmenu() {
       if (this.state.submenuShown) {
@@ -72494,14 +73132,14 @@ function _toPrimitive2(input, hint) {
   }(superclass));
   let ConfigTrackMenu = /* @__PURE__ */ function(_mix$with4) {
     _inherits3(ConfigTrackMenu2, _mix$with4);
-    var _super74 = _createSuper3(ConfigTrackMenu2);
+    var _super75 = _createSuper3(ConfigTrackMenu2);
     function ConfigTrackMenu2(props) {
-      var _this89;
+      var _this90;
       _classCallCheck3(this, ConfigTrackMenu2);
-      _this89 = _super74.call(this, props);
-      _this89.seriesRefs = {};
-      _this89.seriesListMenu = null;
-      return _this89;
+      _this90 = _super75.call(this, props);
+      _this90.seriesRefs = {};
+      _this90.seriesListMenu = null;
+      return _this90;
     }
     _createClass3(ConfigTrackMenu2, [{ key: "componentDidMount", value: function componentDidMount() {
       _get4(_getPrototypeOf4(ConfigTrackMenu2.prototype), "componentDidMount", this).call(this);
@@ -72520,15 +73158,15 @@ function _toPrimitive2(input, hint) {
   CloseTrackMenu.propTypes = { onCloseTrack: propTypes$3.exports.func.isRequired, tracks: propTypes$3.exports.array.isRequired };
   let PopupMenu = /* @__PURE__ */ function(_React__default$defau16) {
     _inherits3(PopupMenu2, _React__default$defau16);
-    var _super75 = _createSuper3(PopupMenu2);
+    var _super76 = _createSuper3(PopupMenu2);
     function PopupMenu2(props) {
-      var _this90;
+      var _this91;
       _classCallCheck3(this, PopupMenu2);
-      _this90 = _super75.call(this, props);
-      _this90.clickHandlerBound = _this90.clickHandler.bind(_assertThisInitialized3(_this90));
-      _this90.contextMenuHandlerBound = _this90.contextMenuHandler.bind(_assertThisInitialized3(_this90));
-      _this90.resizeHandlerBound = _this90.resizeHandler.bind(_assertThisInitialized3(_this90));
-      return _this90;
+      _this91 = _super76.call(this, props);
+      _this91.clickHandlerBound = _this91.clickHandler.bind(_assertThisInitialized3(_this91));
+      _this91.contextMenuHandlerBound = _this91.contextMenuHandler.bind(_assertThisInitialized3(_this91));
+      _this91.resizeHandlerBound = _this91.resizeHandler.bind(_assertThisInitialized3(_this91));
+      return _this91;
     }
     _createClass3(PopupMenu2, [{ key: "componentDidMount", value: function componentDidMount() {
       this.popup = document.createElement("div");
@@ -72576,13 +73214,13 @@ function _toPrimitive2(input, hint) {
   }
   let VerticalTiledPlot = /* @__PURE__ */ function(_React__default$defau17) {
     _inherits3(VerticalTiledPlot2, _React__default$defau17);
-    var _super76 = _createSuper3(VerticalTiledPlot2);
+    var _super77 = _createSuper3(VerticalTiledPlot2);
     function VerticalTiledPlot2(props) {
-      var _this91;
+      var _this92;
       _classCallCheck3(this, VerticalTiledPlot2);
-      _this91 = _super76.call(this, props);
-      _this91.brushBehavior = brushY().on("start", _this91.brushStarted.bind(_assertThisInitialized3(_this91))).on("brush", _this91.brushed.bind(_assertThisInitialized3(_this91))).on("end", _this91.brushedEnded.bind(_assertThisInitialized3(_this91)));
-      return _this91;
+      _this92 = _super77.call(this, props);
+      _this92.brushBehavior = brushY().on("start", _this92.brushStarted.bind(_assertThisInitialized3(_this92))).on("brush", _this92.brushed.bind(_assertThisInitialized3(_this92))).on("end", _this92.brushedEnded.bind(_assertThisInitialized3(_this92)));
+      return _this92;
     }
     _createClass3(VerticalTiledPlot2, [{ key: "componentDidMount", value: function componentDidMount() {
       if (this.props.isRangeSelectionActive) {
@@ -72676,10 +73314,10 @@ function _toPrimitive2(input, hint) {
   VerticalTiledPlot.propTypes = { configTrackMenuId: propTypes$3.exports.string, editable: propTypes$3.exports.bool, handleConfigTrack: propTypes$3.exports.func, handleResizeTrack: propTypes$3.exports.func, handleSortEnd: propTypes$3.exports.func, is1dRangeSelection: propTypes$3.exports.bool, isRangeSelectionActive: propTypes$3.exports.bool, height: propTypes$3.exports.number, onAddSeries: propTypes$3.exports.func, onCloseTrack: propTypes$3.exports.func, onCloseTrackMenuOpened: propTypes$3.exports.func, onConfigTrackMenuOpened: propTypes$3.exports.func, onRangeSelection: propTypes$3.exports.func, onRangeSelectionEnd: propTypes$3.exports.func, onRangeSelectionReset: propTypes$3.exports.func, onRangeSelectionStart: propTypes$3.exports.func, rangeSelection: propTypes$3.exports.array, rangeSelectionEnd: propTypes$3.exports.bool, referenceAncestor: propTypes$3.exports.func, resizeHandles: propTypes$3.exports.object, scale: propTypes$3.exports.func, tracks: propTypes$3.exports.array, tracksControlAlignLeft: propTypes$3.exports.bool };
   let ViewContextMenu = /* @__PURE__ */ function(_mix$with5) {
     _inherits3(ViewContextMenu2, _mix$with5);
-    var _super77 = _createSuper3(ViewContextMenu2);
+    var _super78 = _createSuper3(ViewContextMenu2);
     function ViewContextMenu2() {
       _classCallCheck3(this, ViewContextMenu2);
-      return _super77.apply(this, arguments);
+      return _super78.apply(this, arguments);
     }
     _createClass3(ViewContextMenu2, [{ key: "render", value: function render2() {
       const seriesItems = getSeriesItems(this.props.tracks, this.handleItemMouseEnter.bind(this), this.handleMouseLeave.bind(this));
@@ -72708,62 +73346,62 @@ function _toPrimitive2(input, hint) {
   ViewContextMenu.propTypes = { coords: propTypes$3.exports.array, customItems: propTypes$3.exports.array };
   let TiledPlot = /* @__PURE__ */ function(_React__default$defau18) {
     _inherits3(TiledPlot2, _React__default$defau18);
-    var _super78 = _createSuper3(TiledPlot2);
+    var _super79 = _createSuper3(TiledPlot2);
     function TiledPlot2(props) {
-      var _this92;
+      var _this93;
       _classCallCheck3(this, TiledPlot2);
-      _this92 = _super78.call(this, props);
-      _this92.closing = false;
-      const { tracks: tracks2 } = _this92.props;
-      _this92.canvasElement = null;
-      _this92.tracksByUidInit = {};
-      [..._this92.props.tracks.top || [], ..._this92.props.tracks.right || [], ..._this92.props.tracks.bottom || [], ..._this92.props.tracks.left || [], ..._this92.props.tracks.gallery || [], ..._this92.props.tracks.center || []].forEach((track) => {
+      _this93 = _super79.call(this, props);
+      _this93.closing = false;
+      const { tracks: tracks2 } = _this93.props;
+      _this93.canvasElement = null;
+      _this93.tracksByUidInit = {};
+      [..._this93.props.tracks.top || [], ..._this93.props.tracks.right || [], ..._this93.props.tracks.bottom || [], ..._this93.props.tracks.left || [], ..._this93.props.tracks.gallery || [], ..._this93.props.tracks.center || []].forEach((track) => {
         if (track.type === "combined") {
           track.contents.forEach((track2) => {
-            _this92.tracksByUidInit[track2.uid] = false;
+            _this93.tracksByUidInit[track2.uid] = false;
           });
         } else {
-          _this92.tracksByUidInit[track.uid] = false;
+          _this93.tracksByUidInit[track.uid] = false;
         }
       });
-      _this92.xScale = null;
-      _this92.yScale = null;
-      _this92.addUidsToTracks(tracks2);
-      _this92.trackToReplace = null;
-      _this92.trackRenderer = null;
-      _this92.configTrackMenu = null;
-      _this92.state = { sizeMeasured: false, height: 10, width: 10, tracks: tracks2, init: false, addTrackPosition: null, customDialog: null, mouseOverOverlayUid: null, forceUpdate: 0, rangeSelection: [null, null], rangeSelectionEnd: false, chromInfo: null, defaultChromSizes: null, contextMenuCustomItems: null, contextMenuPosition: null, addDivisorDialog: null };
-      _this92.reset = true;
+      _this93.xScale = null;
+      _this93.yScale = null;
+      _this93.addUidsToTracks(tracks2);
+      _this93.trackToReplace = null;
+      _this93.trackRenderer = null;
+      _this93.configTrackMenu = null;
+      _this93.state = { sizeMeasured: false, height: 10, width: 10, tracks: tracks2, init: false, addTrackPosition: null, customDialog: null, mouseOverOverlayUid: null, forceUpdate: 0, rangeSelection: [null, null], rangeSelectionEnd: false, chromInfo: null, defaultChromSizes: null, contextMenuCustomItems: null, contextMenuPosition: null, addDivisorDialog: null };
+      _this93.reset = true;
       if (window.higlassTracksByType) {
         Object.keys(window.higlassTracksByType).forEach((pluginTrackType) => {
           TRACKS_INFO_BY_TYPE[pluginTrackType] = window.higlassTracksByType[pluginTrackType].config;
         });
       }
-      _this92.topHeight = 0;
-      _this92.bottomHeight = 0;
-      _this92.leftWidth = 0;
-      _this92.rightWidth = 0;
-      _this92.centerHeight = 0;
-      _this92.centerWidth = 0;
-      _this92.dragTimeout = null;
-      _this92.previousPropsStr = "";
-      _this92.contextMenuHandlerBound = _this92.contextMenuHandler.bind(_assertThisInitialized3(_this92));
-      _this92.handleNoTrackAddedBound = _this92.handleNoTrackAdded.bind(_assertThisInitialized3(_this92));
-      _this92.handleTracksAddedBound = _this92.handleTracksAdded.bind(_assertThisInitialized3(_this92));
-      _this92.closeMenusBound = _this92.closeMenus.bind(_assertThisInitialized3(_this92));
-      _this92.handleAddDivisorBound = _this92.handleAddDivisor.bind(_assertThisInitialized3(_this92));
-      _this92.handleAddSeriesBound = _this92.handleAddSeries.bind(_assertThisInitialized3(_this92));
-      _this92.handleChangeTrackDataBound = _this92.handleChangeTrackData.bind(_assertThisInitialized3(_this92));
-      _this92.handleChangeTrackTypeBound = _this92.handleChangeTrackType.bind(_assertThisInitialized3(_this92));
-      _this92.handleCloseTrackBound = _this92.handleCloseTrack.bind(_assertThisInitialized3(_this92));
-      _this92.handleConfigureTrackBound = _this92.handleConfigureTrack.bind(_assertThisInitialized3(_this92));
-      _this92.handleExportTrackDataBound = _this92.handleExportTrackData.bind(_assertThisInitialized3(_this92));
-      _this92.handleLockValueScaleBound = _this92.handleLockValueScale.bind(_assertThisInitialized3(_this92));
-      _this92.handleReplaceTrackBound = _this92.handleReplaceTrack.bind(_assertThisInitialized3(_this92));
-      _this92.handleTrackOptionsChangedBound = _this92.handleTrackOptionsChanged.bind(_assertThisInitialized3(_this92));
-      _this92.handleUnlockValueScaleBound = _this92.handleUnlockValueScale.bind(_assertThisInitialized3(_this92));
-      _this92.onAddTrack = _this92.handleAddTrack.bind(_assertThisInitialized3(_this92));
-      return _this92;
+      _this93.topHeight = 0;
+      _this93.bottomHeight = 0;
+      _this93.leftWidth = 0;
+      _this93.rightWidth = 0;
+      _this93.centerHeight = 0;
+      _this93.centerWidth = 0;
+      _this93.dragTimeout = null;
+      _this93.previousPropsStr = "";
+      _this93.contextMenuHandlerBound = _this93.contextMenuHandler.bind(_assertThisInitialized3(_this93));
+      _this93.handleNoTrackAddedBound = _this93.handleNoTrackAdded.bind(_assertThisInitialized3(_this93));
+      _this93.handleTracksAddedBound = _this93.handleTracksAdded.bind(_assertThisInitialized3(_this93));
+      _this93.closeMenusBound = _this93.closeMenus.bind(_assertThisInitialized3(_this93));
+      _this93.handleAddDivisorBound = _this93.handleAddDivisor.bind(_assertThisInitialized3(_this93));
+      _this93.handleAddSeriesBound = _this93.handleAddSeries.bind(_assertThisInitialized3(_this93));
+      _this93.handleChangeTrackDataBound = _this93.handleChangeTrackData.bind(_assertThisInitialized3(_this93));
+      _this93.handleChangeTrackTypeBound = _this93.handleChangeTrackType.bind(_assertThisInitialized3(_this93));
+      _this93.handleCloseTrackBound = _this93.handleCloseTrack.bind(_assertThisInitialized3(_this93));
+      _this93.handleConfigureTrackBound = _this93.handleConfigureTrack.bind(_assertThisInitialized3(_this93));
+      _this93.handleExportTrackDataBound = _this93.handleExportTrackData.bind(_assertThisInitialized3(_this93));
+      _this93.handleLockValueScaleBound = _this93.handleLockValueScale.bind(_assertThisInitialized3(_this93));
+      _this93.handleReplaceTrackBound = _this93.handleReplaceTrack.bind(_assertThisInitialized3(_this93));
+      _this93.handleTrackOptionsChangedBound = _this93.handleTrackOptionsChanged.bind(_assertThisInitialized3(_this93));
+      _this93.handleUnlockValueScaleBound = _this93.handleUnlockValueScale.bind(_assertThisInitialized3(_this93));
+      _this93.onAddTrack = _this93.handleAddTrack.bind(_assertThisInitialized3(_this93));
+      return _this93;
     }
     _createClass3(TiledPlot2, [{ key: "waitForDOMAttachment", value: function waitForDOMAttachment(callback) {
       if (!this.mounted)
@@ -73923,13 +74561,13 @@ function _toPrimitive2(input, hint) {
   const _debugStates = [];
   let Autocomplete = /* @__PURE__ */ function(_React__default$defau19) {
     _inherits3(Autocomplete2, _React__default$defau19);
-    var _super79 = _createSuper3(Autocomplete2);
+    var _super80 = _createSuper3(Autocomplete2);
     function Autocomplete2(props) {
-      var _this93;
+      var _this94;
       _classCallCheck3(this, Autocomplete2);
-      _this93 = _super79.call(this, props);
-      _this93.state = { highlightedIndex: null, menuTop: 0, menuLeft: 0, menuWidth: 0, isOpen: false };
-      _this93.keyDownHandlers = { ArrowDown(event) {
+      _this94 = _super80.call(this, props);
+      _this94.state = { highlightedIndex: null, menuTop: 0, menuLeft: 0, menuWidth: 0, isOpen: false };
+      _this94.keyDownHandlers = { ArrowDown(event) {
         event.preventDefault();
         const itemsLength = this.getFilteredItems().length;
         if (!itemsLength)
@@ -73966,7 +74604,7 @@ function _toPrimitive2(input, hint) {
       }, Escape() {
         this.setState({ highlightedIndex: null, isOpen: false });
       } };
-      return _this93;
+      return _this94;
     }
     _createClass3(Autocomplete2, [{ key: "getInitialState", value: function getInitialState() {
       return { isOpen: false, highlightedIndex: null };
@@ -74121,30 +74759,30 @@ function _toPrimitive2(input, hint) {
   const styles$2 = { "genome-position-search": "_genome-position-search_1l2sx_1", "genome-position-search-focus": "_genome-position-search-focus_1l2sx_2", "genome-position-search-bar": "_genome-position-search-bar_1l2sx_16", "genome-position-search-dark": "_genome-position-search-dark_1l2sx_34", "genome-position-search-bar-button": "_genome-position-search-bar-button_1l2sx_38", "genome-position-search-bar-button-focus": "_genome-position-search-bar-button-focus_1l2sx_39", "genome-position-search-bar-icon": "_genome-position-search-bar-icon_1l2sx_62", "genome-position-search-bar-icon-focus": "_genome-position-search-bar-icon-focus_1l2sx_63", "genome-position-search-bar-suggestions": "_genome-position-search-bar-suggestions_1l2sx_83", btn, "btn-sm": "_btn-sm_1l2sx_116", "btn-default": "_btn-default_1l2sx_122" };
   let GenomePositionSearchBox = /* @__PURE__ */ function(_React__default$defau20) {
     _inherits3(GenomePositionSearchBox2, _React__default$defau20);
-    var _super80 = _createSuper3(GenomePositionSearchBox2);
+    var _super81 = _createSuper3(GenomePositionSearchBox2);
     function GenomePositionSearchBox2(props) {
-      var _this94;
+      var _this95;
       _classCallCheck3(this, GenomePositionSearchBox2);
-      _this94 = _super80.call(this, props);
-      _this94.mounted = false;
-      _this94.uid = slugid.nice();
-      _this94.chromInfo = null;
-      _this94.searchField = null;
-      _this94.autocompleteMenu = null;
-      _this94.xScale = null;
-      _this94.yScale = null;
-      _this94.prevParts = [];
-      _this94.props.registerViewportChangedListener(_this94.scalesChanged.bind(_assertThisInitialized3(_this94)));
-      _this94.menuPosition = { left: 0, top: 0 };
-      _this94.positionText = "chr4:190,998,876-191,000,255";
-      _this94.state = { genes: [], isFocused: false, autocompleteServer: _this94.props.autocompleteServer, autocompleteId: _this94.props.autocompleteId, availableAssemblies: [], selectedAssembly: null };
-      _this94.styles = { item: { padding: "2px 6px", cursor: "default" }, highlightedItem: { color: "white", background: "hsl(200, 50%, 50%)", padding: "2px 6px", cursor: "default" }, menu: { border: "solid 1px #ccc" } };
-      _this94.availableAutocompletes = {};
-      if (_this94.props.autocompleteId) {
-        _this94.availableAutocompletes[_this94.props.chromInfoId] = /* @__PURE__ */ new Set([{ server: _this94.props.autocompleteServer, acId: _this94.props.autocompleteId }]);
+      _this95 = _super81.call(this, props);
+      _this95.mounted = false;
+      _this95.uid = slugid.nice();
+      _this95.chromInfo = null;
+      _this95.searchField = null;
+      _this95.autocompleteMenu = null;
+      _this95.xScale = null;
+      _this95.yScale = null;
+      _this95.prevParts = [];
+      _this95.props.registerViewportChangedListener(_this95.scalesChanged.bind(_assertThisInitialized3(_this95)));
+      _this95.menuPosition = { left: 0, top: 0 };
+      _this95.positionText = "chr4:190,998,876-191,000,255";
+      _this95.state = { genes: [], isFocused: false, autocompleteServer: _this95.props.autocompleteServer, autocompleteId: _this95.props.autocompleteId, availableAssemblies: [], selectedAssembly: null };
+      _this95.styles = { item: { padding: "2px 6px", cursor: "default" }, highlightedItem: { color: "white", background: "hsl(200, 50%, 50%)", padding: "2px 6px", cursor: "default" }, menu: { border: "solid 1px #ccc" } };
+      _this95.availableAutocompletes = {};
+      if (_this95.props.autocompleteId) {
+        _this95.availableAutocompletes[_this95.props.chromInfoId] = /* @__PURE__ */ new Set([{ server: _this95.props.autocompleteServer, acId: _this95.props.autocompleteId }]);
       }
-      _this94.availableChromSizes = {};
-      return _this94;
+      _this95.availableChromSizes = {};
+      return _this95;
     }
     _createClass3(GenomePositionSearchBox2, [{ key: "componentDidMount", value: function componentDidMount() {
       this.mounted = true;
@@ -74494,10 +75132,10 @@ function _toPrimitive2(input, hint) {
   const classes$2 = { "export-link-dialog-wrapper": "_export-link-dialog-wrapper_p9gxw_1" };
   let ExportLinkDialog = /* @__PURE__ */ function(_React__default$defau21) {
     _inherits3(ExportLinkDialog2, _React__default$defau21);
-    var _super81 = _createSuper3(ExportLinkDialog2);
+    var _super82 = _createSuper3(ExportLinkDialog2);
     function ExportLinkDialog2() {
       _classCallCheck3(this, ExportLinkDialog2);
-      return _super81.apply(this, arguments);
+      return _super82.apply(this, arguments);
     }
     _createClass3(ExportLinkDialog2, [{ key: "render", value: function render2() {
       return /* @__PURE__ */ React__default.default.createElement(Dialog$1, { okayOnly: true, okayTitle: "Done", onOkay: this.props.onDone, title: "Share view link" }, /* @__PURE__ */ React__default.default.createElement("div", { className: classes$2["export-link-dialog-wrapper"] }, /* @__PURE__ */ React__default.default.createElement("input", { ref: (element) => {
@@ -74520,13 +75158,13 @@ function _toPrimitive2(input, hint) {
   ExportLinkDialog.propTypes = { onDone: propTypes$3.exports.func, url: propTypes$3.exports.string };
   let ConfigViewMenu = /* @__PURE__ */ function(_ContextMenuContainer3) {
     _inherits3(ConfigViewMenu2, _ContextMenuContainer3);
-    var _super82 = _createSuper3(ConfigViewMenu2);
+    var _super83 = _createSuper3(ConfigViewMenu2);
     function ConfigViewMenu2(props) {
-      var _this95;
+      var _this96;
       _classCallCheck3(this, ConfigViewMenu2);
-      _this95 = _super82.call(this, props);
-      _this95.state = { submenuShown: false };
-      return _this95;
+      _this96 = _super83.call(this, props);
+      _this96.state = { submenuShown: false };
+      return _this96;
     }
     _createClass3(ConfigViewMenu2, [{ key: "getConfigureViewMenu", value: function getConfigureViewMenu(position, bbox) {
       const availableOptions = ["backgroundColor"];
@@ -74579,16 +75217,16 @@ function _toPrimitive2(input, hint) {
   const AddTrackPositionMenu$1 = withTheme(AddTrackPositionMenu);
   let ViewHeader = /* @__PURE__ */ function(_React__default$defau22) {
     _inherits3(ViewHeader2, _React__default$defau22);
-    var _super83 = _createSuper3(ViewHeader2);
+    var _super84 = _createSuper3(ViewHeader2);
     function ViewHeader2(props) {
-      var _this96;
+      var _this97;
       _classCallCheck3(this, ViewHeader2);
-      _this96 = _super83.call(this, props);
-      _this96.configImg = null;
-      _this96.plusImg = null;
-      _this96.state = { addTrackPositionMenuUid: null, addTrackPositionMenuPosition: null, configMenuUid: null, configMenuPosition: null, isFocused: false, width: -1 };
-      _this96.handleTrackPositionChosenBound = _this96.handleTrackPositionChosen.bind(_assertThisInitialized3(_this96));
-      return _this96;
+      _this97 = _super84.call(this, props);
+      _this97.configImg = null;
+      _this97.plusImg = null;
+      _this97.state = { addTrackPositionMenuUid: null, addTrackPositionMenuPosition: null, configMenuUid: null, configMenuPosition: null, isFocused: false, width: -1 };
+      _this97.handleTrackPositionChosenBound = _this97.handleTrackPositionChosen.bind(_assertThisInitialized3(_this97));
+      return _this97;
     }
     _createClass3(ViewHeader2, [{ key: "componentDidMount", value: function componentDidMount() {
       this.setState({ width: this.el.clientWidth });
@@ -80907,23 +81545,23 @@ function _toPrimitive2(input, hint) {
   const classes = { "view-config-editor-header": "_view-config-editor-header_1hlm6_1", "view-config-editor": "_view-config-editor_1hlm6_1", "view-config-log": "_view-config-log_1hlm6_34", "view-config-log-header": "_view-config-log-header_1hlm6_46", "view-config-log-msg": "_view-config-log-msg_1hlm6_60", title, Warning, Success, "Error": "_Error_1hlm6_82" };
   let ViewConfigEditor = /* @__PURE__ */ function(_React__default$defau23) {
     _inherits3(ViewConfigEditor2, _React__default$defau23);
-    var _super84 = _createSuper3(ViewConfigEditor2);
+    var _super85 = _createSuper3(ViewConfigEditor2);
     function ViewConfigEditor2(props) {
-      var _this97;
+      var _this98;
       _classCallCheck3(this, ViewConfigEditor2);
-      _this97 = _super84.call(this, props);
-      _this97.state = { code: props.viewConfig, hide: false, showLog: false, logMsgs: _this97.getLogMsgs(props.viewConfig) };
-      _this97.handleChangeBound = _this97.handleChange.bind(_assertThisInitialized3(_this97));
-      _this97.handleKeyDownBound = _this97.handleKeyDown.bind(_assertThisInitialized3(_this97));
-      _this97.handleKeyUpBound = _this97.handleKeyUp.bind(_assertThisInitialized3(_this97));
-      _this97.handleSubmitBound = _this97.handleSubmit.bind(_assertThisInitialized3(_this97));
-      _this97.hideBound = _this97.hide.bind(_assertThisInitialized3(_this97));
-      _this97.showBound = _this97.show.bind(_assertThisInitialized3(_this97));
-      _this97.toggleLogBound = _this97.toggleLog.bind(_assertThisInitialized3(_this97));
-      _this97.pubSubs = [];
-      _this97.pubSubs.push(_this97.props.pubSub.subscribe("keydown", _this97.handleKeyDownBound));
-      _this97.pubSubs.push(_this97.props.pubSub.subscribe("keyup", _this97.handleKeyUpBound));
-      return _this97;
+      _this98 = _super85.call(this, props);
+      _this98.state = { code: props.viewConfig, hide: false, showLog: false, logMsgs: _this98.getLogMsgs(props.viewConfig) };
+      _this98.handleChangeBound = _this98.handleChange.bind(_assertThisInitialized3(_this98));
+      _this98.handleKeyDownBound = _this98.handleKeyDown.bind(_assertThisInitialized3(_this98));
+      _this98.handleKeyUpBound = _this98.handleKeyUp.bind(_assertThisInitialized3(_this98));
+      _this98.handleSubmitBound = _this98.handleSubmit.bind(_assertThisInitialized3(_this98));
+      _this98.hideBound = _this98.hide.bind(_assertThisInitialized3(_this98));
+      _this98.showBound = _this98.show.bind(_assertThisInitialized3(_this98));
+      _this98.toggleLogBound = _this98.toggleLog.bind(_assertThisInitialized3(_this98));
+      _this98.pubSubs = [];
+      _this98.pubSubs.push(_this98.props.pubSub.subscribe("keydown", _this98.handleKeyDownBound));
+      _this98.pubSubs.push(_this98.props.pubSub.subscribe("keyup", _this98.handleKeyUpBound));
+      return _this98;
     }
     _createClass3(ViewConfigEditor2, [{ key: "componentDidMount", value: async function componentDidMount() {
       if (this.editor) {
@@ -81250,84 +81888,84 @@ function _toPrimitive2(input, hint) {
   const SIZE_MODE_SCROLL = "scroll";
   let HiGlassComponent = /* @__PURE__ */ function(_React__default$defau24) {
     _inherits3(HiGlassComponent2, _React__default$defau24);
-    var _super85 = _createSuper3(HiGlassComponent2);
+    var _super86 = _createSuper3(HiGlassComponent2);
     function HiGlassComponent2(props) {
-      var _this98;
+      var _this99;
       _classCallCheck3(this, HiGlassComponent2);
-      _this98 = _super85.call(this, props);
+      _this99 = _super86.call(this, props);
       if (numericifyVersion(React__default.default.version) < 15.6) {
         console.warn("HiGlass requires React v15.6 or higher. Current version: ", React__default.default.version);
       }
-      _this98.pubSub = createPubSub();
-      _this98.domEvent = domEvent(_this98.pubSub);
-      _this98.pubSubs = [];
-      _this98.minHorizontalHeight = 20;
-      _this98.minVerticalWidth = 20;
-      _this98.resizeSensor = null;
-      _this98.uid = slugid.nice();
-      _this98.tiledPlots = {};
-      _this98.genomePositionSearchBoxes = {};
-      _this98.xScales = {};
-      _this98.yScales = {};
-      _this98.projectionXDomains = {};
-      _this98.projectionYDomains = {};
-      _this98.topDiv = null;
-      _this98.zoomToDataExtentOnInit = /* @__PURE__ */ new Set();
-      _this98.viewTrackUidsToCombinedUid = {};
-      _this98.combinedUidToViewTrack = {};
-      _this98.scalesChangedListeners = {};
-      _this98.draggingChangedListeners = {};
-      _this98.valueScalesChangedListeners = {};
-      _this98.zoomLocks = {};
-      _this98.locationLocks = {};
-      _this98.locationLocksAxisWise = { x: {}, y: {} };
-      _this98.valueScaleLocks = {};
-      _this98.prevAuthToken = props.options.authToken;
-      _this98.setCenters = {};
-      _this98.plusImg = {};
-      _this98.configImg = {};
+      _this99.pubSub = createPubSub();
+      _this99.domEvent = domEvent(_this99.pubSub);
+      _this99.pubSubs = [];
+      _this99.minHorizontalHeight = 20;
+      _this99.minVerticalWidth = 20;
+      _this99.resizeSensor = null;
+      _this99.uid = slugid.nice();
+      _this99.tiledPlots = {};
+      _this99.genomePositionSearchBoxes = {};
+      _this99.xScales = {};
+      _this99.yScales = {};
+      _this99.projectionXDomains = {};
+      _this99.projectionYDomains = {};
+      _this99.topDiv = null;
+      _this99.zoomToDataExtentOnInit = /* @__PURE__ */ new Set();
+      _this99.viewTrackUidsToCombinedUid = {};
+      _this99.combinedUidToViewTrack = {};
+      _this99.scalesChangedListeners = {};
+      _this99.draggingChangedListeners = {};
+      _this99.valueScalesChangedListeners = {};
+      _this99.zoomLocks = {};
+      _this99.locationLocks = {};
+      _this99.locationLocksAxisWise = { x: {}, y: {} };
+      _this99.valueScaleLocks = {};
+      _this99.prevAuthToken = props.options.authToken;
+      _this99.setCenters = {};
+      _this99.plusImg = {};
+      _this99.configImg = {};
       GLOBALS.PIXI = props.options && props.options.PIXI || PIXI__namespace;
-      _this98.viewMarginTop = +props.options.viewMarginTop >= 0 ? +props.options.viewMarginTop : DEFAULT_VIEW_MARGIN;
-      _this98.viewMarginBottom = +props.options.viewMarginBottom >= 0 ? +props.options.viewMarginBottom : DEFAULT_VIEW_MARGIN;
-      _this98.viewMarginLeft = +props.options.viewMarginLeft >= 0 ? +props.options.viewMarginLeft : DEFAULT_VIEW_MARGIN;
-      _this98.viewMarginRight = +props.options.viewMarginRight >= 0 ? +props.options.viewMarginRight : DEFAULT_VIEW_MARGIN;
-      _this98.viewPaddingTop = +props.options.viewPaddingTop >= 0 ? +props.options.viewPaddingTop : DEFAULT_VIEW_PADDING;
-      _this98.viewPaddingBottom = +props.options.viewPaddingBottom >= 0 ? +props.options.viewPaddingBottom : DEFAULT_VIEW_PADDING;
-      _this98.viewPaddingLeft = +props.options.viewPaddingLeft >= 0 ? +props.options.viewPaddingLeft : DEFAULT_VIEW_PADDING;
-      _this98.viewPaddingRight = +props.options.viewPaddingRight >= 0 ? +props.options.viewPaddingRight : DEFAULT_VIEW_PADDING;
-      _this98.genomePositionSearchBox = null;
-      _this98.viewHeaders = {};
-      _this98.boundRefreshView = () => {
-        _this98.refreshView(LONG_DRAG_TIMEOUT);
+      _this99.viewMarginTop = +props.options.viewMarginTop >= 0 ? +props.options.viewMarginTop : DEFAULT_VIEW_MARGIN;
+      _this99.viewMarginBottom = +props.options.viewMarginBottom >= 0 ? +props.options.viewMarginBottom : DEFAULT_VIEW_MARGIN;
+      _this99.viewMarginLeft = +props.options.viewMarginLeft >= 0 ? +props.options.viewMarginLeft : DEFAULT_VIEW_MARGIN;
+      _this99.viewMarginRight = +props.options.viewMarginRight >= 0 ? +props.options.viewMarginRight : DEFAULT_VIEW_MARGIN;
+      _this99.viewPaddingTop = +props.options.viewPaddingTop >= 0 ? +props.options.viewPaddingTop : DEFAULT_VIEW_PADDING;
+      _this99.viewPaddingBottom = +props.options.viewPaddingBottom >= 0 ? +props.options.viewPaddingBottom : DEFAULT_VIEW_PADDING;
+      _this99.viewPaddingLeft = +props.options.viewPaddingLeft >= 0 ? +props.options.viewPaddingLeft : DEFAULT_VIEW_PADDING;
+      _this99.viewPaddingRight = +props.options.viewPaddingRight >= 0 ? +props.options.viewPaddingRight : DEFAULT_VIEW_PADDING;
+      _this99.genomePositionSearchBox = null;
+      _this99.viewHeaders = {};
+      _this99.boundRefreshView = () => {
+        _this99.refreshView(LONG_DRAG_TIMEOUT);
       };
-      _this98.unsetOnLocationChange = [];
-      _this98.setTheme(props.options.theme, props.options.isDarkTheme);
-      _this98.viewconfLoaded = false;
-      const { viewConfig } = _this98.props;
-      const views = _this98.loadIfRemoteViewConfig(_this98.props.viewConfig);
+      _this99.unsetOnLocationChange = [];
+      _this99.setTheme(props.options.theme, props.options.isDarkTheme);
+      _this99.viewconfLoaded = false;
+      const { viewConfig } = _this99.props;
+      const views = _this99.loadIfRemoteViewConfig(_this99.props.viewConfig);
       if (props.options.authToken) {
         setTileProxyAuthHeader(props.options.authToken);
       }
-      _this98.pixiRoot = new GLOBALS.PIXI.Container();
-      _this98.pixiRoot.interactive = true;
-      _this98.pixiStage = new GLOBALS.PIXI.Container();
-      _this98.pixiStage.interactive = true;
-      _this98.pixiRoot.addChild(_this98.pixiStage);
-      _this98.pixiMask = new GLOBALS.PIXI.Graphics();
-      _this98.pixiRoot.addChild(_this98.pixiMask);
-      _this98.pixiStage.mask = _this98.pixiMask;
-      _this98.element = null;
-      _this98.scrollTop = 0;
+      _this99.pixiRoot = new GLOBALS.PIXI.Container();
+      _this99.pixiRoot.interactive = true;
+      _this99.pixiStage = new GLOBALS.PIXI.Container();
+      _this99.pixiStage.interactive = true;
+      _this99.pixiRoot.addChild(_this99.pixiStage);
+      _this99.pixiMask = new GLOBALS.PIXI.Graphics();
+      _this99.pixiRoot.addChild(_this99.pixiMask);
+      _this99.pixiStage.mask = _this99.pixiMask;
+      _this99.element = null;
+      _this99.scrollTop = 0;
       let mouseTool = MOUSE_TOOL_MOVE;
-      if (_this98.props.options) {
-        switch (_this98.props.options.mouseTool) {
+      if (_this99.props.options) {
+        switch (_this99.props.options.mouseTool) {
           case MOUSE_TOOL_SELECT:
             mouseTool = MOUSE_TOOL_SELECT;
             break;
         }
       }
-      if (_this98.props.options.pluginTracks) {
-        window.higlassTracksByType = Object.assign(window.higlassTracksByType || {}, _this98.props.options.pluginTracks);
+      if (_this99.props.options.pluginTracks) {
+        window.higlassTracksByType = Object.assign(window.higlassTracksByType || {}, _this99.props.options.pluginTracks);
       }
       const pluginTracks = {};
       try {
@@ -81339,59 +81977,59 @@ function _toPrimitive2(input, hint) {
       } catch (e) {
         console.warn("Broken config of a plugin track");
       }
-      if (_this98.props.options.pluginDataFetchers) {
-        window.higlassDataFetchersByType = Object.assign(window.higlassDataFetchersByType || {}, _this98.props.options.pluginDataFetchers);
+      if (_this99.props.options.pluginDataFetchers) {
+        window.higlassDataFetchersByType = Object.assign(window.higlassDataFetchersByType || {}, _this99.props.options.pluginDataFetchers);
       }
       const pluginDataFetchers = window.higlassDataFetchersByType;
-      const rowHeight = _this98.props.options.pixelPreciseMarginPadding ? 1 : 30;
-      _this98.mounted = false;
-      _this98.pluginTracks = pluginTracks;
-      _this98.pluginDataFetchers = pluginDataFetchers;
-      _this98.state = { currentBreakpoint: "lg", width: 0, height: 0, rowHeight, svgElement: null, canvasElement: null, customDialog: null, views, viewConfig, addTrackPositionMenuPosition: null, typedEditable: void 0, mouseOverOverlayUid: null, mouseTool, isDarkTheme: false, rangeSelection1dSize: [0, Infinity], rangeSelectionToInt: false, modal: null, isShiftDown: false };
-      _this98.attachedToDOM = false;
-      const { public: api2, destroy: apiDestroy, publish: apiPublish, stack: apiStack } = createApi(_assertThisInitialized3(_this98), _this98.pubSub);
-      _this98.api = api2;
-      _this98.apiDestroy = apiDestroy;
-      _this98.apiPublish = apiPublish;
-      _this98.apiStack = apiStack;
-      _this98.viewChangeListener = [];
-      _this98.triggerViewChangeDb = debounce$1(_this98.triggerViewChange.bind(_assertThisInitialized3(_this98)), 250);
-      _this98.pubSubs = [];
-      _this98.rangeSelection = [null, null];
-      _this98.prevMouseHoverTrack = null;
-      _this98.zooming = false;
+      const rowHeight = _this99.props.options.pixelPreciseMarginPadding ? 1 : 30;
+      _this99.mounted = false;
+      _this99.pluginTracks = pluginTracks;
+      _this99.pluginDataFetchers = pluginDataFetchers;
+      _this99.state = { currentBreakpoint: "lg", width: 0, height: 0, rowHeight, svgElement: null, canvasElement: null, customDialog: null, views, viewConfig, addTrackPositionMenuPosition: null, typedEditable: void 0, mouseOverOverlayUid: null, mouseTool, isDarkTheme: false, rangeSelection1dSize: [0, Infinity], rangeSelectionToInt: false, modal: null, isShiftDown: false };
+      _this99.attachedToDOM = false;
+      const { public: api2, destroy: apiDestroy, publish: apiPublish, stack: apiStack } = createApi(_assertThisInitialized3(_this99), _this99.pubSub);
+      _this99.api = api2;
+      _this99.apiDestroy = apiDestroy;
+      _this99.apiPublish = apiPublish;
+      _this99.apiStack = apiStack;
+      _this99.viewChangeListener = [];
+      _this99.triggerViewChangeDb = debounce$1(_this99.triggerViewChange.bind(_assertThisInitialized3(_this99)), 250);
+      _this99.pubSubs = [];
+      _this99.rangeSelection = [null, null];
+      _this99.prevMouseHoverTrack = null;
+      _this99.zooming = false;
       const parser2 = new uaParser.exports.UAParser();
       parser2.getBrowser().name === "Chrome" && (isAppleSilicon() || parser2.getOS().name === "Mac OS");
-      _this98.appClickHandlerBound = _this98.appClickHandler.bind(_assertThisInitialized3(_this98));
-      _this98.canvasClickHandlerBound = _this98.canvasClickHandler.bind(_assertThisInitialized3(_this98));
-      _this98.keyDownHandlerBound = _this98.keyDownHandler.bind(_assertThisInitialized3(_this98));
-      _this98.keyUpHandlerBound = _this98.keyUpHandler.bind(_assertThisInitialized3(_this98));
-      _this98.resizeHandlerBound = _this98.resizeHandler.bind(_assertThisInitialized3(_this98));
-      _this98.resizeHandlerBound = _this98.resizeHandler.bind(_assertThisInitialized3(_this98));
-      _this98.dispatchEventBound = _this98.dispatchEvent.bind(_assertThisInitialized3(_this98));
-      _this98.animateOnMouseMoveHandlerBound = _this98.animateOnMouseMoveHandler.bind(_assertThisInitialized3(_this98));
-      _this98.zoomStartHandlerBound = _this98.zoomStartHandler.bind(_assertThisInitialized3(_this98));
-      _this98.zoomEndHandlerBound = _this98.zoomEndHandler.bind(_assertThisInitialized3(_this98));
-      _this98.zoomHandlerBound = _this98.zoomHandler.bind(_assertThisInitialized3(_this98));
-      _this98.trackDroppedHandlerBound = _this98.trackDroppedHandler.bind(_assertThisInitialized3(_this98));
-      _this98.trackDimensionsModifiedHandlerBound = _this98.trackDimensionsModifiedHandler.bind(_assertThisInitialized3(_this98));
-      _this98.animateBound = _this98.animate.bind(_assertThisInitialized3(_this98));
-      _this98.animateOnGlobalEventBound = _this98.animateOnGlobalEvent.bind(_assertThisInitialized3(_this98));
-      _this98.requestReceivedHandlerBound = _this98.requestReceivedHandler.bind(_assertThisInitialized3(_this98));
-      _this98.wheelHandlerBound = _this98.wheelHandler.bind(_assertThisInitialized3(_this98));
-      _this98.mouseMoveHandlerBound = _this98.mouseMoveHandler.bind(_assertThisInitialized3(_this98));
-      _this98.onMouseLeaveHandlerBound = _this98.onMouseLeaveHandler.bind(_assertThisInitialized3(_this98));
-      _this98.onBlurHandlerBound = _this98.onBlurHandler.bind(_assertThisInitialized3(_this98));
-      _this98.openModalBound = _this98.openModal.bind(_assertThisInitialized3(_this98));
-      _this98.closeModalBound = _this98.closeModal.bind(_assertThisInitialized3(_this98));
-      _this98.handleEditViewConfigBound = _this98.handleEditViewConfig.bind(_assertThisInitialized3(_this98));
-      _this98.onScrollHandlerBound = _this98.onScrollHandler.bind(_assertThisInitialized3(_this98));
-      _this98.typedText = "";
-      _this98.typedTextTimeout = null;
-      _this98.modal = { open: _this98.openModalBound, close: _this98.closeModalBound };
-      _this98.setBroadcastMousePositionGlobally(_this98.props.options.broadcastMousePositionGlobally || _this98.props.options.globalMousePosition);
-      _this98.setShowGlobalMousePosition(_this98.props.options.showGlobalMousePosition || _this98.props.options.globalMousePosition);
-      return _this98;
+      _this99.appClickHandlerBound = _this99.appClickHandler.bind(_assertThisInitialized3(_this99));
+      _this99.canvasClickHandlerBound = _this99.canvasClickHandler.bind(_assertThisInitialized3(_this99));
+      _this99.keyDownHandlerBound = _this99.keyDownHandler.bind(_assertThisInitialized3(_this99));
+      _this99.keyUpHandlerBound = _this99.keyUpHandler.bind(_assertThisInitialized3(_this99));
+      _this99.resizeHandlerBound = _this99.resizeHandler.bind(_assertThisInitialized3(_this99));
+      _this99.resizeHandlerBound = _this99.resizeHandler.bind(_assertThisInitialized3(_this99));
+      _this99.dispatchEventBound = _this99.dispatchEvent.bind(_assertThisInitialized3(_this99));
+      _this99.animateOnMouseMoveHandlerBound = _this99.animateOnMouseMoveHandler.bind(_assertThisInitialized3(_this99));
+      _this99.zoomStartHandlerBound = _this99.zoomStartHandler.bind(_assertThisInitialized3(_this99));
+      _this99.zoomEndHandlerBound = _this99.zoomEndHandler.bind(_assertThisInitialized3(_this99));
+      _this99.zoomHandlerBound = _this99.zoomHandler.bind(_assertThisInitialized3(_this99));
+      _this99.trackDroppedHandlerBound = _this99.trackDroppedHandler.bind(_assertThisInitialized3(_this99));
+      _this99.trackDimensionsModifiedHandlerBound = _this99.trackDimensionsModifiedHandler.bind(_assertThisInitialized3(_this99));
+      _this99.animateBound = _this99.animate.bind(_assertThisInitialized3(_this99));
+      _this99.animateOnGlobalEventBound = _this99.animateOnGlobalEvent.bind(_assertThisInitialized3(_this99));
+      _this99.requestReceivedHandlerBound = _this99.requestReceivedHandler.bind(_assertThisInitialized3(_this99));
+      _this99.wheelHandlerBound = _this99.wheelHandler.bind(_assertThisInitialized3(_this99));
+      _this99.mouseMoveHandlerBound = _this99.mouseMoveHandler.bind(_assertThisInitialized3(_this99));
+      _this99.onMouseLeaveHandlerBound = _this99.onMouseLeaveHandler.bind(_assertThisInitialized3(_this99));
+      _this99.onBlurHandlerBound = _this99.onBlurHandler.bind(_assertThisInitialized3(_this99));
+      _this99.openModalBound = _this99.openModal.bind(_assertThisInitialized3(_this99));
+      _this99.closeModalBound = _this99.closeModal.bind(_assertThisInitialized3(_this99));
+      _this99.handleEditViewConfigBound = _this99.handleEditViewConfig.bind(_assertThisInitialized3(_this99));
+      _this99.onScrollHandlerBound = _this99.onScrollHandler.bind(_assertThisInitialized3(_this99));
+      _this99.typedText = "";
+      _this99.typedTextTimeout = null;
+      _this99.modal = { open: _this99.openModalBound, close: _this99.closeModalBound };
+      _this99.setBroadcastMousePositionGlobally(_this99.props.options.broadcastMousePositionGlobally || _this99.props.options.globalMousePosition);
+      _this99.setShowGlobalMousePosition(_this99.props.options.showGlobalMousePosition || _this99.props.options.globalMousePosition);
+      return _this99;
     }
     _createClass3(HiGlassComponent2, [{ key: "UNSAFE_componentWillMount", value: function UNSAFE_componentWillMount() {
       this.domEvent.register("keydown", document);
@@ -83480,13 +84118,13 @@ ${svgString}`;
   };
   let HiGlassTrackComponent = /* @__PURE__ */ function(_React__default$defau25) {
     _inherits3(HiGlassTrackComponent2, _React__default$defau25);
-    var _super86 = _createSuper3(HiGlassTrackComponent2);
+    var _super87 = _createSuper3(HiGlassTrackComponent2);
     function HiGlassTrackComponent2(props) {
-      var _this99;
+      var _this100;
       _classCallCheck3(this, HiGlassTrackComponent2);
-      _this99 = _super86.call(this, props);
-      _this99.id = `id-${Math.random()}`;
-      return _this99;
+      _this100 = _super87.call(this, props);
+      _this100.id = `id-${Math.random()}`;
+      return _this100;
     }
     _createClass3(HiGlassTrackComponent2, [{ key: "componentDidMount", value: function componentDidMount() {
       this.initTrackViewer();

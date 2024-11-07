@@ -29,6 +29,7 @@ import CNVIntervalTrack from './CNVIntervalTrack';
 import LeftTrackModifier from './LeftTrackModifier';
 import Track from './Track';
 import HorizontalGeneAnnotationsTrack from './HorizontalGeneAnnotationsTrack';
+import HorizontalGeneBED12AnnotationsTrack from './HorizontalGeneBED12AnnotationsTrack';
 import ArrowheadDomainsTrack from './ArrowheadDomainsTrack';
 import Annotations2dTrack from './Annotations2dTrack';
 import Annotations1dTrack from './Annotations1dTrack';
