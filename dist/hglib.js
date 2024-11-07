@@ -58082,6 +58082,9 @@ function _toPrimitive2(input, hint) {
       const visibleData = this.getVisibleData(trackX, trackY);
       const elements = visibleData.split("<br/>");
       if (this.options && this.options.heatmapValueScaling && this.options.heatmapValueScaling === "categorical" && this.options.colorRange) {
+        let capitalize = function(text2) {
+          return text2[0].toUpperCase() + text2.substring(1);
+        };
         const color2 = this.options.colorRange[parseInt(elements[0], 10) - 1];
         if (Number.isNaN(color2) || color2 === "NaN" || typeof color2 === "undefined" || color2 === "undefined") {
           return "";
@@ -58090,14 +58093,51 @@ function _toPrimitive2(input, hint) {
         const colorIndex = parseInt(elements[0], 10);
         if (!label || label === "undefined" || typeof label === "undefined")
           return "";
+        let colorLabel = "NA";
         if (this.options.colorLabels) {
-          const colorLabel = this.options.colorLabels[colorIndex - 1];
+          colorLabel = this.options.colorLabels[colorIndex] ? this.options.colorLabels[colorIndex][0] : null;
           if (!colorLabel || colorLabel === "undefined" || typeof colorLabel === "undefined")
-            return "";
+            colorLabel = "NA";
           label += ` | ${colorLabel}`;
         }
-        output = `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2"
-                 style="fill:${color2};stroke:black;stroke-width:2;"></svg> ${label}`;
+        const dataX = this._xScale.invert(trackX);
+        let positionText = null;
+        if (this.options.chromInfo && this.options.binSize) {
+          const atcX = absToChr(dataX, this.options.chromInfo);
+          const chrom = atcX[0];
+          const position = Math.ceil(atcX[1] / this.options.binSize) * this.options.binSize - this.options.binSize;
+          positionText = `${chrom}:${position}`;
+        }
+        const metadataElements = elements[1].split("|").map((d) => d.trim());
+        output = `<div class="track-mouseover-menu-table">`;
+        if (positionText) {
+          output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+          <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+        </div>
+        `;
+        }
+        const sampleName = capitalize(metadataElements[1]);
+        const specificSampleName = metadataElements.length === 3 && metadataElements[1] !== metadataElements[2] ? `(${metadataElements[2]})` : "";
+        output += `<div class="track-mouseover-menu-table-item">
+        <label for="sampleName" class="track-mouseover-menu-table-item-label">Biosample</label>
+        <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleName} ${specificSampleName}</div>
+      </div>`;
+        const sampleId = metadataElements[0];
+        output += `<div class="track-mouseover-menu-table-item">
+        <label for="sampleId" class="track-mouseover-menu-table-item-label">Identifier</label>
+        <div name="sampleId" class="track-mouseover-menu-table-item-value">${sampleId}</div>
+      </div>`;
+        const stateColor = color2;
+        const stateName = colorLabel;
+        const stateRGBMarkup = `<svg width="10" height="10" style="position:relative; top:-2px;"><rect width="10" height="10" rx="2" ry="2" style="fill:${stateColor};stroke:black;stroke-width:2;"></svg> ${stateName}`;
+        output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="stateName" class="track-mouseover-menu-table-item-label">Chromatin state</label>
+          <div name="stateName" class="track-mouseover-menu-table-item-value">${stateRGBMarkup}</div>
+        </div>`;
+        output += `</div>`;
       } else if (this.options && this.options.heatmapType && this.options.heatmapType === "v2fIndexDHS") {
         elements[0];
         const biosampleMetadataElements = elements[1].split("|").map((d) => d.trim());

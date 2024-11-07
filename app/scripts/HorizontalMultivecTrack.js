@@ -432,13 +432,61 @@ export default class HorizontalMultivecTrack extends HeatmapTiledPixiTrack {
       let label = elements[1];
       const colorIndex = parseInt(elements[0], 10);
       if (!label || label === "undefined" || typeof label === "undefined") return '';
+      let colorLabel = 'NA';
       if (this.options.colorLabels) {
-        const colorLabel = this.options.colorLabels[colorIndex - 1];
-        if (!colorLabel || colorLabel === "undefined" || typeof colorLabel === "undefined") return '';
+        // colorLabel = (this.options.colorLabels[colorIndex - 1]) ? this.options.colorLabels[colorIndex - 1][0] : null;
+        colorLabel = (this.options.colorLabels[colorIndex]) ? this.options.colorLabels[colorIndex][0] : null;
+        if (!colorLabel || colorLabel === "undefined" || typeof colorLabel === "undefined") colorLabel = 'NA';
         label += ` | ${colorLabel}`;
       }
-      output = `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2"
-                 style="fill:${color};stroke:black;stroke-width:2;"></svg> ${label}`;
+
+      const dataX = this._xScale.invert(trackX);
+      let positionText = null;
+      if (this.options.chromInfo && this.options.binSize) {
+        const atcX = absToChr(dataX, this.options.chromInfo);
+        const chrom = atcX[0];
+        const position = Math.ceil(atcX[1] / this.options.binSize) * this.options.binSize - this.options.binSize;
+        positionText = `${chrom}:${position}`;
+      }
+
+      const metadataElements = elements[1].split('|').map(d => d.trim());
+      output = `<div class="track-mouseover-menu-table">`;
+      
+      if (positionText) {
+        output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+          <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+        </div>
+        `;
+      }
+
+      function capitalize(text) {
+        return text[0].toUpperCase() + text.substring(1)
+      }
+
+      const sampleName = capitalize(metadataElements[1]);
+      const specificSampleName = (metadataElements.length === 3 && metadataElements[1] !== metadataElements[2]) ? `(${metadataElements[2]})` : "";
+      output += `<div class="track-mouseover-menu-table-item">
+        <label for="sampleName" class="track-mouseover-menu-table-item-label">Biosample</label>
+        <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleName} ${specificSampleName}</div>
+      </div>`;
+
+      const sampleId = metadataElements[0];
+      output += `<div class="track-mouseover-menu-table-item">
+        <label for="sampleId" class="track-mouseover-menu-table-item-label">Identifier</label>
+        <div name="sampleId" class="track-mouseover-menu-table-item-value">${sampleId}</div>
+      </div>`;
+      
+      const stateColor = color;
+      const stateName = colorLabel; // metadataElements[2];
+      const stateRGBMarkup = `<svg width="10" height="10" style="position:relative; top:-2px;"><rect width="10" height="10" rx="2" ry="2" style="fill:${stateColor};stroke:black;stroke-width:2;"></svg> ${stateName}`;
+      output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="stateName" class="track-mouseover-menu-table-item-label">Chromatin state</label>
+          <div name="stateName" class="track-mouseover-menu-table-item-value">${stateRGBMarkup}</div>
+        </div>`;
+      output += `</div>`;
     } 
     else if (
       this.options &&
