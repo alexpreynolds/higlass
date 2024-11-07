@@ -59998,7 +59998,7 @@ function _toPrimitive2(input, hint) {
     ret.chrToAbs = ([chrName, chrPos] = []) => ret.chrPositions ? chrToAbs(chrName, chrPos, ret) : null;
     return api.text(filepath, (error, chrInfoText) => {
       if (error) {
-        console.log("Chromosome info not found at:", filepath);
+        console.warn("Chromosome info not found at:", filepath);
         if (success)
           success(null);
       } else {
@@ -60007,7 +60007,6 @@ function _toPrimitive2(input, hint) {
         Object.keys(chromInfo).forEach((key) => {
           ret[key] = chromInfo[key];
         });
-        console.log(`ret ${JSON.stringify(ret)}`);
         if (success)
           success(ret);
       }
