@@ -58082,9 +58082,6 @@ function _toPrimitive2(input, hint) {
       const visibleData = this.getVisibleData(trackX, trackY);
       const elements = visibleData.split("<br/>");
       if (this.options && this.options.heatmapValueScaling && this.options.heatmapValueScaling === "categorical" && this.options.colorRange) {
-        let capitalize = function(text2) {
-          return text2[0].toUpperCase() + text2.substring(1);
-        };
         const color2 = this.options.colorRange[parseInt(elements[0], 10) - 1];
         if (Number.isNaN(color2) || color2 === "NaN" || typeof color2 === "undefined" || color2 === "undefined") {
           return "";
@@ -58093,13 +58090,18 @@ function _toPrimitive2(input, hint) {
         const colorIndex = parseInt(elements[0], 10);
         if (!label || label === "undefined" || typeof label === "undefined")
           return "";
-        let colorLabel = "NA";
         if (this.options.colorLabels) {
-          colorLabel = this.options.colorLabels[colorIndex] ? this.options.colorLabels[colorIndex][0] : null;
+          const colorLabel = this.options.colorLabels[colorIndex - 1];
           if (!colorLabel || colorLabel === "undefined" || typeof colorLabel === "undefined")
-            colorLabel = "NA";
+            return "";
           label += ` | ${colorLabel}`;
         }
+        output = `<svg width="10" height="10" style="position:relative;bottom:1px"><rect width="10" height="10" rx="2" ry="2"
+                 style="fill:${color2};stroke:black;stroke-width:2;"></svg> ${label}`;
+      } else if (this.options && this.options.heatmapType && this.options.heatmapType === "v2fIndexDHS") {
+        elements[0];
+        const biosampleMetadataElements = elements[1].split("|").map((d) => d.trim());
+        const biosampleMetadata = { normalizedDensity: elements[0], taxonomyName: biosampleMetadataElements[0], aggregationId: biosampleMetadataElements[1], donorId: biosampleMetadataElements[2], hotspotV1SPOT: biosampleMetadataElements[3] };
         const dataX = this._xScale.invert(trackX);
         let positionText = null;
         if (this.options.chromInfo && this.options.binSize) {
@@ -58108,8 +58110,7 @@ function _toPrimitive2(input, hint) {
           const position = Math.ceil(atcX[1] / this.options.binSize) * this.options.binSize - this.options.binSize;
           positionText = `${chrom}:${position}`;
         }
-        const metadataElements = elements[1].split("|").map((d) => d.trim());
-        output = `<div class="track-mouseover-menu-table">`;
+        output += `<div class="track-mouseover-menu-table">`;
         if (positionText) {
           output += `
         <div class="track-mouseover-menu-table-item">
@@ -58118,25 +58119,82 @@ function _toPrimitive2(input, hint) {
         </div>
         `;
         }
-        const sampleName = capitalize(metadataElements[1]);
-        const specificSampleName = metadataElements.length === 3 && metadataElements[1] !== metadataElements[2] ? `(${metadataElements[2]})` : "";
-        output += `<div class="track-mouseover-menu-table-item">
-        <label for="sampleName" class="track-mouseover-menu-table-item-label">Biosample</label>
-        <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleName} ${specificSampleName}</div>
-      </div>`;
-        const sampleId = metadataElements[0];
-        output += `<div class="track-mouseover-menu-table-item">
-        <label for="sampleId" class="track-mouseover-menu-table-item-label">Identifier</label>
-        <div name="sampleId" class="track-mouseover-menu-table-item-value">${sampleId}</div>
-      </div>`;
-        const stateColor = color2;
-        const stateName = colorLabel;
-        const stateRGBMarkup = `<svg width="10" height="10" style="position:relative; top:-2px;"><rect width="10" height="10" rx="2" ry="2" style="fill:${stateColor};stroke:black;stroke-width:2;"></svg> ${stateName}`;
         output += `
         <div class="track-mouseover-menu-table-item">
-          <label for="stateName" class="track-mouseover-menu-table-item-label">Chromatin state</label>
-          <div name="stateName" class="track-mouseover-menu-table-item-value">${stateRGBMarkup}</div>
+          <label for="normalizedDensity" class="track-mouseover-menu-table-item-label">Normalized density</label>
+          <div name="normalizedDensity" class="track-mouseover-menu-table-item-value">${biosampleMetadata.normalizedDensity}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="taxonomyName" class="track-mouseover-menu-table-item-label">Taxonomy name</label>
+          <div name="taxonomyName" class="track-mouseover-menu-table-item-value">${biosampleMetadata.taxonomyName}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="aggregationId" class="track-mouseover-menu-table-item-label">Aggregation ID</label>
+          <div name="aggregationId" class="track-mouseover-menu-table-item-value">${biosampleMetadata.aggregationId}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="donorId" class="track-mouseover-menu-table-item-label">Donor ID</label>
+          <div name="donorId" class="track-mouseover-menu-table-item-value">${biosampleMetadata.donorId}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="hotspotV1SPOT" class="track-mouseover-menu-table-item-label">SPOT (v1)</label>
+          <div name="hotspotV1SPOT" class="track-mouseover-menu-table-item-value">${biosampleMetadata.hotspotV1SPOT}</div>
+        </div>
+      `;
+        output += `</div>`;
+      } else if (this.options && this.options.heatmapType && this.options.heatmapType === "genericIndexDHS") {
+        let componentLongNameToColor = null;
+        if (this.options.heatmapComponents) {
+          componentLongNameToColor = {};
+          for (const [key, value2] of Object.entries(this.options.heatmapComponents)) {
+            componentLongNameToColor[value2.longName] = value2.color;
+          }
+        }
+        elements[0];
+        const biosampleMetadataElements = elements[1].split("|").map((d) => d.trim());
+        const biosampleMetadata = { normalizedDensity: elements[0], taxonomyName: biosampleMetadataElements[0], componentName: biosampleMetadataElements[1] };
+        const dataX = this._xScale.invert(trackX);
+        let positionText = null;
+        if (this.options.chromInfo && this.options.binSize) {
+          const atcX = absToChr(dataX, this.options.chromInfo);
+          const chrom = atcX[0];
+          const position = Math.ceil(atcX[1] / this.options.binSize) * this.options.binSize - this.options.binSize;
+          positionText = `${chrom}:${position}`;
+        }
+        output += `<div class="track-mouseover-menu-table">`;
+        if (positionText) {
+          output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="position" class="track-mouseover-menu-table-item-label">Position</label>
+          <div name="position" class="track-mouseover-menu-table-item-value">${positionText}</div>
+        </div>
+        `;
+        }
+        output += `
+        <div class="track-mouseover-menu-table-item">
+          <label for="normalizedDensity" class="track-mouseover-menu-table-item-label">Normalized density</label>
+          <div name="normalizedDensity" class="track-mouseover-menu-table-item-value">${biosampleMetadata.normalizedDensity}</div>
+        </div>
+        <div class="track-mouseover-menu-table-item">
+          <label for="taxonomyName" class="track-mouseover-menu-table-item-label">Taxonomy name</label>
+          <div name="taxonomyName" class="track-mouseover-menu-table-item-value">${biosampleMetadata.taxonomyName}</div>
         </div>`;
+        if (componentLongNameToColor) {
+          const componentColor = componentLongNameToColor[biosampleMetadata.componentName];
+          const componentName = biosampleMetadata.componentName;
+          const componentRGBMarkup = `<svg width="10" height="10"><rect width="10" height="10" rx="2" ry="2" style="fill:${componentColor};stroke:black;stroke-width:2;"></svg> ${componentName}`;
+          output += `
+          <div class="track-mouseover-menu-table-item">
+            <label for="componentName" class="track-mouseover-menu-table-item-label">Component</label>
+            <div name="componentName" class="track-mouseover-menu-table-item-value">${componentRGBMarkup}</div>
+          </div>`;
+        } else {
+          output += `
+          <div class="track-mouseover-menu-table-item">
+            <label for="componentName" class="track-mouseover-menu-table-item-label">Component</label>
+            <div name="componentName" class="track-mouseover-menu-table-item-value">${biosampleMetadata.componentName}</div>
+          </div>`;
+        }
         output += `</div>`;
       } else {
         output += `Data value: ${this.getVisibleData(trackX, trackY)}</br>`;
