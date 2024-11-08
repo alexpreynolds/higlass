@@ -59162,10 +59162,15 @@ function _toPrimitive2(input, hint) {
           text2.position.y = textYMiddle;
           if (!tile.textWidths[geneId]) {
             if (text2 && text2.getBounds()) {
-              const textWidth = text2.getBounds().width;
-              const textHeight = text2.getBounds().height;
-              tile.textHeights[geneId] = textHeight;
-              tile.textWidths[geneId] = textWidth;
+              try {
+                const textWidth = text2.getBounds().width;
+                const textHeight = text2.getBounds().height;
+                tile.textHeights[geneId] = textHeight;
+                tile.textWidths[geneId] = textWidth;
+              } catch (err2) {
+                tile.textHeights[geneId] = 0;
+                tile.textWidths[geneId] = 0;
+              }
             }
           }
           if (!parentInFetched) {
@@ -61356,9 +61361,12 @@ function _toPrimitive2(input, hint) {
       ChromosomeInfo(chromSizesPath, (newChromInfo) => {
         _this63.chromInfo = newChromInfo;
         _this63.searchField = new SearchField(_this63.chromInfo);
-        _this63.rerender(_this63.options, true);
-        _this63.draw();
-        _this63.animate();
+        try {
+          _this63.rerender(_this63.options, true);
+          _this63.draw();
+        } catch (err2) {
+          _this63.animate();
+        }
       }, _this63.pubSub);
       return _this63;
     }

@@ -92,9 +92,12 @@ class HorizontalChromosomeLabels extends PixiTrack {
 
         this.searchField = new SearchField(this.chromInfo);
 
-        this.rerender(this.options, true);
-        this.draw();
-        this.animate();
+        try {
+          this.rerender(this.options, true);
+          this.draw();
+        } catch (err) {
+          this.animate();
+        }
       },
       this.pubSub,
     );
