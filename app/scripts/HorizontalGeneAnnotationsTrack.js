@@ -738,6 +738,7 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
       // bogus data from the server
       .filter((tile) => tile.drawnAtScale)
       .forEach((tile) => {
+        if (!tile.textBgGraphics) return;
         tile.textBgGraphics.clear();
         tile.textBgGraphics.beginFill(
           typeof this.options.labelBackgroundColor !== 'undefined'

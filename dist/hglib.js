@@ -59131,6 +59131,8 @@ function _toPrimitive2(input, hint) {
       const fontSizeHalf = this.fontSize / 2;
       trackUtils.stretchRects(this, [(x) => x.rectGraphics, (x) => x.rectMaskGraphics]);
       Object.values(this.fetchedTiles).filter((tile) => tile.drawnAtScale).forEach((tile) => {
+        if (!tile.textBgGraphics)
+          return;
         tile.textBgGraphics.clear();
         tile.textBgGraphics.beginFill(typeof this.options.labelBackgroundColor !== "undefined" ? colorToHex(this.options.labelBackgroundColor) : WHITE_HEX$1);
         const parentInFetched = this.parentInFetched(tile);
