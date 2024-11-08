@@ -59161,16 +59161,16 @@ function _toPrimitive2(input, hint) {
           text2.position.x = this._xScale(txMiddle);
           text2.position.y = textYMiddle;
           if (!tile.textWidths[geneId]) {
-            if (text2 && text2.getBounds()) {
-              try {
+            try {
+              if (text2 && text2.getBounds()) {
                 const textWidth = text2.getBounds().width;
                 const textHeight = text2.getBounds().height;
                 tile.textHeights[geneId] = textHeight;
                 tile.textWidths[geneId] = textWidth;
-              } catch (err2) {
-                tile.textHeights[geneId] = 0;
-                tile.textWidths[geneId] = 0;
               }
+            } catch (err2) {
+              tile.textHeights[geneId] = 0;
+              tile.textWidths[geneId] = 0;
             }
           }
           if (!parentInFetched) {
