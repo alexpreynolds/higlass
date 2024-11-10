@@ -738,118 +738,122 @@ class HorizontalGeneAnnotationsTrack extends HorizontalTiled1DPixiTrack {
       // bogus data from the server
       .filter((tile) => tile.drawnAtScale)
       .forEach((tile) => {
-        if (!tile.textBgGraphics) return;
-        tile.textBgGraphics.clear();
-        tile.textBgGraphics.beginFill(
-          typeof this.options.labelBackgroundColor !== 'undefined'
-            ? colorToHex(this.options.labelBackgroundColor)
-            : WHITE_HEX,
-        );
+        try {
+          if (!tile.textBgGraphics) return;
+          tile.textBgGraphics.clear();
+          tile.textBgGraphics.beginFill(
+            typeof this.options.labelBackgroundColor !== 'undefined'
+              ? colorToHex(this.options.labelBackgroundColor)
+              : WHITE_HEX,
+          );
 
-        // move the texts
-        const parentInFetched = this.parentInFetched(tile);
+          // move the texts
+          const parentInFetched = this.parentInFetched(tile);
 
-        if (!tile.initialized) return;
+          if (!tile.initialized) return;
 
-        tile.tileData.forEach((td) => {
-          // tile probably hasn't been initialized yet
-          if (!tile.texts) return;
-          if (td.type === 'filler') return;
+          tile.tileData.forEach((td) => {
+            // tile probably hasn't been initialized yet
+            if (!tile.texts) return;
+            if (td.type === 'filler') return;
 
-          const geneInfo = td.fields;
-          const geneName = geneInfo[3];
+            const geneInfo = td.fields;
+            const geneName = geneInfo[3];
 
-          const geneId = this.geneId(geneInfo, td.type);
+            const geneId = this.geneId(geneInfo, td.type);
 
-          const text = tile.texts[geneId];
+            const text = tile.texts[geneId];
 
-          if (!text) return;
+            if (!text) return;
 
-          const chrOffset = +td.chrOffset;
-          const txStart = +geneInfo[1] + chrOffset;
-          const txEnd = +geneInfo[2] + chrOffset;
-          const txMiddle = (txStart + txEnd) / 2;
-          let textYMiddle = this.dimensions[1] / 2;
+            const chrOffset = +td.chrOffset;
+            const txStart = +geneInfo[1] + chrOffset;
+            const txEnd = +geneInfo[2] + chrOffset;
+            const txMiddle = (txStart + txEnd) / 2;
+            let textYMiddle = this.dimensions[1] / 2;
 
-          const fontRectPadding = (this.geneAreaHeight - this.fontSize) / 2;
+            const fontRectPadding = (this.geneAreaHeight - this.fontSize) / 2;
 
-          if (geneInfo[5] === '+') {
-            // genes on the + strand drawn above and in a user-specified color or the
-            // default blue textYMiddle -= 10;
-            textYMiddle -=
-              this.geneLabelPos === 'inside'
-                ? fontRectPadding + this.geneStrandSpacing - 2
-                : this.fontSize / 2 + this.geneAreaHeight - 2;
-          } else {
-            // genes on the - strand drawn below and in a user-specified color or the
-            // default red
-            textYMiddle +=
-              this.geneLabelPos === 'inside'
-                ? this.fontSize +
-                  this.geneStrandSpacing / 2 +
-                  fontRectPadding +
-                  1
-                : 1.5 * this.fontSize + this.geneAreaHeight + 2;
-          }
-
-          text.position.x = this._xScale(txMiddle);
-          text.position.y = textYMiddle;
-
-          if (!tile.textWidths[geneId]) {
-            // if we haven't measured the text's width in renderTile, do it now
-            // this can occur if the same gene is in more than one tile, so its
-            // dimensions are measured for the first tile and not for the second
-            try {
-              if (text && text.getBounds()) {            
-                const textWidth = text.getBounds().width;
-                const textHeight = text.getBounds().height;
-
-                tile.textHeights[geneId] = textHeight;
-                tile.textWidths[geneId] = textWidth;
-              }
-            } catch (err) {
-              tile.textHeights[geneId] = 0;
-              tile.textWidths[geneId] = 0;
-            }
-          }
-
-          if (!parentInFetched) {
-            text.visible = true;
-
-            const TEXT_MARGIN = 2;
-
-            if (this.flipText) {
-              // when flipText is set, that means that the track is being displayed
-              // vertically so we need to use the stored text height rather than width
-              this.allBoxes.push([
-                text.position.x - tile.textHeights[geneId] / 2 - TEXT_MARGIN,
-                textYMiddle - fontSizeHalf - 1,
-                text.position.x + tile.textHeights[geneId] / 2 + TEXT_MARGIN,
-                textYMiddle + fontSizeHalf - 1,
-                geneName,
-              ]);
+            if (geneInfo[5] === '+') {
+              // genes on the + strand drawn above and in a user-specified color or the
+              // default blue textYMiddle -= 10;
+              textYMiddle -=
+                this.geneLabelPos === 'inside'
+                  ? fontRectPadding + this.geneStrandSpacing - 2
+                  : this.fontSize / 2 + this.geneAreaHeight - 2;
             } else {
-              this.allBoxes.push([
-                text.position.x - tile.textWidths[geneId] / 2 - TEXT_MARGIN,
-                textYMiddle - fontSizeHalf - 1,
-                text.position.x + tile.textWidths[geneId] / 2 + TEXT_MARGIN,
-                textYMiddle + fontSizeHalf - 1,
-                geneName,
-              ]);
+              // genes on the - strand drawn below and in a user-specified color or the
+              // default red
+              textYMiddle +=
+                this.geneLabelPos === 'inside'
+                  ? this.fontSize +
+                    this.geneStrandSpacing / 2 +
+                    fontRectPadding +
+                    1
+                  : 1.5 * this.fontSize + this.geneAreaHeight + 2;
             }
 
-            this.allTexts.push({
-              importance: +geneInfo[4],
-              text,
-              caption: geneName,
-              strand: geneInfo[5],
-            });
+            text.position.x = this._xScale(txMiddle);
+            text.position.y = textYMiddle;
 
-            allTiles.push(tile.textBgGraphics);
-          } else {
-            text.visible = false;
-          }
-        });
+            if (!tile.textWidths[geneId]) {
+              // if we haven't measured the text's width in renderTile, do it now
+              // this can occur if the same gene is in more than one tile, so its
+              // dimensions are measured for the first tile and not for the second
+              try {
+                if (text && text.getBounds()) {            
+                  const textWidth = text.getBounds().width;
+                  const textHeight = text.getBounds().height;
+
+                  tile.textHeights[geneId] = textHeight;
+                  tile.textWidths[geneId] = textWidth;
+                }
+              } catch (err) {
+                tile.textHeights[geneId] = 0;
+                tile.textWidths[geneId] = 0;
+              }
+            }
+
+            if (!parentInFetched) {
+              text.visible = true;
+
+              const TEXT_MARGIN = 2;
+
+              if (this.flipText) {
+                // when flipText is set, that means that the track is being displayed
+                // vertically so we need to use the stored text height rather than width
+                this.allBoxes.push([
+                  text.position.x - tile.textHeights[geneId] / 2 - TEXT_MARGIN,
+                  textYMiddle - fontSizeHalf - 1,
+                  text.position.x + tile.textHeights[geneId] / 2 + TEXT_MARGIN,
+                  textYMiddle + fontSizeHalf - 1,
+                  geneName,
+                ]);
+              } else {
+                this.allBoxes.push([
+                  text.position.x - tile.textWidths[geneId] / 2 - TEXT_MARGIN,
+                  textYMiddle - fontSizeHalf - 1,
+                  text.position.x + tile.textWidths[geneId] / 2 + TEXT_MARGIN,
+                  textYMiddle + fontSizeHalf - 1,
+                  geneName,
+                ]);
+              }
+
+              this.allTexts.push({
+                importance: +geneInfo[4],
+                text,
+                caption: geneName,
+                strand: geneInfo[5],
+              });
+
+              allTiles.push(tile.textBgGraphics);
+            } else {
+              text.visible = false;
+            }
+          });
+        } catch (err) {
+          return;
+        }
       });
 
     this.hideOverlaps(this.allBoxes, this.allTexts);

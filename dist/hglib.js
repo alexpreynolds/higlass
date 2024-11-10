@@ -59131,64 +59131,68 @@ function _toPrimitive2(input, hint) {
       const fontSizeHalf = this.fontSize / 2;
       trackUtils.stretchRects(this, [(x) => x.rectGraphics, (x) => x.rectMaskGraphics]);
       Object.values(this.fetchedTiles).filter((tile) => tile.drawnAtScale).forEach((tile) => {
-        if (!tile.textBgGraphics)
-          return;
-        tile.textBgGraphics.clear();
-        tile.textBgGraphics.beginFill(typeof this.options.labelBackgroundColor !== "undefined" ? colorToHex(this.options.labelBackgroundColor) : WHITE_HEX$1);
-        const parentInFetched = this.parentInFetched(tile);
-        if (!tile.initialized)
-          return;
-        tile.tileData.forEach((td) => {
-          if (!tile.texts)
+        try {
+          if (!tile.textBgGraphics)
             return;
-          if (td.type === "filler")
+          tile.textBgGraphics.clear();
+          tile.textBgGraphics.beginFill(typeof this.options.labelBackgroundColor !== "undefined" ? colorToHex(this.options.labelBackgroundColor) : WHITE_HEX$1);
+          const parentInFetched = this.parentInFetched(tile);
+          if (!tile.initialized)
             return;
-          const geneInfo = td.fields;
-          const geneName = geneInfo[3];
-          const geneId = this.geneId(geneInfo, td.type);
-          const text2 = tile.texts[geneId];
-          if (!text2)
-            return;
-          const chrOffset = +td.chrOffset;
-          const txStart = +geneInfo[1] + chrOffset;
-          const txEnd = +geneInfo[2] + chrOffset;
-          const txMiddle = (txStart + txEnd) / 2;
-          let textYMiddle = this.dimensions[1] / 2;
-          const fontRectPadding = (this.geneAreaHeight - this.fontSize) / 2;
-          if (geneInfo[5] === "+") {
-            textYMiddle -= this.geneLabelPos === "inside" ? fontRectPadding + this.geneStrandSpacing - 2 : this.fontSize / 2 + this.geneAreaHeight - 2;
-          } else {
-            textYMiddle += this.geneLabelPos === "inside" ? this.fontSize + this.geneStrandSpacing / 2 + fontRectPadding + 1 : 1.5 * this.fontSize + this.geneAreaHeight + 2;
-          }
-          text2.position.x = this._xScale(txMiddle);
-          text2.position.y = textYMiddle;
-          if (!tile.textWidths[geneId]) {
-            try {
-              if (text2 && text2.getBounds()) {
-                const textWidth = text2.getBounds().width;
-                const textHeight = text2.getBounds().height;
-                tile.textHeights[geneId] = textHeight;
-                tile.textWidths[geneId] = textWidth;
-              }
-            } catch (err2) {
-              tile.textHeights[geneId] = 0;
-              tile.textWidths[geneId] = 0;
-            }
-          }
-          if (!parentInFetched) {
-            text2.visible = true;
-            const TEXT_MARGIN = 2;
-            if (this.flipText) {
-              this.allBoxes.push([text2.position.x - tile.textHeights[geneId] / 2 - TEXT_MARGIN, textYMiddle - fontSizeHalf - 1, text2.position.x + tile.textHeights[geneId] / 2 + TEXT_MARGIN, textYMiddle + fontSizeHalf - 1, geneName]);
+          tile.tileData.forEach((td) => {
+            if (!tile.texts)
+              return;
+            if (td.type === "filler")
+              return;
+            const geneInfo = td.fields;
+            const geneName = geneInfo[3];
+            const geneId = this.geneId(geneInfo, td.type);
+            const text2 = tile.texts[geneId];
+            if (!text2)
+              return;
+            const chrOffset = +td.chrOffset;
+            const txStart = +geneInfo[1] + chrOffset;
+            const txEnd = +geneInfo[2] + chrOffset;
+            const txMiddle = (txStart + txEnd) / 2;
+            let textYMiddle = this.dimensions[1] / 2;
+            const fontRectPadding = (this.geneAreaHeight - this.fontSize) / 2;
+            if (geneInfo[5] === "+") {
+              textYMiddle -= this.geneLabelPos === "inside" ? fontRectPadding + this.geneStrandSpacing - 2 : this.fontSize / 2 + this.geneAreaHeight - 2;
             } else {
-              this.allBoxes.push([text2.position.x - tile.textWidths[geneId] / 2 - TEXT_MARGIN, textYMiddle - fontSizeHalf - 1, text2.position.x + tile.textWidths[geneId] / 2 + TEXT_MARGIN, textYMiddle + fontSizeHalf - 1, geneName]);
+              textYMiddle += this.geneLabelPos === "inside" ? this.fontSize + this.geneStrandSpacing / 2 + fontRectPadding + 1 : 1.5 * this.fontSize + this.geneAreaHeight + 2;
             }
-            this.allTexts.push({ importance: +geneInfo[4], text: text2, caption: geneName, strand: geneInfo[5] });
-            allTiles.push(tile.textBgGraphics);
-          } else {
-            text2.visible = false;
-          }
-        });
+            text2.position.x = this._xScale(txMiddle);
+            text2.position.y = textYMiddle;
+            if (!tile.textWidths[geneId]) {
+              try {
+                if (text2 && text2.getBounds()) {
+                  const textWidth = text2.getBounds().width;
+                  const textHeight = text2.getBounds().height;
+                  tile.textHeights[geneId] = textHeight;
+                  tile.textWidths[geneId] = textWidth;
+                }
+              } catch (err2) {
+                tile.textHeights[geneId] = 0;
+                tile.textWidths[geneId] = 0;
+              }
+            }
+            if (!parentInFetched) {
+              text2.visible = true;
+              const TEXT_MARGIN = 2;
+              if (this.flipText) {
+                this.allBoxes.push([text2.position.x - tile.textHeights[geneId] / 2 - TEXT_MARGIN, textYMiddle - fontSizeHalf - 1, text2.position.x + tile.textHeights[geneId] / 2 + TEXT_MARGIN, textYMiddle + fontSizeHalf - 1, geneName]);
+              } else {
+                this.allBoxes.push([text2.position.x - tile.textWidths[geneId] / 2 - TEXT_MARGIN, textYMiddle - fontSizeHalf - 1, text2.position.x + tile.textWidths[geneId] / 2 + TEXT_MARGIN, textYMiddle + fontSizeHalf - 1, geneName]);
+              }
+              this.allTexts.push({ importance: +geneInfo[4], text: text2, caption: geneName, strand: geneInfo[5] });
+              allTiles.push(tile.textBgGraphics);
+            } else {
+              text2.visible = false;
+            }
+          });
+        } catch (err2) {
+          return;
+        }
       });
       this.hideOverlaps(this.allBoxes, this.allTexts);
       this.renderTextBg(this.allBoxes, this.allTexts, allTiles);
