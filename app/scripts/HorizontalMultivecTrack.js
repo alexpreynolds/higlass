@@ -478,7 +478,7 @@ export default class HorizontalMultivecTrack extends HeatmapTiledPixiTrack {
 
       const sampleGroup =
         metadataElements.length === 3
-          ? `(${metadataElements[2]})`
+          ? metadataElements[2]
           : '';
       if (sampleGroup.length > 0) {
         output += `<div class="track-mouseover-menu-table-item">
