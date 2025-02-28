@@ -793,7 +793,6 @@ class TiledPixiTrack extends PixiTrack {
     Object.keys(this.fetchedTiles).forEach((tilesetUid) => {
       this.drawTile(this.fetchedTiles[tilesetUid]);
     });
-    // console.log('errors:', errors);
 
     if (this.pubSub) {
       this.pubSub.publish('TiledPixiTrack.tilesDrawnEnd', { uuid: this.uuid });

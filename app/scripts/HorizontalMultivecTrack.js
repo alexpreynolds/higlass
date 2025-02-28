@@ -471,15 +471,21 @@ export default class HorizontalMultivecTrack extends HeatmapTiledPixiTrack {
       }
 
       const sampleName = capitalize(metadataElements[1]);
-      const specificSampleName =
-        metadataElements.length === 3 &&
-        metadataElements[1] !== metadataElements[2]
-          ? `(${metadataElements[2]})`
-          : '';
       output += `<div class="track-mouseover-menu-table-item">
         <label for="sampleName" class="track-mouseover-menu-table-item-label">Biosample</label>
-        <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleName} ${specificSampleName}</div>
+        <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleName}</div>
       </div>`;
+
+      const sampleGroup =
+        metadataElements.length === 3
+          ? `(${metadataElements[2]})`
+          : '';
+      if (sampleGroup.length > 0) {
+        output += `<div class="track-mouseover-menu-table-item">
+          <label for="sampleName" class="track-mouseover-menu-table-item-label">Group</label>
+          <div name="sampleName" class="track-mouseover-menu-table-item-value">${sampleGroup}</div>
+        </div>`;
+      }
 
       const sampleId = metadataElements[0];
       output += `<div class="track-mouseover-menu-table-item">
